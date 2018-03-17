@@ -7,20 +7,26 @@
     <script src="jquery-3.3.1.min.js"></script>
     <script>
         $(document).ready(function () {
-            alert('login success!');
             $('#logout').click(function () {
                 console.log('token revoked! please log in again!');
+                alert('Logged out successfully!');
                 localStorage.clear();
                 window.location.replace('landing.html')
+            });
+            $('#comment').click(function () {
+                window.location.replace('comment_visitor.html')
+            });
+            $('#schedule').click(function () {
+                window.location.replace('schedule_visitor.html')
             })
         })
     </script>
 </head>
 <body>
     <h1>sample visitors landing page</h1>
-    <h1 id="message">login success!</h1>
-    <a href="#schedule_visitor.html">schedule a visit</a><br>
-    <a id="logout" href="landing.html">log out here</a>
+    <a id="schedule" href="schedule_visitor.html">schedule a visit</a><br>
+    <a id="logout" href="landing.html">log out here</a><br>
+    <a id="comment" href="comment_visitor.html">submit a comment</a>
 
 </body>
 </html>

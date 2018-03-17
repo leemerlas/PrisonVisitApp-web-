@@ -6,9 +6,11 @@ import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from flask_cors import CORS
+from datetime import date
 
 
 app = Flask(__name__)
+
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1234@localhost/prisonapp'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -19,7 +21,7 @@ app.secret_key = os.urandom(24)
 
 db = SQLAlchemy(app)
 
-import prisonapp.views
+import prisonapp.api
 
 def createDB():
     engine = sqlalchemy.create_engine('mysql://root:1234@localhost')# connects to server
