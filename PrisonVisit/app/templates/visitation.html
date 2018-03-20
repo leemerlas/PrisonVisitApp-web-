@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="jquery-3.3.1.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<script src="app.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#send').click(function () {
+                var nameP = $("#nameP").val();
+                var vDate = $("#vDate").val();
+                var numV = $("#numV").val();
+                var tokens = localStorage.getItem('token');
+                var pub = localStorage.getItem('public_id');
+                $.ajax({
+                    url: "http://127.0.0.1:5000/visitation/",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({
+                        'nameP':nameP,
+                        'vDate':vDate,
+                        'numV':numV,
+                        'public_id':pub
+                    }),
+                    method: "POST",
+                    dataType: "json",
+                    crossDomain: true,
+                    headers: {
+                        'x-access-token': tokens
+                    },
+                    success: function (resp) {
+                        alert(resp.message);
+                        window.location.replace("visitation.html")
+                    },
+                    error: function () {
+                        alert('kapit Lang');
+
+                    }
+                })
+            })
+        })
+    </script>
+
+</head>
+<body>
+
+        <label>Date of Visitation</label><br><font color="black"><input id="vDate" type="date" required/></font>
+        <input type="text" id="nameP" placeholder="Prisoner's Name" required>
+        <input type="text" id="numV" placeholder="Number of Visitors" required>
+        <button type="Submit" onclick="visitation();">submit</button>
+
+
+
+
+
+
+</body>
+</html>

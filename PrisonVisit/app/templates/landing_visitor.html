@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Visitors</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+    <script src="jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            alert('login success!');
+            $('#logout').click(function () {
+                console.log('token revoked! please log in again!');
+                localStorage.clear();
+                window.location.replace('landing.html')
+            })
+        })
+    </script>
+</head>
+<body>
+    <h1>sample visitors landing page</h1>
+    <h1 id="message">login success!</h1>
+    <a href="visitation.html">schedule a visit</a><br>
+    <a id="logout" href="landing.html">log out here</a>
+
+</body>
+</html>
