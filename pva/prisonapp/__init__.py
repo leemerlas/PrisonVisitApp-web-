@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, request, abort,url_for, jsonify, g, render_template, make_response
+from flask import Flask, Blueprint, request, abort,url_for, jsonify, g, render_template, make_response,session
 from flask_sqlalchemy import SQLAlchemy
 import os, sqlalchemy, jwt, datetime
 from flask_httpauth import HTTPBasicAuth
@@ -10,6 +10,7 @@ from datetime import date
 
 
 app = Flask(__name__)
+server = Flask(__name__)
 
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1234@localhost/prisonapp'
@@ -22,9 +23,11 @@ app.secret_key = os.urandom(24)
 db = SQLAlchemy(app)
 
 import prisonapp.api
+import prisonapp.server
+
 
 def createDB():
-    engine = sqlalchemy.create_engine('mysql://root:1234@localhost')# connects to server
+    engine = sqlalchemy.create_engine('mysql://root:1234@localhost') #connects to server
     engine.execute("CREATE DATABASE IF NOT EXISTS prisonapp") #create db
     engine.execute("USE prisonapp") # select new
 

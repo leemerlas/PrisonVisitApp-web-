@@ -1,5 +1,5 @@
 from prisonapp import *
-from models import User, Comment
+from models import User, Comment, Visitation
 
 def token_required(f):
     @wraps(f)
@@ -24,44 +24,7 @@ def token_required(f):
     return decorated
 
 
-
-@app.route('/user', methods=['GET'])
-@token_required
-def get_all_users(current_user):
-
-    if current_user.role_id != '0':
-        return jsonify ({'message':'Cannot perform that function!'})
-
-    users = User.query.all()
-    output = []
-
-    for user in users:
-        user_data = {}
-        user_data['public_id'] = user.public_id
-        user_data['username'] = user.username
-        user_data['password'] = user.password_hash
-        user_data['role_id'] = user.role_id
-        output.append(user_data)
-
-    return jsonify({ 'users':output })
-
-@app.route('/user/<public_id>', methods=['GET'])
-@token_required
-def get_one_user(current_user, public_id):
-
-    user = User.query.filter_by(public_id=public_id).first()
-
-    if not user:
-        return jsonify({'message': 'user does not exist'})
-
-    user_data = {}
-    user_data['public_id'] = user.public_id
-    user_data['username'] = user.username
-    user_data['password'] = user.password_hash
-    user_data['role_id'] = user.role_id
-
-    return jsonify({'user':user_data})
-
+# START OF VISITOR API
 
 @app.route('/api/register', methods=['POST'])
 def register_user():
@@ -74,7 +37,7 @@ def register_user():
     db.session.add(new_user)
     db.session.commit()
 
-    return jsonify({'message':'New user created!'})
+    return jsonify({'message':'Registered successfully!'})
 
 @app.route('/api/login/', methods=['GET'])
 def login():
@@ -94,6 +57,19 @@ def login():
         print 'Token generated!'
         return jsonify({'status':'ok', 'token': token.decode('UTF-8'), 'role_id':user.role_id, 'public_id':user.public_id,'message':'login successful!'})
 
+@app.route('/api/user/visitation', methods=['POST'])
+@token_required
+def visitation(current_user):
+    data = request.get_json()
+    user = User.query.filter_by(public_id=data['public_id']).first()
+
+    new_visit = Visitation(vId=int(user.id),nameP=data['nameP'],date=data['vDate'],numberOfVisitors=int(data['numV']), status='PENDING')
+    db.session.add(new_visit)
+    db.session.commit()
+
+    return jsonify({ 'message' : 'Success!' })
+
+
 @app.route('/api/user/comment', methods=['POST'])
 @token_required
 def post_comment(current_user):
@@ -107,6 +83,26 @@ def post_comment(current_user):
     return jsonify({'message':'Comment submitted! Thank you for your opinion!'})
 
 
+#END OF VISITOR API
 
 
+#START OF CLERK API
+@app.route('/api/clerk/get_users', methods=['GET'])
+@token_required
+def get_all_users(current_user):
 
+    if current_user.role_id != '1':
+        return jsonify ({'message':'Cannot perform that function!'})
+
+    users = User.query.all()
+    output = []
+
+    for user in users:
+        user_data = {}
+        user_data['username'] = user.username
+        output.append(user_data)
+
+    return jsonify({ 'users':output })
+
+
+#END OF CLERK API

@@ -18,7 +18,7 @@ class User(db.Model):
     role_id=db.Column(db.String(2))
     status=db.Column(db.Boolean)
     comments = db.relationship('Comment', backref='user', lazy=True)
-    related_to = db.relationship('Prisoner', backref='user', lazy=True)
+    visits = db.relationship('Visitation', backref='user', lazy=True)
 
 class Comment(db.Model):
     __tablename__ = 'comment'
@@ -30,22 +30,17 @@ class Comment(db.Model):
 class Prisoner(db.Model):
     __tablename__ = 'prisoner'
     id = db.Column(db.Integer(), primary_key=True)
-    uid = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     firstname = db.Column(db.String(30))
     middlename = db.Column(db.String(30))
     lastname = db.Column(db.String(30))
     birthday = db.Column(db.DATE)
     age = db.Column(db.String(5))
 
-# class RevokedTokenModel(db.Model):
-#     __tablename__ = 'revoked_tokens'
-#     id = db.Column(db.Integer, primary_key=True)
-#     jti = db.Column(db.String(120))
-#
-#     def add(self):
-#         db.session.add(self)
-#         db.session.commit()
-#
-#     @classmethod
-#     def is_jti_blacklisted(cls, jti):
-#         query = cls.query.filter_by(jti=jti).first()
+class Visitation(db.Model):
+    __tablename__ = 'visitation'
+    id = db.Column(db.Integer(), primary_key=True)
+    vId = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    nameP = db.Column(db.String(36), nullable=False)
+    date = db.Column(db.DATE, nullable=False)
+    numberOfVisitors = db.Column(db.Integer(), nullable=False)
+    status = db.Column(db.String(20),nullable=False)

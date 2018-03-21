@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
-    <link type="text/css" rel="stylesheet" href="bootstrap.min.css">
-    <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="../static/bootstrap.min.css">
+    <script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#btn').click(function () {
+            $('#target').submit(function () {
                 var username = $("#username").val();
                 var password = $("#password").val();
                 var firstname = $("#firstname").val();
@@ -72,6 +72,7 @@
 
     <h3>Register here!</h3>
 
+    <form id="target" class="form-signin" method="POST">
     <input class="form-control" type="text" required id="username" placeholder="Username">
     <input class="form-control" type="password" required id="password" placeholder="Password">
     <input class="form-control" type="text" required id="firstname" placeholder="First Name">
@@ -85,7 +86,8 @@
     <p>which prisoner are you related to?</p>
     <input class="form-control" type="text" required id="prisoner" placeholder="Prisoner Name"><br>
 
-    <input type="button" name="Register" value="Register" id="btn" class="btn btn-info btn-block">
+    <input type="submit" name="Register" value="Register" id="btn" class="btn btn-info btn-block">
+    </form>
 
 </body>
 </html>

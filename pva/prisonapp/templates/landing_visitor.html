@@ -3,30 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Visitors</title>
-    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
-    <script src="jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/bootstrap.min.css">
+    <script src="../static/jquery-3.3.1.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#logout').click(function () {
                 console.log('token revoked! please log in again!');
                 alert('Logged out successfully!');
                 localStorage.clear();
-                window.location.replace('landing.html')
-            });
-            $('#comment').click(function () {
-                window.location.replace('comment_visitor.html')
-            });
-            $('#schedule').click(function () {
-                window.location.replace('schedule_visitor.html')
             })
         })
     </script>
 </head>
 <body>
     <h1>sample visitors landing page</h1>
-    <a id="schedule" href="schedule_visitor.html">schedule a visit</a><br>
-    <a id="logout" href="landing.html">log out here</a><br>
-    <a id="comment" href="comment_visitor.html">submit a comment</a>
+    <a id="schedule" href="{{ url_for('schedule_visit') }}">schedule a visit</a><br>
+    <a id="comment" href="{{ url_for('post_comment')}}">submit a comment</a><br>
+    <a id="logout" href="{{ url_for('logout') }}">log out here</a>
 
 </body>
 </html>

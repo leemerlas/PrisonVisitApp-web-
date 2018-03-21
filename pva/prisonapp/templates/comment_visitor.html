@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Post a comment</title>
-    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
-    <script src="jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/bootstrap.min.css">
+    <script src="../static/jquery-3.3.1.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#submit').click(function () {
@@ -26,11 +26,11 @@
                     },
                     success: function (resp) {
                         alert(resp.message);
-                        window.location.replace("landing_visitor.html")
+                        window.location.href='/visitor/landing'
                     },
                     error: function () {
                         alert('server error! click ok to reload!');
-                        document.location.reload()
+                        window.location.href='/visitor/comments'
                     }
                 })
             })
