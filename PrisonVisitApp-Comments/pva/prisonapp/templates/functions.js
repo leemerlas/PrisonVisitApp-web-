@@ -6,8 +6,7 @@ function comments() {
             data: JSON.stringify({
                 'cid': $("#cid").val(),
                 'vid': $("#vid").val(),
-                'content': $("#content").val(),
-                'date': $("#date").val()
+                'content': $("#content").val()
             }),
             method: "POST",
             dataType: "json",
