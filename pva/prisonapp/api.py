@@ -63,7 +63,7 @@ def visitation(current_user):
     data = request.get_json()
     user = User.query.filter_by(public_id=data['public_id']).first()
 
-    new_visit = Visitation(vId=int(user.id),nameP=data['nameP'],date=data['vDate'],numberOfVisitors=int(data['numV']), status='PENDING')
+    new_visit = Visitation(vId=int(user.id),nameP=data['nameP'],date=data['vDate'],numberOfVisitors=int(data['numV']), status='PENDING', time=data['timeV'])
     db.session.add(new_visit)
     db.session.commit()
 
@@ -81,7 +81,6 @@ def post_comment(current_user):
     db.session.commit()
 
     return jsonify({'message':'Comment submitted! Thank you for your opinion!'})
-
 
 #END OF VISITOR API
 
