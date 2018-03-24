@@ -8,7 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Resume - Start Bootstrap Theme</title>
+    <title>BJMP | Home</title>
+
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -21,7 +22,11 @@
     <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
+
     <link href="css/resume.css" rel="stylesheet">
+
+    <link href="css/resume.min.css" rel="stylesheet">
+
 
   </head>
 
@@ -29,9 +34,11 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
       <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <span class="d-block d-lg-none">Start Bootstrap</span>
+
+        <span class="d-block d-lg-none">BJMP</span>
         <span class="d-none d-lg-block">
-          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/profile.jpg" alt="">
+            <img class="img-responsive center-block" src="img/bjmp2.jpg" alt="">
+
         </span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,14 +47,25 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item">
+
+            <a class="nav-link js-scroll-trigger" href="#announcements">Announcements</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#rules">Rules</a>
           </li>
-       
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#schedule">Schedule of Visit</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#skills">Logout</a>
+          </li>
+
         </ul>
       </div>
     </nav>
 
     <div class="container-fluid p-0">
+
         <div class=" container-fluid p-0"> 
       <section class="resume-section p-3 p-lg-5 d-flex d-column" id="rules">
         <div class="my-auto">
@@ -264,6 +282,119 @@
       
 
     
+
+
+      <!--Announcement-->
+      <section class="resume-section p-3 p-lg-5 d-flex d-column" id="announcements">
+        <div class="my-auto">
+          <h1 class="mb-5">ANNOUNCEMENTS
+          </h1>
+        </div>
+      </section>
+
+
+      <!--Rules and Regulations-->
+      <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="rules">
+        <div class="my-auto">
+          <h2 class="mb-0">RULES &
+            <span class="text-primary">REGULATIONS</span>
+          </h2>
+        </div>
+      </section>
+
+
+
+
+ <!--SCHEDULE OF VISIT-->
+<section class="resume-section p-3 p-lg-5 d-flex flex-column" id="schedule">
+  <div class="container-fluid">
+  <div class="row">
+
+    <div class="col-md-12">
+
+      <div class="page-header">
+        <h2>
+          Schedule of Visitation
+        </h2>
+      </div>  
+
+
+      <form role="form">
+
+
+          <label>
+            <i class="fa fa-user"></i> Inmate Complete Name:
+          </label>
+              <p>
+                <input type="text" class="form-control" id="fullname" placeholder="">
+              </p>
+
+           <label>
+            <i class="fa fa-heart"></i> Relation to Inmate
+           </label>
+              <p>
+                <input type="text" class="form-control" id="relation" placeholder="">
+              </p>
+
+
+             <label><i class="fa fa-calendar"></i> Date</label>
+           <p><input type="date" class="form-control" id="bday" placeholder="Date"></p>  
+
+            <label>
+              <i class="fa fa-clock-o"></i> Time
+            </label>
+
+              <p>
+                <select id="timeV" required>
+                <option value="" selected disabled hidden>Choose here</option>
+                <option value="12:30 PM">07:00 AM </option>
+                <option value="12:30 PM">07:30 AM </option>
+                <option value="12:30 PM">08:00 AM </option>
+                <option value="12:30 PM">08:30 AM </option>
+                <option value="12:30 PM">09:00 AM </option>
+                <option value="12:30 PM">09:30 AM </option>
+                <option value="12:30 PM">10:00 AM </option>
+                <option value="12:30 PM">10:30 AM </option>
+                <option value="12:30 PM">11:00 AM </option>
+                <option value="12:30 PM">11:30 AM </option>
+                <option value="12:00 PM">12:00 PM </option>
+                <option value="12:30 PM">12:30 PM </option>
+                <option value="12:30 PM">1:00 PM </option>
+                <option value="12:30 PM">1:30 PM </option>
+                <option value="12:30 PM">2:00 PM </option>
+                <option value="12:30 PM">2:30 PM </option>
+                <option value="12:30 PM">3:00 PM </option>
+                <option value="12:30 PM">3:30 PM </option>
+                <option value="12:30 PM">4:00 PM </option>
+                <option value="12:30 PM">4:30 PM </option>
+                <option value="12:30 PM">5:00 PM </option>
+            </select>
+              </p>         
+
+        <button type="cancel" class="btn btn-primary btn-md">
+          Submit
+        </button>
+
+
+        <button type="submit" class="btn btn-primary btn-md">
+          Cancel
+        </button>
+
+
+      </form>
+    </div>
+  </div>
+</div>
+</section>
+
+      
+      
+
+
+
+
+    </div>
+
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
