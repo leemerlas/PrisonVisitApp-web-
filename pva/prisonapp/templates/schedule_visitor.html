@@ -11,6 +11,7 @@
                 var nameP = $("#nameP").val();
                 var vDate = $("#vDate").val();
                 var numV = $("#numV").val();
+                var timeV = $("#timeV").val();
                 var tokens = localStorage.getItem('token');
                 var pub = localStorage.getItem('public_id');
                 $.ajax({
@@ -20,6 +21,7 @@
                         'nameP':nameP,
                         'vDate':vDate,
                         'numV':numV,
+                        'timeV':timeV,
                         'public_id':pub
                     }),
                     method: "POST",
@@ -54,6 +56,21 @@
                 <option value="1">1 (Alone)</option>
                 <option value="2">2 </option>
                 <option value="3">3 </option>
+            </select>
+        <label for="timeV">Visitation Time</label>
+            <select id="timeV" required>
+                <option value="" selected disabled hidden>Choose here</option>
+                <option value="12:00 PM">12:00 PM</option>
+                <option value="12:30 PM">12:30 PM</option>
+                <option value="1:00 PM">1:00 PM</option>
+                <option value="1:30 PM">1:30 PM</option>
+                <option value="2:00 PM">2:00 PM</option>
+                <option value="2:30 PM">2:30 PM</option>
+                <option value="3:00 PM">3:00 PM</option>
+                <option value="3:30 PM">3:30 PM</option>
+                <option value="4:00 PM">4:00 PM</option>
+                <option value="4:30 PM">4:30 PM</option>
+                <option value="1:00 PM">5:00 PM</option>
             </select>
         <input type="submit" name="Submit" value="Submit" id="btn" class="btn btn-info btn-block">
     </form>

@@ -7,7 +7,7 @@
     <script src="../static/jquery-3.3.1.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#submit').click(function () {
+            $('#commentform').submit(function () {
                 var comment = $("#comment").val();
                 var tokens = localStorage.getItem('token');
                 var pub = localStorage.getItem('public_id');
