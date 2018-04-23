@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  	<title>Admin Create Announcements</title>
+    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="js" href="scripts.js">
+   
+  </head>
+
+
+  <body>
+ 
+<!-- CREATE ANNOUNCEMENTS-->
+  <div class="container-fluid">
+	<div class="row">
+
+		<div class="col-md-12">
+
+			<div class="page-header">
+				<h2>
+					Create Announcements
+				</h2>
+			</div>	
+
+
+			<form role="form">
+
+        <div class="form-group">
+           
+          <label for="exampleInputEmail1">
+            Title:
+          </label>
+          <input type="email" class="form-control" id="exampleInputEmail1">
+        </div>
+        <div class="form-group">
+
+           <label for="details">Details:</label>
+                     <textarea class="form-control" rows="5" id="comment"></textarea>
+           
+          
+        </div>
+
+         <label><i class="glyphicon glyphicon-calendar"></i> Date</label>
+                 <p><input type="date" class="form-control" id="bday" placeholder="Date" required></p>
+
+                 <label>
+              <i class="fa fa-clock-o"></i> Time
+            </label>
+
+              <p>
+                <select id="timeV" required>
+                <option value="" selected disabled hidden>Choose here</option>
+                <option value="12:30 PM">07:00 AM </option>
+                <option value="12:30 PM">07:30 AM </option>
+                <option value="12:30 PM">08:00 AM </option>
+                <option value="12:30 PM">08:30 AM </option>
+                <option value="12:30 PM">09:00 AM </option>
+                <option value="12:30 PM">09:30 AM </option>
+                <option value="12:30 PM">10:00 AM </option>
+                <option value="12:30 PM">10:30 AM </option>
+                <option value="12:30 PM">11:00 AM </option>
+                <option value="12:30 PM">11:30 AM </option>
+                <option value="12:00 PM">12:00 PM </option>
+                <option value="12:30 PM">12:30 PM </option>
+                <option value="12:30 PM">1:00 PM </option>
+                <option value="12:30 PM">1:30 PM </option>
+                <option value="12:30 PM">2:00 PM </option>
+                <option value="12:30 PM">2:30 PM </option>
+                <option value="12:30 PM">3:00 PM </option>
+                <option value="12:30 PM">3:30 PM </option>
+                <option value="12:30 PM">4:00 PM </option>
+                <option value="12:30 PM">4:30 PM </option>
+                <option value="12:30 PM">5:00 PM </option>
+            </select>
+              </p>
+
+
+        
+        
+        <button type="submit" class="btn btn-primary">
+          Submit
+        </button>
+
+
+
+
+  			
+
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+
+
+
+  </body>
+</html>
