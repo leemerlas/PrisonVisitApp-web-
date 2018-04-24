@@ -104,7 +104,7 @@ def view_visitor():
 
 
 CORS(server)
-server.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:sw33t890@localhost/prisonapp'
+server.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:sw33t890@localhost/prisonapp'
 server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 dc = SQLAlchemy(server)
 server.config['USE_SESSION_FOR_NEXT'] = True

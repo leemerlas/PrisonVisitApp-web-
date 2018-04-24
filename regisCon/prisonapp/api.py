@@ -134,11 +134,17 @@ def get_visitors(current_user):
 def accept(current_user):
     data = request.get_json()
     user = User.query.filter_by(id=data['user_id']).first()
+    print data['user_id']
+    if str(data['response']) == 'yes':
+        user.status = True
+        db.session.commit()
+        return jsonify({'message':'Account Verified!'})
 
-    user.status = bool(1)
-    print user.id
-    db.session.commit()
+    elif str(data['response']) == 'no':
+        user.status = False
+        db.session.commit()
+        return jsonify({'message':'Account Declined!'})
 
-    return jsonify({'message':'Account Verified!'})
+
 
 #END OF CLERK API
