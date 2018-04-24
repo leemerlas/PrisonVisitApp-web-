@@ -1,5 +1,5 @@
 from prisonapp import *
-from models import User, Comment, Visitation, Prisoner
+from models import User, Comment, Visitation
 
 def token_required(f):
     @wraps(f)
@@ -32,7 +32,7 @@ def register_user():
     hashed_password = generate_password_hash(data['password'], method='sha256')
 
     new_user = User(public_id=str(uuid.uuid4()), username=data['username'], password_hash=hashed_password, firstname=data['firstname'], middlename=data['middlename'],
-                    lastname=data['lastname'], contact=data['contact'], address=data['address'], birthday=data['birthday'], prisoner=data['prisoner'], role_id=2, status=True,
+                    lastname=data['lastname'], contact=data['contact'], address=data['address'], birthday=data['birthday'], prisoner=data['prisoner'], role_id=2, status=False,
                     age=data['age'])
     db.session.add(new_user)
     db.session.commit()
@@ -124,31 +124,45 @@ def get_visitors(current_user):
         user_data['address'] = user.address
         user_data['birthday'] = user.birthday
         user_data['status'] = user.status
+        user_data['id'] = user.id
         res.append(user_data)
 
     return jsonify({'status': 'ok', 'entries': res, 'count': len(res)})
 
 
-@app.route('/api/clerk/prisoner_data', methods=['GET'])
+@app.route('/api/clerk/account_accept', methods=['POST'])
 @token_required
-def get_prisoners(current_user):
+def accept(current_user):
+    data = request.get_json()
+    user = User.query.filter_by(id=data['user_id']).first()
+
+    user.status = bool(1)
+    print user.id
+    db.session.commit()
+
+    return jsonify({'message':'Account Verified!'})
+
+@app.route('/api/clerk/manage_requests', methods=['GET'])
+@token_required
+def manage_requests(current_user):
+
     if current_user.role_id != '1':
         return jsonify ({'message':'Cannot perform that function!'})
 
-    prisoners = Prisoner.query.all()
-
+    visitations = Visitation.query.all()
     res = []
 
-    for prisoner in prisoners:
-        prisoner_data = {}
-        prisoner_data['firstname'] = prisoner.firstname
-        prisoner_data['middlename'] = prisoner.middlename
-        prisoner_data['lastname'] = prisoner.lastname
-        prisoner_data['birthday'] = prisoner.birthday
-        prisoner_data['age'] = prisoner.age
-        res.append(prisoner_data)
+    for visitation in visitations:
+        user_data = {}
+        user_data['vId'] = visitation.vId
+        user_data['nameP'] = visitation.nameP
+        user_data['date'] = visitation.date
+        # user_data['time'] = visitations.time
+        user_data['status'] = visitation.status
 
-        return jsonify({'status': 'ok', 'entries': res, 'count': len(res)})
+        res.append(user_data)
+
+    return jsonify({'status': 'ok', 'entries': res, 'count': len(res)})
 
 
 #END OF CLERK API

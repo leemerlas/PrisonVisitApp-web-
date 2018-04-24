@@ -101,16 +101,17 @@ def view_visitor():
         flash('You are not logged in! Please log in below!')
         return render_template('login.html')
 
-@server.route('/clerk/view_prisoners')
-def view_prisoner():
+@server.route('/clerk/manage_requests')
+def clerk_managerequest():
     if 'user' in session and session['role'] == '1':
-        return render_template('view_prisoners.html')
+        return render_template('visitrequest_clerk.html')
     else:
-        flash('You are not logged in! Please log in below!')
+        flash('Error!')
         return render_template('login.html')
 
+
 CORS(server)
-server.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password271997@localhost/sample'
+server.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:12345@localhost/prisonapp'
 server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 dc = SQLAlchemy(server)
 server.config['USE_SESSION_FOR_NEXT'] = True
