@@ -86,7 +86,7 @@ def landing_clerk():
 
 @server.route('/admin/landing')
 def landing_admin():
-    if 'user' in session:
+    if 'user' in session and session['role'] == '0':
         return render_template('landing_admin.html')
     else:
         flash('You are not logged in! Please log in below!')
@@ -101,7 +101,13 @@ def view_visitor():
         flash('You are not logged in! Please log in below!')
         return render_template('login.html')
 
-
+@server.route('/admin/view_visitors')
+def view_visitor_admin():
+    if 'user' in session and session['role'] == '0':
+        return render_template('view_visitors_admin.html')
+    else:
+        flash('You are not logged in! Please log in below!')
+        return render_template('login.html')
 
 CORS(server)
 server.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:sw33t890@localhost/prisonapp'
