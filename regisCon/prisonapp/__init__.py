@@ -22,7 +22,6 @@ app.secret_key = os.urandom(24)
 
 db = SQLAlchemy(app)
 
-import prisonapp.api
 import prisonapp.server
 
 
