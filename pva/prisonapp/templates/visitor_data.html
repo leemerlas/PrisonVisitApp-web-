@@ -1,0 +1,145 @@
+<html>
+
+    <head>
+         <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Resume - Start Bootstrap Theme</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="vendor/devicons/css/devicons.min.css" rel="stylesheet">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+          
+
+
+
+    <!-- Custom styles for this template -->
+    <link href="css/resume.css" rel="stylesheet">
+       
+    <style type="text/css">
+       
+        #table{
+            height: 500px;
+            width: 100%;
+            background-color: #E9EBEE;
+            border-radius: 1%;
+            
+        }
+      
+        
+        .alternate{
+            margin: 20px;
+            height: 50%;
+            width: 30%;
+        }
+        .header-wrapper{
+            height: auto;
+            width: 100%;
+            background-color: #BD5D38;
+            padding: 20px;
+
+        }
+        body{
+            padding: 0;
+            font-weight:bold; 
+            color: darkred;
+        }
+        
+                
+    </style>
+        
+    </head>
+    
+    <body>
+    <div class="header-wrapper"><h1 style="font-weight:bold; color: white;">Visitor <span style="color: black">List </span></h1></div>
+    <div id="table">
+      <table id="myTable" class="table table-hover">
+<thead class="thead-dark">
+  <tr>
+    <th scope="col">Visitor I.D.</th>
+    <th scope="col">First Name</th>
+    <th scope="col">Middle Name</th>
+    <th scope="col">Last Name</th>
+    <th scope="col">Age</th>
+    <th scope="col">Date of Birth</th>
+    <th scope="col">Contact Number</th>
+    
+
+  </tr>
+</thead>
+
+<tbody>
+    <tr>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  
+  </tr>
+    <tr>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  </tr>
+  {%for row in rows%}
+  <tr>
+  <td>{{row[0]}}</td>
+  <td>{{row[1]}}</td>
+  <td>{{row[2]}}</td>
+  <td>{{row[3]}}</td>
+  <td>{{row[4]}}</td>
+  <td>{{row[5]}}</td>
+  <td>{{row[6]}}</td>
+  </tr>
+  {% endfor %}
+
+</tbody>
+</table>
+
+
+
+
+</div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/resume.min.js"></script>    
+      
+    <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+
+  
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+        $('#myTable').dataTable();
+
+    
+    })
+
+
+  </script>
+    
+</body>
+</html>
