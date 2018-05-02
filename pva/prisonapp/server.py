@@ -8,6 +8,7 @@ import os
 server = Flask(__name__)
 
 
+
 @server.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -42,7 +43,6 @@ def login():
 
     return render_template("login-final.html")
 
-
 @server.route('/logout')
 def logout():
     if session['user'] is None:
@@ -57,6 +57,11 @@ def logout():
         return redirect(url_for('login'))
 
 
+
+@server.route('/register', methods=['GET','POST'])
+def register():
+    return render_template("SignUp.html")
+
 @server.route('/visitor/landing', methods=['GET'])
 def landing_visitor():
     if 'user' in session:
@@ -66,6 +71,23 @@ def landing_visitor():
         flash('You are not logged in! Please log in below!')
         return render_template('login-final.html')
 
+
+@server.route('/visitor/comments')
+def post_comment():
+    if 'user' in session:
+        return render_template('comment_visitor.html')
+    else:
+        flash('You are not logged in! Please log in below!')
+        return render_template('login-final.html')
+
+
+@server.route('/visitor/schedule', methods=['GET','POST'])
+def schedule_visit():
+    if 'user' in session:
+        return render_template('schedule_visitor.html')
+    else:
+        flash('You are not logged in! Please log in below!')
+        return render_template('login-final.html')
 
 @server.route('/clerk/landing')
 def landing_clerk():
@@ -85,6 +107,23 @@ def landing_admin():
         flash('You are not logged in! Please log in below!')
         return render_template('login-final.html')
 
+
+@server.route('/clerk/view_visitors')
+def view_visitor():
+    if 'user' in session and session['role'] == '1':
+        return render_template('view_visitors.html')
+    else:
+        flash('You are not logged in! Please log in below!')
+        return render_template('login-final.html')
+
+
+@server.route('/admin/view_visitors')
+def view_visitor_admin():
+    if 'user' in session and session['role'] == '0':
+        return render_template('view_visitors_admin.html')
+    else:
+        flash('You are not logged in! Please log in below!')
+        return render_template('login-final.html')
 
 CORS(server)
 server.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:1234@localhost/prisonapp'

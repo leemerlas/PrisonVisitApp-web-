@@ -48,5 +48,3 @@ class Visitation(db.Model):
     time = db.Column(db.String(20))
     numberOfVisitors = db.Column(db.Integer(), nullable=False)
     status = db.Column(db.String(20),nullable=False)
-
-
