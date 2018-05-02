@@ -24,7 +24,7 @@ class Comment(db.Model):
     __tablename__ = 'comment'
     id = db.Column(db.Integer(), primary_key=True)
     uid = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    content = db.Column(db.TEXT())
+    content = db.Column(db.Text())
     date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
 class Prisoner(db.Model):

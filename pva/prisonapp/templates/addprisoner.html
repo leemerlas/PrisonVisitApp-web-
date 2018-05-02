@@ -16,29 +16,21 @@
         var tokens = localStorage.getItem('token');
         $(document).ready(function () {
             $('#target').submit(function () {
-                var username = $("#username").val();
-                var password = $("#password").val();
                 var firstname = $("#fname").val();
                 var middlename = $("#mname").val();
                 var lastname = $("#lname").val();
-                var age = document.getElementById('age').innerHTML;
-                var contact = $("#number").val();
-                var address = $("#address").val();
                 var birthday = $("#bday").val();
+                var age = document.getElementById('age').innerHTML;
 
                 $.ajax({
-                    url: "http://127.0.0.1:5000/api/addclerk",
+                    url: "http://127.0.0.1:5000/api/admin/addprisoner",
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify({
-                        'username':username,
-                        'password':password,
                         'firstname':firstname,
                         'middlename':middlename,
                         'lastname':lastname,
-                        'age':age,
-                        'contact':contact,
-                        'address':address,
-                        'birthday':birthday
+                        'birthday':birthday,
+                        'age':age
                     }),
                     method: "POST",
                     dataType: "json",
@@ -49,7 +41,7 @@
                     success: function () {
                         console.log("success");
                         alert("registration success!");
-                        window.location.href='/login'
+                        window.location.href='/admin/landing'
                     },
                     error: function () {
                         console.log('error')
@@ -77,23 +69,17 @@
 <body>
 
 	<header>
-		<center><h1>Clerk Registration Form</h1></center>
+		<center><h1>Prisoner Form</h1></center>
 	</header>
 	<div class="container">
 	<form style="margin: 0 auto; width:400px;" id="target">
   		<div class="form-group">
-			<label><i class="fa fa-user-circle"></i> Username</label>
-    		<p><input type="text" class="form-control" id="username" placeholder="Enter username"></p>
-
-    		<label><i class="fa fa-lock"></i> Password</label>
-    		<p><input type="password" class="form-control" id="password" placeholder="Enter password"></p>
-
   			<label><i class="fa fa-user"></i> First Name</label>
     		<p><input type="text" class="form-control" id="fname" placeholder="Enter first name"></p>
-    		
+
     		<label><i class="fa fa-user"></i> Middle Name</label>
     		<p><input type="text" class="form-control" id="mname" placeholder="Enter middle name"></p>
-    		
+
     		<label><i class="fa fa-user"></i> Last Name</label>
     		<p><input type="text" class="form-control" id="lname" placeholder="Enter last name"></p>
 
@@ -103,17 +89,11 @@
     		</div>
 			<p hidden id="age"></p>
 
-    		<label><i class="fa fa-address-card"></i> Address</label>
-    		<p><input type="text" class="form-control" id="address" placeholder="Enter address"></p>
-
-    		<label><i class="fa fa-phone-square"></i> Contact Number</label>
-    		<p><input type="text" class="form-control" id="number" placeholder="Enter contact number"></p>
-    		
     		<!--<label><i class="fa fa-envelope"></i> Email</label>-->
     		<!--<p><input type="email" class="form-control" id="email" placeholder="Enter email"></p>-->
 
   		</div>
-		<center><input type="submit" class="btn btn-primary" name="Register" value="Register" id="btn"></center>
+		<center><input type="submit" class="btn btn-primary" name="Add" value="Register" id="btn"></center>
 	</form>
     </div>
 </body>
