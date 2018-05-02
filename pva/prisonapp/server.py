@@ -90,17 +90,6 @@ def post_comment():
         return render_template('login-final.html')
 
 
-@server.route('/visitor/schedule', methods=['GET','POST'])
-def schedule_visit():
-    if 'user' in session:
-        return render_template('schedule_visitor.html')
-    else:
-        flash('You are not logged in! Please log in below!')
-        return render_template('login-final.html')
-
-
-
-
 @server.route('/clerk/landing')
 def landing_clerk():
     if 'user' in session:
@@ -134,14 +123,6 @@ def clerk_managerequest():
         flash('Error!')
         return render_template('login-final.html')
 
-
-@server.route('/clerk/view_visitors')
-def view_visitor():
-    if 'user' in session and session['role'] == '1':
-        return render_template('view_visitors.html')
-    else:
-        flash('You are not logged in! Please log in below!')
-        return render_template('login-final.html')
 
 @server.route('/clerk/view_prisoners')
 def view_prisoner():
