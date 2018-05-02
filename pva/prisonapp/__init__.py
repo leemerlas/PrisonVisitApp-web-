@@ -10,7 +10,6 @@ from datetime import date
 
 
 app = Flask(__name__)
-server = Flask(__name__)
 
 CORS(app)
 
