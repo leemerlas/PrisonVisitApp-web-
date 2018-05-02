@@ -9,8 +9,6 @@ server = Flask(__name__)
 
 
 
-
-
 @server.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -45,7 +43,6 @@ def login():
 
     return render_template("login-final.html")
 
-
 @server.route('/logout')
 def logout():
     if session['user'] is None:
@@ -68,13 +65,21 @@ def register():
 
 @server.route('/visitor/landing', methods=['GET'])
 def landing_visitor():
-    if 'user' in session:
-        if session['role'] == '2':
-            return render_template("index.html")
+    if 'user' in session and session['role'] == '2':
+        return render_template("landing_visitor.html")
     else:
         flash('You are not logged in! Please log in below!')
         return render_template('login-final.html')
 
+
+
+@server.route('/visitor/schedule', methods=['GET','POST'])
+def schedule_visit():
+    if 'user' in session:
+        return render_template('schedule_visitor.html')
+    else:
+        flash('You are not logged in! Please log in below!')
+        return render_template('login-final.html')
 
 @server.route('/visitor/comments')
 def post_comment():
@@ -99,12 +104,10 @@ def schedule_visit():
 @server.route('/clerk/landing')
 def landing_clerk():
     if 'user' in session:
-        if session['role'] == '1':
-            return render_template('landing_clerk.html')
+        return render_template('landing_clerk.html')
     else:
         flash('You are not logged in! Please log in below!')
         return render_template('login-final.html')
-
 
 @server.route('/admin/landing')
 def landing_admin():
@@ -123,13 +126,30 @@ def view_visitor():
         flash('You are not logged in! Please log in below!')
         return render_template('login-final.html')
 
+@server.route('/clerk/manage_requests')
+def clerk_managerequest():
+    if 'user' in session and session['role'] == '1':
+        return render_template('visitrequest_clerk.html')
+    else:
+        flash('Error!')
+        return render_template('login-final.html')
+
+
+@server.route('/clerk/view_visitors')
+def view_visitor():
+    if 'user' in session and session['role'] == '1':
+        return render_template('view_visitors.html')
+    else:
+        flash('You are not logged in! Please log in below!')
+        return render_template('login-final.html')
+
 @server.route('/clerk/view_prisoners')
 def view_prisoner():
     if 'user' in session and session['role'] == '1':
         return render_template('view_prisoners.html')
     else:
         flash('You are not logged in! Please log in below!')
-        return render_template('login.html')
+        return render_template('login-final.html')
 
 
 @server.route('/admin/add_clerk')
