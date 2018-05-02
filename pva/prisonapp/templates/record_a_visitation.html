@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="jquery-3.3.1.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<script src="functions.js"></script>
+
+</head>
+<body>
+
+
+
+        <input type="text" id="firstname" placeholder="First Name" required>
+        <input type="text" id="middlename" placeholder="Middle Name" required>
+        <input type="text" id="lastname" placeholder="Last Name" required>
+        <input type="text" id="address" placeholder="Address" required>
+        <input type="text" id="contactno" placeholder="Contact No." required>
+        <input type="text" id="prisonername" placeholder="Prisoner Name" required>
+        <button type="Submit" onclick="visitors();">Submit</button>
+
+
+
+
+
+</body>
+</html>
+
+ <script>
+     function visitors() {
+    $.ajax(
+        {
+            url: "http://127.0.0.1:5000/visitors/",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                'id': $("#id").val(),
+                'firstname': $("#firstname").val(),
+                'middlename': $("#middlename").val(),
+                'lastname': $("#lastname").val(),
+                'address': $("#address").val(),
+                'contactno': $("#contactno").val(),
+                'prisonername': $("#prisonername").val(),
+                'date': $("#date").val(),
+            }),
+            method: "POST",
+            dataType: "json",
+            crossDomain: true,
+
+            success: function (resp) {
+               // alert(resp.status);
+                console.log("success");
+
+                window.location.replace('success.html');
+            },
+
+            error: function (resp) {
+                //window.location.replace('404.html');
+                alert("Oops! Something went wrong.");
+
+            }
+
+
+        }
+    );
+
+}
+</script>
