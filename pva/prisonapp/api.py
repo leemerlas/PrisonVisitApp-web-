@@ -157,12 +157,31 @@ def manage_requests(current_user):
         user_data['vId'] = visitation.vId
         user_data['nameP'] = visitation.nameP
         user_data['date'] = visitation.date
-        # user_data['time'] = visitations.time
+        user_data['numberOfVisitors'] = visitation.numberOfVisitors
         user_data['status'] = visitation.status
+        user_data['id'] = visitation.id
 
         res.append(user_data)
 
     return jsonify({'status': 'ok', 'entries': res, 'count': len(res)})
 
+
+@app.route('/api/clerk/schedule_accept', methods=['POST'])
+@token_required
+def schedule_accept(current_user):
+
+    data = request.get_json()
+    visitor = Visitation.query.filter_by(id=data['vis_id']).first()
+
+    # print data['user_id']
+    if str(data['response']) == 'yes':
+        visitor.status = 'APPROVED'
+        db.session.commit()
+        return jsonify({'message':'Scheduled!'})
+
+    elif str(data['response']) == 'no':
+        visitor.status = 'DECLINED'
+        db.session.commit()
+        return jsonify({'message':'Schedule Declined!'})
 
 #END OF CLERK API
