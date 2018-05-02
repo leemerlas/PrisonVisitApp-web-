@@ -93,6 +93,14 @@ def record_visitation():
         flash('You are not logged in! Please log in below!')
         return render_template('login-final.html')
 
+@server.route('/admin/manage-announcements')
+def record_visitation():
+    if 'user' in session and session['role'] == '0':
+        return render_template('record_a_visitation.html')
+    else:
+        flash('You are not logged in! Please log in below!')
+        return render_template('login-final.html')
+
 
 CORS(server)
 server.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:1234@localhost/prisonapp'
