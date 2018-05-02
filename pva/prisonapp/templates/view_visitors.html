@@ -16,25 +16,15 @@ function viewAll(){
     table();
     viewVis();
     showRes();
-
-
  })
-
  $(document).ready(
 function viewAll2(){
     table2();
     viewVis2();
     showRes();
-
-
  })
-
-
 function viewVis(){
-
     $("#view_id").show(); //Id ni siya na gamiton sa html
-
-
 $.ajax({
           url: 'http://127.0.0.1:5000/api/clerk/visitor_data',
           type: "GET",
@@ -44,7 +34,6 @@ $.ajax({
                 'x-access-token': tokens
                     },
           success: function(resp) {
-
             if (resp.status  === 'ok') {
                for (i = 0; i < resp.count; i++) {
                               firstname = resp.entries[i].firstname;
@@ -67,12 +56,8 @@ $.ajax({
                                     }
       });
                     }
-
 function viewVis2(){
-
     $("#view_id2").show(); //Id ni siya na gamiton sa html
-
-
 $.ajax({
           url: 'http://127.0.0.1:5000/api/clerk/visitor_data',
           type: "GET",
@@ -82,7 +67,6 @@ $.ajax({
                 'x-access-token': tokens
                     },
           success: function(resp) {
-
             if (resp.status  === 'ok') {
                for (i = 0; i < resp.count; i++) {
                               firstname = resp.entries[i].firstname;
@@ -105,12 +89,10 @@ $.ajax({
                                     }
       });
                     }
-
 var yes = "yes";
 var no = "no";
 function showRes(firstname,middlename,lastname,age,contact,address,birthday,status,idU)
 {
-
   
    return '<div class="widget-content">'+
             '<table class="table table-striped table-bordered" id="view_res">'+
@@ -130,13 +112,10 @@ function showRes(firstname,middlename,lastname,age,contact,address,birthday,stat
             '</table>' +
        '</div>'
 }
-
 var yes = "yes";
 var no = "no";
 function showRes2(firstname,middlename,lastname,age,contact,address,birthday,status,idU)
 {
-
-
    return '<div class="widget-content">'+
             '<table class="table table-striped table-bordered" id="view_res2">'+
                 '<tbody><tr class="edit" id="details">'+
@@ -153,8 +132,6 @@ function showRes2(firstname,middlename,lastname,age,contact,address,birthday,sta
             '</table>' +
        '</div>'
 }
-
-
 function table()
 {
      $("table.table-bordered").html('<thead><tr>' +
@@ -208,10 +185,8 @@ function accept(idU,var1)
                     error: function () {
                         alert('server error! click ok to reload!');
                         window.location.href='/clerk/landing'
-
                     }
                 })
-
 }
 </script>
 </head>

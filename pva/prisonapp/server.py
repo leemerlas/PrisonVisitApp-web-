@@ -9,6 +9,8 @@ server = Flask(__name__)
 
 
 
+
+
 @server.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -43,6 +45,7 @@ def login():
 
     return render_template("login-final.html")
 
+
 @server.route('/logout')
 def logout():
     if session['user'] is None:
@@ -61,6 +64,7 @@ def logout():
 @server.route('/register', methods=['GET','POST'])
 def register():
     return render_template("SignUp.html")
+  
 
 @server.route('/visitor/landing', methods=['GET'])
 def landing_visitor():
@@ -89,6 +93,9 @@ def schedule_visit():
         flash('You are not logged in! Please log in below!')
         return render_template('login-final.html')
 
+
+
+
 @server.route('/clerk/landing')
 def landing_clerk():
     if 'user' in session:
@@ -116,6 +123,23 @@ def view_visitor():
         flash('You are not logged in! Please log in below!')
         return render_template('login-final.html')
 
+@server.route('/clerk/view_prisoners')
+def view_prisoner():
+    if 'user' in session and session['role'] == '1':
+        return render_template('view_prisoners.html')
+    else:
+        flash('You are not logged in! Please log in below!')
+        return render_template('login.html')
+
+
+@server.route('/admin/add_clerk')
+def add_clerk():
+    if 'user' in session and session['role'] == '0':
+        return render_template('addclerk.html')
+    else:
+        flash('You are not logged in! Please log in below!')
+        return render_template('login-final.html')
+
 
 @server.route('/admin/view_visitors')
 def view_visitor_admin():
@@ -126,7 +150,7 @@ def view_visitor_admin():
         return render_template('login-final.html')
 
 CORS(server)
-server.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:1234@localhost/prisonapp'
+server.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1234@localhost/prisonapp'
 server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 dc = SQLAlchemy(server)
 server.config['USE_SESSION_FOR_NEXT'] = True
@@ -135,5 +159,5 @@ server.config['SECRET_KEY'] = 'thisissecret'
 
 server.secret_key = os.urandom(24)
 
-if __name__ == '__main__':
-    server.run(host='localhost', port=8080, debug=True)
+if __name__=='__main__':
+    server.run(host='localhost', port=8000, debug=True)
