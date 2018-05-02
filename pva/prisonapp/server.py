@@ -77,10 +77,10 @@ def landing_clerk():
         return render_template('login-final.html')
 
 
-@server.route('/admin/landing')
-def landing_admin():
+@server.route('/admin/manage-announcements')
+def manage_announcements():
     if 'user' in session:
-        return render_template('landing_admin.html')
+        return render_template('manage_announcements.html')
     else:
         flash('You are not logged in! Please log in below!')
         return render_template('login-final.html')
