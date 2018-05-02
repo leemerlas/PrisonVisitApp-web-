@@ -2,14 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!--<title>Title</title>-->
-    <!--<script src="../static/jquery-3.3.1.min.js"></script>-->
+    <title>Title</title>
+    <script src="../static/jquery-3.3.1.min.js"></script>
+    <script>
 
-    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
-
-<script>
 var tokens = localStorage.getItem('token');
 $(document).ready(
 function viewAll(){
@@ -17,14 +13,11 @@ function viewAll(){
     viewVis();
     showRes();
  })
- $(document).ready(
-function viewAll2(){
-    table2();
-    viewVis2();
-    showRes();
- })
+
 function viewVis(){
+
     $("#view_id").show(); //Id ni siya na gamiton sa html
+
 $.ajax({
           url: 'http://127.0.0.1:5000/api/clerk/visitor_data',
           type: "GET",
@@ -34,6 +27,7 @@ $.ajax({
                 'x-access-token': tokens
                     },
           success: function(resp) {
+
             if (resp.status  === 'ok') {
                for (i = 0; i < resp.count; i++) {
                               firstname = resp.entries[i].firstname;
@@ -44,10 +38,7 @@ $.ajax({
                               address = resp.entries[i].address;
                               birthday = resp.entries[i].birthday;
                               status = resp.entries[i].status;
-                              idU = resp.entries[i].id;
-                              if (resp.entries[i].status === false) {
-                                $("#view_id").append(showRes(firstname,middlename,lastname,age,contact,address,birthday,status,idU));
-                              }
+                              $("#view_id").append(showRes(firstname,middlename,lastname,age,contact,address,birthday,status));
                                                 }
             } else {
                 $("#view_id").html("");
@@ -56,44 +47,9 @@ $.ajax({
                                     }
       });
                     }
-function viewVis2(){
-    $("#view_id2").show(); //Id ni siya na gamiton sa html
-$.ajax({
-          url: 'http://127.0.0.1:5000/api/clerk/visitor_data',
-          type: "GET",
-          dataType: "json",
-          crossDomain: true,
-           headers: {
-                'x-access-token': tokens
-                    },
-          success: function(resp) {
-            if (resp.status  === 'ok') {
-               for (i = 0; i < resp.count; i++) {
-                              firstname = resp.entries[i].firstname;
-                              middlename = resp.entries[i].middlename;
-                              lastname = resp.entries[i].lastname;
-                              age = resp.entries[i].age;
-                              contact = resp.entries[i].contact;
-                              address = resp.entries[i].address;
-                              birthday = resp.entries[i].birthday;
-                              status = resp.entries[i].status;
-                              idU = resp.entries[i].id;
-                              if (resp.entries[i].status === true) {
-                              $("#view_id2").append(showRes2(firstname,middlename,lastname,age,contact,address,birthday,status,idU));
-                              }
-                                                }
-            } else {
-                $("#view_id2").html("");
-               alert('No Data')
-                    }
-                                    }
-      });
-                    }
-var yes = "yes";
-var no = "no";
-function showRes(firstname,middlename,lastname,age,contact,address,birthday,status,idU)
+
+function showRes(firstname,middlename,lastname,age,contact,address,birthday,status)
 {
-  
    return '<div class="widget-content">'+
             '<table class="table table-striped table-bordered" id="view_res">'+
                 '<tbody><tr class="edit" id="details">'+
@@ -105,33 +61,12 @@ function showRes(firstname,middlename,lastname,age,contact,address,birthday,stat
                     '<td>'+ address +'</td>'+
                     '<td>'+ birthday +'</td>'+
                     '<td>'+ status +'</td>'+
-                    //'<td>'+ '<button type="Submit" onclick={accept(idU,"yes")}> Accept</button>'+'<button type="Submit" onclick={accept(idU,"no")}>Decline</button>'+'</td>'+
-                    '<td>'+'<button type="submit" onclick="accept('+idU+','+yes+')"> Accept</button>'+
-                    '<button type="submit" onclick="accept('+idU+','+no+')"> Decline</button>'+'</td>'+
                 '</tr></tbody>' +
             '</table>' +
        '</div>'
 }
-var yes = "yes";
-var no = "no";
-function showRes2(firstname,middlename,lastname,age,contact,address,birthday,status,idU)
-{
-   return '<div class="widget-content">'+
-            '<table class="table table-striped table-bordered" id="view_res2">'+
-                '<tbody><tr class="edit" id="details">'+
-                    '<td>'+ firstname +'</td>'+
-                    '<td>'+ middlename +'</td>'+
-                    '<td>'+ lastname +'</td>'+
-                    '<td>'+ age +'</td>'+
-                    '<td>'+ contact +'</td>'+
-                    '<td>'+ address +'</td>'+
-                    '<td>'+ birthday +'</td>'+
-                    '<td>'+ status +'</td>'+
-                    //'<td>'+ '<button type="Submit" onclick={accept(idU,"yes")}> Accept</button>'+'<button type="Submit" onclick={accept(idU,"no")}>Decline</button>'+'</td>'+
-                '</tr></tbody>' +
-            '</table>' +
-       '</div>'
-}
+
+
 function table()
 {
      $("table.table-bordered").html('<thead><tr>' +
@@ -145,49 +80,6 @@ function table()
             '<th>Account Status</th>' +
             '</tr></thead>')
 }
-function table2()
-{
-     $("table2.table-bordered").html('<thead><tr>' +
-            '<th>First Name</th>' +
-            '<th>Middle Name</th>' +
-            '<th>Last Name</th>' +
-            '<th>Age</th>' +
-            '<th>Contact Number</th>' +
-            '<th>Address</th>' +
-            '<th>Birth Date</th>' +
-            '<th>Account Status</th>' +
-            '</tr></thead>')
-}
-function accept(idU,var1)
-{
-                var tokens = localStorage.getItem('token');
-                var public_id = localStorage.getItem('public_id');
-                var user_id;
-                var response = $("#response").val();
-                $.ajax({
-                    url: "http://127.0.0.1:5000/api/clerk/account_accept",
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({
-                        'public_id':public_id,
-                        'user_id':idU,
-                        'response':var1
-                    }),
-                    method: "POST",
-                    dataType: "json",
-                    crossDomain: true,
-                    headers: {
-                        'x-access-token': tokens
-                    },
-                    success: function (resp) {
-                        alert(resp.message);
-                        window.location.href='/clerk/view_visitors'
-                    },
-                    error: function () {
-                        alert('server error! click ok to reload!');
-                        window.location.href='/clerk/landing'
-                    }
-                })
-}
 </script>
 </head>
 <body>
@@ -200,26 +92,11 @@ function accept(idU,var1)
             <div class="widget stacked widget-table action-table">
                 <div class="widget-content">
                     <table class="table table-striped table-bordered">
+                    <!--<table class="stripe">-->
 
                     </table>
                 </div>
                 <div id="view_id"></div>
-            </div>
-        <!--</div>-->
-    </div>
-</div>
-<br><br><br>
-<div class="container">
-    <div class="row">
-
-        <!--<div class="span7">-->
-            <div class="widget stacked widget-table action-table">
-                <div class="widget-content">
-                    <table class="table table-striped table-bordered">
-
-                    </table>
-                </div>
-                <div id="view_id2"></div>
             </div>
         <!--</div>-->
     </div>
