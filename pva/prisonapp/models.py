@@ -51,3 +51,4 @@ class VisitationLogs(db.Model):
     log_vId = db.Column(db.Integer, db.ForeignKey('visitation.id'), nullable=False)
     user_vId = db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=False)
 
+

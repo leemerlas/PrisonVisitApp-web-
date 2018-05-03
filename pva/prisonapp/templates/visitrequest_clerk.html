@@ -22,10 +22,8 @@
                 viewVis2();
                 showRes2();
             })
-
         function viewVis(){
             $("#view_id").show();
-
             $.ajax({
                 url: 'http://127.0.0.1:5000/api/clerk/manage_requests',
                 type: "GET",
@@ -37,14 +35,12 @@
                 success: function(resp) {
                     if (resp.status  === 'ok') {
                         for (i = 0; i < resp.count; i++) {
-
                             vId = resp.entries[i].vId;
                             nameP = resp.entries[i].nameP;
                             date = resp.entries[i].date;
                             numberOfVisitors = resp.entries[i].numberOfVisitors;
                             status = resp.entries[i].status;
                             idU = resp.entries[i].id;
-
                             if (resp.entries[i].status === 'PENDING') {
                                 $("#view_id").append(showRes(vId, nameP, date, numberOfVisitors ,status, idU));
                               }
@@ -56,10 +52,8 @@
                 }
             });
         }
-
         function viewVis2(){
             $("#view_id2").show();
-
             $.ajax({
                 url: 'http://127.0.0.1:5000/api/clerk/manage_requests',
                 type: "GET",
@@ -71,14 +65,12 @@
                 success: function(resp) {
                     if (resp.status  === 'ok') {
                         for (i = 0; i < resp.count; i++) {
-
                             vId = resp.entries[i].vId;
                             nameP = resp.entries[i].nameP;
                             date = resp.entries[i].date;
                             numberOfVisitors = resp.entries[i].numberOfVisitors;
                             status = resp.entries[i].status;
                             idU = resp.entries[i].id;
-
                             if (resp.entries[i].status === 'APPROVED') {
                                 $("#view_id2").append(showRes2(vId, nameP, date, numberOfVisitors ,status, idU));
                               }
@@ -90,10 +82,8 @@
                 }
             });
         }
-
         var yes = "yes";
         var no = "no";
-
         function showRes(vId, nameP, date, numberOfVisitors, status, idU)
         {
             return '<div class="widget-content">'+
@@ -104,15 +94,12 @@
                 '<td width=5%>'+ date +'</td>'+
                 '<td width=2%>'+ numberOfVisitors +'</td>'+
                 '<td width=2%>'+ status +'</td>'+
-
                 '<td width=5%>'+'<button type="submit" onclick="accept('+idU+','+yes+','+vId+')"> Accept</button>'+
                 '<button type="submit" onclick="accept('+idU+','+no+','+vId+')"> Decline</button>'+'</td>'+
-
                 '</tr></tbody>' +
             '</table>' +
        '</div>'
         }
-
         function showRes2(vId, nameP, date, numberOfVisitors, status, idU) {
             return '<div class="widget-content">'+
                 '<table class="table table-striped table-bordered" id="view_res">'+
@@ -126,7 +113,6 @@
                 '</table>' +
                 '</div>'
         }
-
         function table() {
             $("table.table-bordered").html('<thead><tr>' +
                 '<th width=1%>Visitor I.D.</th>' +
@@ -137,7 +123,6 @@
                 '<th width=5%>Buttons</th>' +
                 '</tr></thead>')
         }
-
         function table2() {
             $("table.table-bordered").html('<thead><tr>' +
                 '<th width=2%>Visitor I.D.</th>' +
@@ -148,14 +133,12 @@
                 '<th width=5%>Buttons</th>' +
                 '</tr></thead>')
         }
-
         function accept(idU,var1,userId) {
             var tokens = localStorage.getItem('token');
             var public_id = localStorage.getItem('public_id');
             var vis_id;
             var userid;
             var response = $("#response").val();
-
             $.ajax({
                 url: "http://127.0.0.1:5000/api/clerk/schedule_accept",
                 contentType: 'application/json; charset=utf-8',
@@ -165,11 +148,9 @@
                     'response':var1,
                     'userid':userId
                 }),
-
                 method: "POST",
                 dataType: "json",
                 crossDomain: true,
-
                 headers: {
                     'x-access-token': tokens
                 },
