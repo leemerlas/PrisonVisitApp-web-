@@ -110,15 +110,19 @@ def view_prisoner():
         return render_template('login.html')
 
 
-@server.route('/admin/add_prisoner')
-def add_prisoner():
+@server.route('/admin/add_clerk')
+def add_clerk():
     if 'user' in session and session['role'] == '0':
-        return render_template('addprisoner.html')
+        return render_template('addclerk.html')
     else:
         flash('You are not logged in! Please log in below!')
         return render_template('login.html')
 
 CORS(server)
+server.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1234@localhost/prisonapp'
+server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+dc = SQLAlchemy(server)
+server.config['USE_SESSION_FOR_NEXT'] = True
 server.config['CORS_HEADERS'] = 'Content-Type'
 server.config['SECRET_KEY'] = 'thisissecret'
 
