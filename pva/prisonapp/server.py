@@ -100,6 +100,14 @@ def view_visitor():
     else:
         flash('You are not logged in! Please log in below!')
         return render_template('login-final.html')
+		
+@server.route('/admin/view_visitors')
+def view_visitor_admin():
+    if 'user' in session and session['role'] == '0':
+        return render_template('view_visitors_admin.html')
+    else:
+        flash('You are not logged in! Please log in below!')
+        return render_template('login.html')
 
 
 def clerk_managerequest():
