@@ -118,6 +118,14 @@ def add_clerk():
         flash('You are not logged in! Please log in below!')
         return render_template('login.html')
 
+@server.route('/admin/add_prisoner')
+def add_prisoner():
+    if 'user' in session and session['role'] == '0':
+        return render_template('addprisoner.html')
+    else:
+        flash('You are not logged in! Please log in below!')
+        return render_template('login.html')
+
 CORS(server)
 server.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1234@localhost/prisonapp'
 server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
