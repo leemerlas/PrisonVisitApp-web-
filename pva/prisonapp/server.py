@@ -119,10 +119,6 @@ def add_prisoner():
         return render_template('login.html')
 
 CORS(server)
-server.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1234@localhost/prisonapp'
-server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-dc = SQLAlchemy(server)
-server.config['USE_SESSION_FOR_NEXT'] = True
 server.config['CORS_HEADERS'] = 'Content-Type'
 server.config['SECRET_KEY'] = 'thisissecret'
 

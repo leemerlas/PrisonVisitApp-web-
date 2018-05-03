@@ -10,7 +10,6 @@ from datetime import date
 
 
 app = Flask(__name__)
-server = Flask(__name__)
 
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:1234@localhost/prisonapp'
