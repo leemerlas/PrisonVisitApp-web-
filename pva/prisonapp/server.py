@@ -34,13 +34,6 @@ def login():
 
                     print session['user']
 
-                    # if session['role'] == '2':
-                    #     return redirect(url_for('landing_visitor'))
-                    # elif session['role'] == '1':
-                    #     return redirect(url_for('landing_clerk'))
-                    # elif session['role'] == '0':
-                    #     return redirect(url_for('landing_admin'))
-
     return render_template("login-final.html")
 
 @server.route('/logout')
@@ -90,17 +83,6 @@ def post_comment():
         return render_template('login-final.html')
 
 
-@server.route('/visitor/schedule', methods=['GET','POST'])
-def schedule_visit():
-    if 'user' in session:
-        return render_template('schedule_visitor.html')
-    else:
-        flash('You are not logged in! Please log in below!')
-        return render_template('login-final.html')
-
-
-
-
 @server.route('/clerk/landing')
 def landing_clerk():
     if 'user' in session:
@@ -129,19 +111,11 @@ def view_visitor():
 @server.route('/clerk/manage_requests')
 def clerk_managerequest():
     if 'user' in session and session['role'] == '1':
-        return render_template('visitrequest_clerk.html')
+        return render_template('visitationreq.html')
     else:
         flash('Error!')
         return render_template('login-final.html')
 
-
-@server.route('/clerk/view_visitors')
-def view_visitor():
-    if 'user' in session and session['role'] == '1':
-        return render_template('view_visitors.html')
-    else:
-        flash('You are not logged in! Please log in below!')
-        return render_template('login-final.html')
 
 @server.route('/clerk/view_prisoners')
 def view_prisoner():
@@ -170,10 +144,6 @@ def view_visitor_admin():
         return render_template('login-final.html')
 
 CORS(server)
-server.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1234@localhost/prisonapp'
-server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-dc = SQLAlchemy(server)
-server.config['USE_SESSION_FOR_NEXT'] = True
 server.config['CORS_HEADERS'] = 'Content-Type'
 server.config['SECRET_KEY'] = 'thisissecret'
 

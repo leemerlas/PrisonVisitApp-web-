@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <head>
-
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -23,98 +21,172 @@
     <!-- Custom styles for this template -->
     <link href="../static/css/resume.css" rel="stylesheet">
     <link href="../static/css/resume.min.css" rel="stylesheet">
+    <script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
 
-  </head>
+    <script>
+        var tokens = localStorage.getItem('token');
 
-  <section id="page-top">
+        $(document).ready(function () {
+          $('#maintable').ready(function () {
+              $.ajax({
+                url: 'http://127.0.0.1:5000/api/clerk/manage_requests',
+                type: "GET",
+                dataType: "json",
+                crossDomain: true,
+                headers: {
+                    'x-access-token': tokens
+                },
+                success: function(resp) {
+                    if (resp.status  === 'ok') {
+                        for (i = 0; i < resp.count; i++) {
 
+                            var vId = resp.entries[i].vId;
+                            var nameP = resp.entries[i].nameP;
+                            var date = resp.entries[i].date;
+                            var numberOfVisitors = resp.entries[i].numberOfVisitors;
+                            var status = resp.entries[i].status;
+                            var idU = resp.entries[i].id;
+
+
+                            if (resp.entries[i].status === 'PENDING') {
+{#                                $("#view_id").append(showRes(vId, nameP, date, numberOfVisitors ,status, idU));#}
+                                document.getElementById("vId").innerHTML = vId;
+                                document.getElementById("nameP").innerHTML = nameP;
+                                document.getElementById("date").innerHTML = date;
+                                document.getElementById("numberOfVisitors").innerHTML = numberOfVisitors;
+                                document.getElementById("status").innerHTML = status;
+                              }
+                        }
+                    } else {
+                        $("#view_id").html("");
+                        alert('No Data')
+                    } $( "#yes" ).click(function() {
+                            alert( accept() );
+                        });
+                }
+            });
+
+          })
+
+
+        });
+
+
+
+        var yes = "yes";
+        var no = "no";
+
+
+        function accept(idU,var1) {
+            var tokens = localStorage.getItem('token');
+            var public_id = localStorage.getItem('public_id');
+            var vis_id;
+            var response = $("#response").val();
+
+            $.ajax({
+                url: "http://127.0.0.1:5000/api/clerk/schedule_accept",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    'public_id':public_id,
+                    'vis_id':idU,
+                    'response':var1
+                }),
+
+                method: "POST",
+                dataType: "json",
+                crossDomain: true,
+                headers: {
+                    'x-access-token': tokens
+                },
+
+                success: function (resp) {
+                    alert(resp.message);
+                    window.location.href='/clerk/manage_requests'
+                },
+
+                error: function () {
+                    alert('server error! click ok to reload!');
+                    window.location.href='/clerk/manage_requests'
+                }
+            })
+        }
+    </script>
+</head>
+
+<body>
+<section id="page-top">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <span class="d-block d-lg-none">BJMP</span>
-        <span class="d-none d-lg-block">
-          <img class="img-responsive center-block" src="../static/img/bjmp2.jpg" alt="">
-        </span>
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">
+            <span class="d-block d-lg-none">BJMP</span>
+            <span class="d-none d-lg-block">
+                <img class="img-responsive center-block" src="../static/img/bjmp2.jpg" alt="">
+            </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
-
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#visitor">Manage Visitation Requests</a>
-          </li>
-
-        </ul>
-      </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#visitor">Manage Visitation Requests</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
-
     <div class="container-fluid p-0">
+        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="visitor">
+            <div class="col-lg-12 text-center">
+                <h3 class="section-heading text-uppercase">Visitation Requests</h3>
+            </div>
 
-
-
-    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="visitor">
-      <div class="col-lg-12 text-center">
-        <h3 class="section-heading text-uppercase">
-          Visitation Requests
-        </h3>
-      </div>
-      <div class="container">
-          <table id="all" class="table table-striped table-bordered" style="width:100%">
-                <thead>
+            <div class="container" id="maintable">
+                <table id="all" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
                     <tr>
                         <th>Visitor I.D.</th>
                         <th>Prisoner Name</th>
                         <th>Date</th>
                         <th>Number Of Visitors</th>
-                        <th>Buttons</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>123</th>
-                        <th>Jerry Tom</th>
-                        <th>Fri, 20 Apr 2018</th>
-                        <th>1</th>
-                        <th></th>
-                    </tr>
-
-
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Visitor I.D.</th>
-                        <th>Prisoner Name</th>
-                        <th>Date</th>
-                        <th>Number Of Visitors</th>
+                        <th>Status</th>
                         <th>Buttons</th>
                     </tr>
-                </tfoot>
-            </table>
+                    </thead>
 
-      <div class="col-lg-12 text-center">
-        <h3 class="section-heading text-uppercase">
-          APPROVED REQUESTS
-        </h3>
-      </div>
+                    <tbody>
+                    <tr>
+                        <th id="vId"> </th>
+                        <th id="nameP"> </th>
+                        <th id="date"> </th>
+                        <th id="numberOfVisitors"> </th>
+                        <th id="status"></th>
+                        <th><button type="submit" id="yes" onclick="accept('+idU+','+yes+')"> Accept</button>
+                        <button type="submit" id="no" onclick="accept('+idU+','+no+')"> Decline</button></th>
+                    </tr>
 
-          <table id="approved" class="table table-striped table-bordered" style="width:100%">
-                <thead>
+                    </tbody>
+                </table>
+                <div id="view_id"></div>
+
+                <div class="col-lg-12 text-center">
+                    <h3 class="section-heading text-uppercase">APPROVED REQUESTS</h3>
+                </div>
+            </div>
+
+            <div class="container">
+                <table id="approved" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
                     <tr>
                         <th>Prisoner Name</th>
                         <th>Date</th>
                         <th>Number Of Visitors</th>
                         <th>Status</th>
                         <th>Buttons</th>
-
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+
+                    <tbody>
                     <tr>
                         <th>Jerry Tom</th>
                         <th>Fri, 20 Apr 2018</th>
@@ -122,26 +194,12 @@
                         <th>APPROVED</th>
                         <th></th>
                     </tr>
-
-
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Prisoner Name</th>
-                        <th>Date</th>
-                        <th>Number Of Visitors</th>
-                        <th>Status</th>
-                        <th>Buttons</th>
-                    </tr>
-                </tfoot>
-            </table>
-
-      </div>
-
-    </section>
-
-
-
+                    </tbody>
+                </table>
+                <div id="view_id2"></div>
+            </div>
+        </section>
+    </div>
 
     <!-- Bootstrap core JavaScript -->
     <script src="../static/vendor/jquery/jquery.min.js"></script>
@@ -152,7 +210,7 @@
 
     <!-- Custom scripts for this template -->
     <script src="../static/js/resume.min.js"></script>
-    </div>
-  </body>
-  </section>
+
+</section>
+</body>
 </html>
