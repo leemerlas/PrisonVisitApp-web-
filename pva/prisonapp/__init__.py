@@ -22,7 +22,7 @@ app.secret_key = os.urandom(24)
 
 db = SQLAlchemy(app)
 
-import prisonapp.api
+import prisonapp.server
 
 def createDB():
     engine = sqlalchemy.create_engine('postgresql+psycopg2://postgres:1234@localhost') #connects to server

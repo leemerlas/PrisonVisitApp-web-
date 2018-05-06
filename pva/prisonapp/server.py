@@ -7,11 +7,8 @@ import os
 
 server = Flask(__name__)
 
-@server.route('/')
-def landing():
-    return render_template("landing.html")
 
-@server.route('/login', methods=['GET','POST'])
+@server.route('/', methods=['GET','POST'])
 def login():
     if request.method=='POST':
 
@@ -38,12 +35,12 @@ def login():
 @server.route('/logout')
 def logout():
     if session['user'] is None:
-        return render_template('landing.html')
+        return redirect(url_for('login'))
     else:
         session.pop('user')
         session.pop('fname')
         session.pop('role')
-        return render_template('landing.html')
+        return redirect(url_for('login'))
 
 
 
@@ -109,7 +106,7 @@ def view_visitor_admin():
         flash('You are not logged in! Please log in below!')
         return render_template('login.html')
 
-
+@server.route('/clerk/manage_requests')
 def clerk_managerequest():
     if 'user' in session and session['role'] == '1':
         return render_template('visitrequest_clerk.html')
