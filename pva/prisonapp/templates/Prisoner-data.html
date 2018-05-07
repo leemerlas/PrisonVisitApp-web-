@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>BJMP | Prisoner Data</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../static/vendor/devicons/css/devicons.min.css" rel="stylesheet">
+    <link href="../static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/resume.min.css" rel="stylesheet">
+      <style type="text/css">
+          #table{
+            height: 700px;
+            width: 100%;
+            color: black;
+            background-color: #FCEC5F;
+            border-radius: 1%;
+            padding: 20px;
+            
+        }
+          .dataTables_wrapper{
+              font-family: 'Saira Extra Condensed', serif;
+                  font-weight: 700;
+                text-transform: uppercase;
+                  color: #343a40;
+              height: 500px;
+          }
+          
+          td{
+                font-family: 'Saira Extra Condensed', serif;
+                  font-weight: 700;
+                text-transform: uppercase;
+                  color: #343a40;
+
+          }
+          .table .thead-dark th{
+               font-family: 'Saira Extra Condensed', serif;
+                  font-weight: bolder;
+                text-transform: uppercase;
+                  color: black;
+          }
+          
+          .container{
+              height: auto;
+          }
+          .modal-color{
+              background-color: #343a40;
+          }
+          .btn-add{
+              margin-bottom: 5px;
+            position: relative;
+              left: 820px;
+          }
+         
+          
+      </style>
+
+  </head>
+<body>
+  <section id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">
+        <span class="d-block d-lg-none">BJMP</span>
+        <span class="d-none d-lg-block">
+          <img class="img-responsive center-block" src="../static/img/mob.jpg" alt="">
+        </span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#visitor" style="color: black">Prisoner Data</a>
+          </li>
+
+        </ul>
+      </div>
+    </nav>
+
+
+    <div class="container-fluid p-0">
+
+
+
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="visitor">
+      
+      <div class="container">
+          
+        <div class="container row">
+      <div class=" col-lg-12 text-center" style="position: relative">
+        <h2 class="section-heading text-uppercase" style="color: #fcec5f">
+          PRISONER DATA
+        </h2>
+         </div> 
+          <a href="" class=" btn-add btn btn-primary"> <i class="fa  fa-address-book fa-2x"></i><h6 class="text-uppercase">ADD PRISONER</h6></a>
+      
+</div>
+          <div id="table">
+      <table id="myTable" class="table table-hover">
+<thead class="thead-dark">
+  <tr>
+    <th scope="col">Visitor I.D.</th>
+    <th scope="col">First Name</th>
+    <th scope="col">Middle Name</th>
+    <th scope="col">Last Name</th>
+    <th scope="col">Age</th>
+    <th scope="col">Date of Birth</th>
+    <th scope="col">Edit Info</th>
+    
+
+  </tr>
+</thead>
+
+<tbody>
+    <tr>
+  <td>10012121</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td><a href="#"  data-toggle="modal" data-target="#exampleModal" data-row-val="10012121" class="edit-data"><i class="fa  fa-edit fa-2x"></i></a></td>
+  
+  </tr>
+     <tr>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td ><a href="#"  data-toggle="modal" data-target="#exampleModal" data-row-val="lorem epsum" class="edit-data"><i class="fa  fa-edit fa-2x"></i></a></td>
+  
+  </tr>
+     <tr>
+  <td>1231211</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td ><a href="#"  data-toggle="modal" data-target="#exampleModal" data-row-val="1231211" class="edit-data"><i class="fa  fa-edit fa-2x"></i></a></td>
+  
+  </tr>
+     <tr>
+  <td>1299121</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td>Lorem epsum</td>
+  <td ><a href="#"  data-toggle="modal" data-target="#exampleModal" data-row-val="1299121" class="edit-data"><i class="fa  fa-edit fa-2x"></i></a></td>
+  
+  </tr>
+   
+     
+  {%for row in rows%}
+  <tr>
+  <td>{{row[0]}}</td>
+  <td>{{row[1]}}</td>
+  <td>{{row[2]}}</td>
+  <td>{{row[3]}}</td>
+  <td>{{row[4]}}</td>
+  <td>{{row[5]}}</td>
+  <td ><a href="#"  data-toggle="modal" data-target="#exampleModal" class="edit-data"  data-row-val="{{row[0]}}"><i class="fa  fa-edit fa-2x"></i></a></td>
+  </tr>
+  {% endfor %}
+
+</tbody>
+</table>
+
+
+
+
+</div>
+
+        </div>
+    </section>
+
+      </div>
+    </section>
+    
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-color">
+         
+                  <input type="text" readonly class="form-control-plaintext section-subheading text-primary" id="pid" value="">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body modal-color">
+             
+              <div class="row">
+                <div class="col">
+                    
+                  <div class="form-group">
+                    <label class="section-subheading text-primary"><i class="fa fa-user"> </i> First Name</label>
+                    <p><input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname"></p>
+                  </div>
+                  <div class="form-group">
+                    <label class="section-subheading text-primary"><i class="fa fa-user"></i> Middle Name</label>
+                    <p><input type="text" class="form-control"id="mname" placeholder="Enter Middle Name" name="mname"></p>
+                  </div>
+                  <div class="form-group">
+                    <label class="section-subheading text-primary"><i class="fa fa-user"></i> Last Name</label>
+                    <p><input type="text" class="form-control" id="lname" placeholder="Enter Last name" name="lname"></p>
+
+                  </div>
+
+                  <div class="form-group">
+
+                    <label class="section-subheading text-primary"><i class="fa fa-user"></i> Birth Date</label>
+                    <p><input type="date" class="form-control" id="bdate" placeholder="Enter Birth Date" name="bdate"></p>
+
+                  </div>
+                </div>
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+    </div>
+    
+    
+    <!-- Bootstrap core JavaScript -->
+    <script src="../static/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="../static/js/resume.min.js"></script>
+        <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+
+  
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+        $('#myTable').dataTable();
+        
+        $('.edit-data').click(function(){
+            var val1 = $(this).attr('data-row-val');
+            $('.modal-header #pid').val(val1);
+            
+        })
+
+    
+    })
+
+
+  </script>
+  </body>
+</html>
