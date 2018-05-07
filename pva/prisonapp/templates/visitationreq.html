@@ -49,7 +49,6 @@
 
 
                             if (resp.entries[i].status === 'PENDING') {
-{#                                $("#view_id").append(showRes(vId, nameP, date, numberOfVisitors ,status, idU));#}
                                 document.getElementById("vId").innerHTML = vId;
                                 document.getElementById("nameP").innerHTML = nameP;
                                 document.getElementById("date").innerHTML = date;
@@ -61,7 +60,10 @@
                         $("#view_id").html("");
                         alert('No Data')
                     } $( "#yes" ).click(function() {
-                            alert( accept() );
+                            alert( accept(idU,yes) );
+                        });
+                     $( "#no" ).click(function() {
+                            alert( accept(idU,no) );
                         });
                 }
             });
@@ -161,8 +163,8 @@
                         <th id="date"> </th>
                         <th id="numberOfVisitors"> </th>
                         <th id="status"></th>
-                        <th><button type="submit" id="yes" onclick="accept('+idU+','+yes+')"> Accept</button>
-                        <button type="submit" id="no" onclick="accept('+idU+','+no+')"> Decline</button></th>
+                        <th><button type="submit" id="yes"> Accept</button>
+                        <button type="submit" id="no"> Decline</button></th>
                     </tr>
 
                     </tbody>
