@@ -10,7 +10,7 @@ from datetime import date
 
 
 app = Flask(__name__)
-server = Flask(__name__)
+
 
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:1234@localhost/prisonapp'
@@ -22,7 +22,9 @@ app.secret_key = os.urandom(24)
 
 db = SQLAlchemy(app)
 
-import prisonapp.server
+import prisonapp.api
+
+
 
 def createDB():
     engine = sqlalchemy.create_engine('postgresql+psycopg2://postgres:1234@localhost') #connects to server
