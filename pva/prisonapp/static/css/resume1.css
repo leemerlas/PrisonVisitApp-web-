@@ -1,0 +1,143 @@
+body {
+  font-family: 'Open Sans', serif;
+}
+
+
+html {
+  background: url("../img/jail4.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  height: 100%;
+  overflow: hidden;
+  background-size: cover;
+}
+
+.logo {
+  position: absolute;
+    top: 150px;
+    left: 515px;
+}
+.btn1{
+  position: absolute;
+    width: 15%;
+    border-radius: 8px;
+    padding: 10px 10px;
+    top: 360px;
+    left: 400px;
+    background-color: #fcec5f; 
+    border: black;
+    color: black;
+
+}
+.btn2{
+  position: absolute;
+    width: 15%;
+    top: 430px;
+    left: 400px;
+    background-color: #fcec5f; 
+    padding: 10px 10px;
+    border: black;
+    color: black;
+    border-radius: 8px
+   
+
+}
+.btn3{
+  position: absolute;
+    width: 15%;  
+    top: 360px;
+    left: 750px;
+    background-color: #fcec5f; 
+    padding: 10px 10px;
+    border: black;
+    color: black;
+    border-radius: 8px
+
+
+}
+.btn4{
+  position: absolute;
+    width: 15%;  
+    top: 430px;
+    left: 750px;
+    background-color: #fcec5f; 
+    padding: 10px 10px;
+    border: black;
+    color: black;
+    border-radius: 8px
+    
+
+}
+.btn5{
+  position: absolute;
+    width: 15%;  
+    top: 500px;
+    left: 570px;
+    background-color: #fcec5f; 
+    padding: 10px 10px;
+    border: black;
+    color: black;
+    border-radius: 8px
+    
+
+}
+
+.btn6{
+  position: absolute;
+
+    width: 8%;  
+    top: 5px;
+    left: 90%;
+    background-color: transparent; 
+    padding: 10px 10px;
+    border: black;
+    color: #fcec5f;
+    border-radius: 8px
+    
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Saira Extra Condensed', serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #343a40;
+}
+
+h1 {
+  font-size: 6rem;
+  line-height: 5.5rem;
+}
+
+h2 {
+  font-size: 3.5rem;
+}
+
+
+
+
+
+.bg-primary {
+
+  background-color: #BD5D38 !important;
+}
+
+.text-primary {
+  color: #BD5D38 !important;
+}
+
+a {
+  color: #BD5D38;
+}
+
+a:hover, a:focus, a:active {
+  color: #824027;
+}
+
+
