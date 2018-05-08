@@ -3,14 +3,10 @@
 
   <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>BJMP | Add Clerk</title>
 
-    <!-- Bootstrap core CSS -->
+    <title>BJMP | Visitation Requests</title>
+
     <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
@@ -21,18 +17,83 @@
     <link href="../static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="../static/css/resume.css" rel="stylesheet">
     <link href="../static/css/resume.min.css" rel="stylesheet">
+           <style type="text/css">
+          #table{
 
+            color: black;
+            background-color: #FCEC5F;
+            border-radius: 1%;
+            padding: 20px;
+
+        }
+          #table1{
+
+            color: black;
+            background-color: #FCEC5F;
+            border-radius: 1%;
+            padding: 20px;
+
+        }
+
+          .dataTables_wrapper{
+              font-family: 'Saira Extra Condensed', serif;
+                  font-weight: 700;
+                text-transform: uppercase;
+                  color: #343a40;
+               font-size: 15px;
+
+
+          }
+
+          th{
+                font-family: 'Saira Extra Condensed', serif;
+                  font-weight: 700;
+                text-transform: uppercase;
+                  color: #343a40;
+                  font-size: 15px;
+              width: 100px;
+
+          }
+          .table .thead-dark th{
+               font-family: 'Saira Extra Condensed', serif;
+                  font-weight: bolder;
+                text-transform: uppercase;
+                  color: black;
+          }
+
+          .table1 .thead-dark th{
+               font-family: 'Saira Extra Condensed', serif;
+                  font-weight: bolder;
+                text-transform: uppercase;
+                  color: black;
+          }
+
+          .table1 .thead-dark th{
+               font-family: 'Saira Extra Condensed', serif;
+                  font-weight: bolder;
+                text-transform: uppercase;
+                  color: black;
+          }
+
+
+          .container{
+              height: auto;
+          }
+
+          .container1{
+              height: auto;
+          }
+</style>
   </head>
-
+<body>
   <section id="page-top">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
       <a class="navbar-brand js-scroll-trigger" href="#page-top">
         <span class="d-block d-lg-none">BJMP</span>
         <span class="d-none d-lg-block">
-          <img class="img-responsive center-block" src="../static/img/bjmp2.jpg" alt="">
+          <img class="img-responsive center-block" src="../static/img/mob.jpg" alt="">
         </span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,9 +106,21 @@
         <ul class="navbar-nav">
 
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#visitor">Manage Visitation Requests</a>
+            <a class="nav-link js-scroll-trigger" href="add unregistered visitor.html" style="color: black">ADD UNREGISTERED VISITOR</a>
           </li>
-
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="record-visit.html" style="color: black">RECORD A VISITATION</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="prisoner data.html" style="color: black">VIEW PRISONER DATA</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="visitordata.html" style="color: black;">VISITOR DATA</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="visitationreq.html" style="color: #fcec5f; background-color: black;">MANAGE VISIT REQUESTS</a>
+          </li>
+          <button type="button" class="btn btn-link" style="color:black" onclick="parent.location='clerk-homepage.html'">Go Back</button>
         </ul>
       </div>
     </nav>
@@ -58,90 +131,85 @@
 
 
     <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="visitor">
-      <div class="col-lg-12 text-center">
-        <h3 class="section-heading text-uppercase">
-          Visitation Requests
-        </h3>
-      </div>
+
       <div class="container">
-          <table id="all" class="table table-striped table-bordered" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Visitor I.D.</th>
-                        <th>Prisoner Name</th>
-                        <th>Date</th>
-                        <th>Number Of Visitors</th>
-                        <th>Buttons</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>123</th>
-                        <th>Jerry Tom</th>
-                        <th>Fri, 20 Apr 2018</th>
-                        <th>1</th>
-                        <th></th>
-                    </tr>
 
 
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Visitor I.D.</th>
-                        <th>Prisoner Name</th>
-                        <th>Date</th>
-                        <th>Number Of Visitors</th>
-                        <th>Buttons</th>
-                    </tr>
-                </tfoot>
-            </table>
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase" style="color: #fcec5f">
+              Visitation Requests
+            </h2>
+          </div>
 
-      <div class="col-lg-12 text-center">
-        <h3 class="section-heading text-uppercase">
-          APPROVED REQUESTS
-        </h3>
-      </div>
+              <div id="table" style="background-color: white">
+                  <table id="myTable" class="table table-hover">
+                            <thead style="padding: inherit;">
+                                <tr>
+                                    <th style="text-align: center;">Visitor I.D.</th>
+                                    <th style="text-align: center;">Prisoner Name</th>
+                                    <th style="text-align: center;">Date</th>
+                                    <th style="width: 84px; text-align: center;">No. Of Visitors</th>
+                                    <th style="width: 110px; text-align: center;">Confirm</th>
+                                    <th style="width: 110px; text-align: center;">Decline</th>
 
-          <table id="approved" class="table table-striped table-bordered" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Prisoner Name</th>
-                        <th>Date</th>
-                        <th>Number Of Visitors</th>
-                        <th>Status</th>
-                        <th>Buttons</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>Jerry Tom</th>
-                        <th>Fri, 20 Apr 2018</th>
-                        <th>1</th>
-                        <th>APPROVED</th>
-                        <th></th>
-                    </tr>
+                                </tr>
+                            </thead>
+                            <tbody style="text-align: center;">
+                                <tr>
+                                    <th>123</th>
+                                    <th>Jerry Tom</th>
+                                    <th>Fri, 20 Apr 2018</th>
+                                    <th>1</th>
+                                    <th><button class="btn btn-success" style="padding: 2px 5px"><span class="fa fa-check" style="text-align: center"></span></button></th>                       </th>
+                                    <th><button class="btn btn-danger btn-xs" style="padding: 2px 5px" ><span class="fa fa-remove"></span></button></th>
+                                </tr>
 
 
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Prisoner Name</th>
-                        <th>Date</th>
-                        <th>Number Of Visitors</th>
-                        <th>Status</th>
-                        <th>Buttons</th>
-                    </tr>
-                </tfoot>
-            </table>
+                            </tbody>
+                  </table>
+
+
+
+              </div>
 
       </div>
-
     </section>
 
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="visitor">
+
+      <div class="container1">
+
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase" style="color: #fcec5f">
+              Approved Requests
+            </h2>
+          </div>
+
+              <div id="table1" style="background-color: white">
+                  <table id="myTable1" class="table table-hover">
+                            <thead style="padding: inherit; text-align: center;">
+                        <tr>
+                            <th>Prisoner Name</th>
+                            <th>Date</th>
+                            <th>Number Of Visitors</th>
+                            <th>Status</th>
+
+                        </tr>
+                    </thead>
+                    <tbody style="text-align: center;">
+                        <tr>
+                            <th>Jerry Tom</th>
+                            <th>Fri, 20 Apr 2018</th>
+                            <th>1</th>
+                            <th>APPROVED</th>
+
+                        </tr>
 
 
+                    </tbody>
+                </table>
+
+    </div>
 
     <!-- Bootstrap core JavaScript -->
     <script src="../static/vendor/jquery/jquery.min.js"></script>
@@ -151,8 +219,23 @@
     <script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for this template -->
-    <script src="../static/js/resume.min.js"></script>
-    </div>
+    <script src="../static/js/resumee.min.js"></script>
+        <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+        $('#myTable').dataTable();
+
+
+    })
+    $(document).ready(function(){
+        $('#myTable1').dataTable();
+
+
+    })
+
+  </script>
   </body>
-  </section>
 </html>

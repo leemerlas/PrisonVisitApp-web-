@@ -83,6 +83,7 @@ h2 {
   #sideNav .navbar-brand .img-profile {
     max-width: 10rem;
     max-height: 10rem;
+
   }
   #sideNav .navbar-collapse {
     display: flex;
@@ -130,8 +131,7 @@ section.resume-section .resume-item .resume-date {
 }
 
 .bg-primary {
-
-  background-color: #BD5D38 !important;
+  background-color: #0c0c0c!important;
 }
 
 .text-primary {
@@ -145,38 +145,4 @@ a {
 a:hover, a:focus, a:active {
   color: #824027;
 }
-
-
-        #c2table{
-        margin: 0 auto;
-          height: 300px;
-          width: 1000px;
-          text-align:   center;
-                   
-        }
-        #c2box1{
-          margin: 0 auto; 
-        margin-top: 580px;
-        margin-bottom:  40px;
-        padding: 30px;
-        text-align: left;
-        background-color: #FEF1DE;
-        height: 400px;
-        width: 600px;
-        border-radius:5px 20%; 
-                box-shadow: 5px 5px 15px   gray;
-     
-      }
-      #c2table .mb-0{
-          color:  white;
-      }
-       #list{
-        text-align: left;
-        border-color: black;
-        box-shadow: 10px 10px 0  #BD5D38;
-        width: 1000px;
-        margin: 0 auto;
-        margin-top: 30px;
-        margin-bottom: 100px;
-      }
 
