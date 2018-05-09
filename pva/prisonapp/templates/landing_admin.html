@@ -6,7 +6,15 @@
     <link type="text/css" rel="stylesheet" href="../static/bootstrap.min.css">
 </head>
 <body>
-<h1>Admin landing page</h1>
+    <h1>Admin landing page</h1>
+
+    <a id="addp" href="{{ url_for('add_prisoner') }}">add prisoner</a><br>
+    <a id="adminviewp" href="{{ url_for('adminview_prisoner') }}">view prisoners</a><br>
+
+    <a id="addc" href="{{ url_for('add_clerk') }}">add clerks</a><br>
+  <a id="view" href="{{ url_for('admin_visitlogs') }}">visit logs</a><br>
+    <a id="logout" href="{{ url_for('logout') }}">log out here</a>
+
 
 </body>
 </html>

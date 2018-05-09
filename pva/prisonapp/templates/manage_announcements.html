@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="jquery-3.3.1.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<script src="functions.js"></script>
+
+</head>
+<body>
+
+
+
+        <input type="text" id="aid" placeholder="Announcement ID" required>
+         <input type="text" id="title" placeholder="title" required>
+        <input type="text" id="announcement" placeholder="Announcement" required>
+        <button type="Submit" onclick="announcements();">Submit</button>
+
+
+
+
+
+</body>
+</html>
+
+<script>
+
+
+    function announcements() {
+    $.ajax(
+        {
+            url: "http://127.0.0.1:5000/announcements/",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                'aid': $("#aid").val(),
+                'title': $("#title").val(),
+                'announcement': $("#announcement").val(),
+                'date': $("#date").val(),
+            }),
+            method: "POST",
+            dataType: "json",
+            crossDomain: true,
+
+            success: function (resp) {
+               // alert(resp.status);
+                console.log("success");
+
+                window.location.replace('success.html');
+            },
+
+            error: function (resp) {
+                //window.location.replace('404.html');
+                alert("Oops! Something went wrong.");
+
+            }
+
+
+        }
+    );
+
+}
+
+
+
+</script>
