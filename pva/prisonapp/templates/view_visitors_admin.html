@@ -1,23 +1,31 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="../static/jquery-3.3.1.min.js"></script>
-    <script>
+    <!--<title>Title</title>-->
+    <!--<script src="../static/jquery-3.3.1.min.js"></script>-->
 
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
+
+<script>
 var tokens = localStorage.getItem('token');
 $(document).ready(
 function viewAll(){
     table();
     viewVis();
     showRes();
+
+
  })
+
+
 
 function viewVis(){
 
-    $("#view_id").show(); //Id ni siya na gamiton sa html
+    $("#view_id2").show(); //Id ni siya na gamiton sa html
+
 
 $.ajax({
           url: 'http://127.0.0.1:5000/api/clerk/visitor_data',
@@ -39,7 +47,10 @@ $.ajax({
                               address = resp.entries[i].address;
                               birthday = resp.entries[i].birthday;
                               status = resp.entries[i].status;
+                              idU = resp.entries[i].id;
+                              if (resp.entries[i].status === true) {
                               $("#view_id").append(showRes(firstname,middlename,lastname,age,contact,address,birthday,status));
+                              }
                                                 }
             } else {
                 $("#view_id").html("");
@@ -49,8 +60,12 @@ $.ajax({
       });
                     }
 
+var yes = "yes";
+var no = "no";
 function showRes(firstname,middlename,lastname,age,contact,address,birthday,status)
 {
+
+
    return '<div class="widget-content">'+
             '<table class="table table-striped table-bordered" id="view_res">'+
                 '<tbody><tr class="edit" id="details">'+
@@ -62,10 +77,12 @@ function showRes(firstname,middlename,lastname,age,contact,address,birthday,stat
                     '<td>'+ address +'</td>'+
                     '<td>'+ birthday +'</td>'+
                     '<td>'+ status +'</td>'+
+                    //'<td>'+ '<button type="Submit" onclick={accept(idU,"yes")}> Accept</button>'+'<button type="Submit" onclick={accept(idU,"no")}>Decline</button>'+'</td>'+
                 '</tr></tbody>' +
             '</table>' +
        '</div>'
 }
+
 
 
 function table()
@@ -81,6 +98,8 @@ function table()
             '<th>Account Status</th>' +
             '</tr></thead>')
 }
+
+
 </script>
 </head>
 <body>
@@ -93,7 +112,6 @@ function table()
             <div class="widget stacked widget-table action-table">
                 <div class="widget-content">
                     <table class="table table-striped table-bordered">
-                    <!--<table class="stripe">-->
 
                     </table>
                 </div>
@@ -102,6 +120,3 @@ function table()
         <!--</div>-->
     </div>
 </div>
-</body>
-</html>
-

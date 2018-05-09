@@ -23,7 +23,6 @@ app.secret_key = os.urandom(24)
 db = SQLAlchemy(app)
 
 import prisonapp.server
-#import prisonapp.api
 
 
 def createDB():

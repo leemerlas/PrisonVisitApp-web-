@@ -17,7 +17,9 @@
         $(document).ready(function () {
             $('#target').submit(function () {
                 var username = $("#username").val();
-                var password = $("#password").val();
+
+                var password = document.getElementById("password").innerHTML;
+
                 var firstname = $("#fname").val();
                 var middlename = $("#mname").val();
                 var lastname = $("#lname").val();
@@ -73,6 +75,20 @@
                 var age = theBday.innerHTML = Q4A;
             }
     </script>
+
+        <script>
+            function myFunction(){
+                var x = document.getElementById("myInput").value;
+                var text = "";
+                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                for(var i = 0; i < 8; i++)
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+                document.getElementById("password").innerHTML = text;
+            }
+        </script>
+
     </head>
 <body>
 
@@ -83,10 +99,15 @@
 	<form style="margin: 0 auto; width:400px;" id="target">
   		<div class="form-group">
 			<label><i class="fa fa-user-circle"></i> Username</label>
-    		<p><input type="text" class="form-control" id="username" placeholder="Enter username"></p>
 
-    		<label><i class="fa fa-lock"></i> Password</label>
+    		<p><input type="text" class="form-control" id="username" placeholder="Enter username" oninput="myFunction()"></p>
+
+    		<!--<label><i class="fa fa-lock"></i> Password</label>
     		<p><input type="password" class="form-control" id="password" placeholder="Enter password"></p>
+-->			<label><i class="fa fa-user-circle"></i> Password</label>
+            <input type="hidden" id="myInput" placeholder="">
+			<p id="password"></p>
+
 
   			<label><i class="fa fa-user"></i> First Name</label>
     		<p><input type="text" class="form-control" id="fname" placeholder="Enter first name"></p>

@@ -11,6 +11,7 @@ server = Flask(__name__)
 def landing():
     return render_template("landing.html")
 
+
 @server.route('/login', methods=['GET','POST'])
 def login():
     if request.method=='POST':
@@ -32,8 +33,8 @@ def login():
                     return redirect(url_for('landing_clerk'))
                 elif session['role'] == '0':
                     return redirect(url_for('landing_admin'))
-
-    return render_template("login.html")
+                  
+    return render_template("login-final.html")
 
 @server.route('/logout')
 def logout():
@@ -43,7 +44,8 @@ def logout():
         session.pop('user')
         session.pop('fname')
         session.pop('role')
-        return render_template('landing.html')
+        return redirect(url_for('login'))
+
 
 
 
@@ -57,7 +59,8 @@ def landing_visitor():
         return render_template("landing_visitor.html")
     else:
         flash('You are not logged in! Please log in below!')
-        return render_template('login.html')
+        return render_template('login-final.html')
+
 
 
 @server.route('/visitor/comments')
@@ -74,7 +77,9 @@ def schedule_visit():
         return render_template('schedule_visitor.html')
     else:
         flash('You are not logged in! Please log in below!')
-        return render_template('login.html')
+
+        return render_template('login-final.html')
+
 
 @server.route('/clerk/landing')
 def landing_clerk():
@@ -82,7 +87,9 @@ def landing_clerk():
         return render_template('landing_clerk.html')
     else:
         flash('You are not logged in! Please log in below!')
-        return render_template('login.html')
+
+        return render_template('login-final.html')
+
 
 @server.route('/admin/landing')
 def landing_admin():
@@ -110,21 +117,49 @@ def view_prisoner():
         return render_template('login.html')
 
 
+
+@server.route('/clerk/manage_requests')
+def clerk_managerequest():
+    if 'user' in session and session['role'] == '1':
+        return render_template('visitrequest_clerk.html')
+    else:
+        flash('Error!')
+        return render_template('login-final.html')
+
+@server.route('/admin/visit_logs')
+def admin_visitlogs():
+    if 'user' in session and session['role'] == '0':
+        return render_template('visit_logs.html')
+    else:
+        flash('Error!')
+        return render_template('landing_admin.html')
+
+@server.route('/clerk/view_prisoners')
+def view_prisoner():
+    if 'user' in session and session['role'] == '1':
+        return render_template('view_prisoners.html')
+    else:
+        flash('You are not logged in! Please log in below!')
+        return render_template('login-final.html')
+
+
+
+@server.route('/admin/add_clerk')
+def add_clerk():
+    if 'user' in session and session['role'] == '0':
+        return render_template('addclerk.html')
+    else:
+        flash('You are not logged in! Please log in below!')
+        return render_template('login-final.html')
+
 @server.route('/admin/add_prisoner')
 def add_prisoner():
     if 'user' in session and session['role'] == '0':
         return render_template('addprisoner.html')
     else:
         flash('You are not logged in! Please log in below!')
-        return render_template('login.html')
+        return render_template('login-final.html')
 
-@server.route('/admin/view_prisoners')
-def adminview_prisoner():
-    if 'user' in session and session['role'] == '0':
-        return render_template('adminview_prisoners.html')
-    else:
-        flash('You are not logged in! Please log in below!')
-        return render_template('login.html')
 
 CORS(server)
 server.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1234@localhost/prisonapp'
