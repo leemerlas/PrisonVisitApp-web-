@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
 
-
     <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
           id="bootstrap-css">
     <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
@@ -47,7 +46,7 @@
         var tokens = localStorage.getItem('token');
 
         $.ajax({
-            url: 'http://127.0.0.1:5000/api/clerk/prisoner_data',
+            url: 'http://127.0.0.1:5000/api/admin/prisoner_data',
             type: "GET",
             dataType: "json",
             crossDomain: true,
@@ -76,7 +75,7 @@
     <div class="row">
         <div class="widget stacked widget-table action-table">
             <div class="widget-content">
-                <h1>Clerk | Prisoner Data</h1>
+                <h1>Admin | Prisoner Data</h1>
                 <table id="maintable">
 
                 </table>
@@ -89,4 +88,3 @@
 </body>
 
 </html>
-
