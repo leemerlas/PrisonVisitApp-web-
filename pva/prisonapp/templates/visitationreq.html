@@ -1,158 +1,328 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
 
-  <head>
+    <title>BJMP | Manage Visitation Requests</title>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>BJMP | Add Clerk</title>
-
-    <!-- Bootstrap core CSS -->
     <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link href="../static/css/sairaextracondensed.css" rel="stylesheet">
+    <link href="../static/css/opensans.css" rel="stylesheet">
     <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="../static/vendor/devicons/css/devicons.min.css" rel="stylesheet">
     <link href="../static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="../static/css/resume.css" rel="stylesheet">
-    <link href="../static/css/resume.min.css" rel="stylesheet">
+    <script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
+    <link href="../static/jquery.dataTables.min.css" rel="stylesheet">
+    <script type="text/javascript" src="../static/jquery.dataTables.min.js"></script>
+</head>
 
-  </head>
-
-  <section id="page-top">
-
+<link href="../static/css/resume.min.css" rel="stylesheet">
+<style type="text/css">
+    #table{
+        color: black;
+        background-color: #FCEC5F;
+        border-radius: 1%;
+        padding: 20px;
+    }
+    #table1{
+        color: black;
+        background-color: #FCEC5F;
+        border-radius: 1%;
+        padding: 20px;
+    }
+    .dataTables_wrapper{
+        font-family: 'Saira Extra Condensed', serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #343a40;
+        font-size: 20px;
+    }
+    th{
+        font-family: 'Saira Extra Condensed', serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #343a40;
+        font-size: 20px;
+        width: 100px;
+    }
+    .table .thead-dark th{
+        font-family: 'Saira Extra Condensed', serif;
+        font-weight: bolder;
+        text-transform: uppercase;
+        color: black;
+    }
+    .table1 .thead-dark th{
+        font-family: 'Saira Extra Condensed', serif;
+        font-weight: bolder;
+        text-transform: uppercase;
+        color: black;
+    }
+    .table1 .thead-dark th{
+        font-family: 'Saira Extra Condensed', serif;
+        font-weight: bolder;
+        text-transform: uppercase;
+        color: black;
+    }
+    .container{
+        height: auto;
+    }
+    .container1{
+        height: auto;
+    }
+</style>
+<body>
+<section id="page-top">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <span class="d-block d-lg-none">BJMP</span>
-        <span class="d-none d-lg-block">
-          <img class="img-responsive center-block" src="../static/img/bjmp2.jpg" alt="">
-        </span>
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">
+            <span class="d-block d-lg-none">BJMP</span>
+            <span class="d-none d-lg-block">
+                <img class="img-responsive center-block" src="../static/img/mob.jpg" alt="">
+            </span>
+        </a>
 
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
-
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#visitor">Manage Visitation Requests</a>
-          </li>
-
-        </ul>
-      </div>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/clerk/record-visitation" style="color: black">RECORD A
+                        VISITATION</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/clerk/view_prisoners" style="color: black">VIEW PRISONER
+                        DATA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/clerk/view_visitors"
+                       style="color: black">VISITOR DATA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/clerk/manage_requests" style="color: #fcec5f; background-color: black;">MANAGE VISIT
+                        REQUESTS</a>
+                </li>
+                <button type="button" class="btn btn-link" style="color:black"
+                        onclick="parent.location='/clerk/landing'">Go Back
+                </button>
+            </ul>
+        </div>
     </nav>
 
-
     <div class="container-fluid p-0">
+        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="visitor1">
+            <div style="width: 100%">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase" style="color: #fcec5f">
+                        Manage Visitation Requests
+                    </h2>
+                </div>
 
+                <div id="table" style="background-color: white; border-radius: 10px;">
+                    <table id="maintable" class="table table-hover">
 
+                    </table>
+                </div>
+                <br>
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase" style="color: #fcec5f">
+                        Approved Requests
+                    </h2>
+                </div>
 
-    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="visitor">
-      <div class="col-lg-12 text-center">
-        <h3 class="section-heading text-uppercase">
-          Visitation Requests
-        </h3>
-      </div>
-      <div class="container">
-          <table id="all" class="table table-striped table-bordered" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Visitor I.D.</th>
-                        <th>Prisoner Name</th>
-                        <th>Date</th>
-                        <th>Number Of Visitors</th>
-                        <th>Buttons</th>
+                <div id="table1" style="background-color: white; border-radius: 10px;">
+                    <table id="verifiedtable" class="table table-hover">
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>123</th>
-                        <th>Jerry Tom</th>
-                        <th>Fri, 20 Apr 2018</th>
-                        <th>1</th>
-                        <th></th>
-                    </tr>
-
-
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Visitor I.D.</th>
-                        <th>Prisoner Name</th>
-                        <th>Date</th>
-                        <th>Number Of Visitors</th>
-                        <th>Buttons</th>
-                    </tr>
-                </tfoot>
-            </table>
-
-      <div class="col-lg-12 text-center">
-        <h3 class="section-heading text-uppercase">
-          APPROVED REQUESTS
-        </h3>
-      </div>
-
-          <table id="approved" class="table table-striped table-bordered" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Prisoner Name</th>
-                        <th>Date</th>
-                        <th>Number Of Visitors</th>
-                        <th>Status</th>
-                        <th>Buttons</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>Jerry Tom</th>
-                        <th>Fri, 20 Apr 2018</th>
-                        <th>1</th>
-                        <th>APPROVED</th>
-                        <th></th>
-                    </tr>
-
-
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Prisoner Name</th>
-                        <th>Date</th>
-                        <th>Number Of Visitors</th>
-                        <th>Status</th>
-                        <th>Buttons</th>
-                    </tr>
-                </tfoot>
-            </table>
-
-      </div>
-
-    </section>
-
-
-
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="../static/vendor/jquery/jquery.min.js"></script>
-    <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for this template -->
-    <script src="../static/js/resume.min.js"></script>
+                    </table>
+                </div>
+            </div>
+        </section>
     </div>
-  </body>
-  </section>
+</section>
+</body>
+
+<!-- Bootstrap core JavaScript -->
+<script src="../static/vendor/jquery/jquery.min.js"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="../static/js/resumee.min.js"></script>
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+
+<script>
+    var global1;
+    var global2;
+    var global3;
+    var myTable;
+
+    var dataset2 = [];
+    $(document).ready(function () {
+
+    var tokens = localStorage.getItem('token');
+
+    $.ajax({
+        url: 'http://127.0.0.1:5000/api/clerk/manage_requests',
+        type: "GET",
+        dataType: "json",
+        crossDomain: true,
+        headers: { 'x-access-token': tokens },
+        success: function(resp) {
+            if (resp.status  === 'ok') {
+                for ( var i = 0; i < resp.entries.length; i++) {
+                    var dataset1 = [];
+                    dataset1.push(resp.entries[i].vId.toString());
+                    dataset1.push(resp.entries[i].nameP);
+                    dataset1.push(resp.entries[i].date);
+                    dataset1.push(resp.entries[i].numberOfVisitors);
+                    dataset1.push(resp.entries[i].status);
+                    dataset1.push("<button class='btn btn-success' style='padding: 2px 5px' id='approve'><span class='fa fa-check' style='text-align: center'></span></button><button id='decline' class='btn btn-danger btn-xs' style='padding: 2px 5px'><span class='fa fa-remove'></span></button>");
+                    dataset1.push(resp.entries[i].id);
+                    dataset2.push(dataset1);
+                }
+
+                myTable =  $('#maintable').DataTable({
+                    data: dataset2,
+                    columns : [
+                        {title: "Visitor I.D."},
+                        {title: "Prisoner Name"},
+                        {title: "Date"},
+                        {title: "Number Of Visitors"},
+                        {title: "Status"},
+                        {title: "Actions"}
+                        ]
+                });
+            }
+        }
+    });
+
+    $('body').on('click', '#approve', function() {
+        var row  = $(this).parents('tr')[0];
+        data =  myTable.row(row).data();
+        global1 = data[0];
+        global3 = data[6];
+        approve(global1,global3);
+    });
+
+    $("body").on('click', '#decline', function () {
+        var row  = $(this).parents('tr')[0];
+        data =  myTable.row(row).data();
+        global2 = data[0];
+        global3 = data[6];
+        decline(global2,global3);
+    });
+    });
+
+    function approve (g,f) {
+        alert("You have approved the registration of user "+g);
+        var tokens = localStorage.getItem('token');
+        var public_id = localStorage.getItem('public_id');
+        var userid;
+        var vis_id;
+        var response = $("#response").val();
+        $.ajax({
+            url: "http://127.0.0.1:5000/api/clerk/schedule_accept",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                'public_id':public_id,
+                'vis_id':f,
+                'userid':g,
+                'response':'yes'
+            }),
+            method: "POST",
+            dataType: "json",
+            crossDomain: true,
+            headers: {
+                'x-access-token': tokens
+            },
+            success: function (resp) {
+                alert(resp.message);
+                window.location.href='/clerk/manage_requests'
+            },
+            error: function () {
+                alert('server error! click ok to reload!');
+                window.location.href='/clerk/landing'
+            }
+        })
+    }
+
+    function decline(g,f) {
+        alert("You have rejected the registration of user "+g);
+        var tokens = localStorage.getItem('token');
+        var public_id = localStorage.getItem('public_id');
+        var userid;
+        var vis_id;
+        var response = $("#response").val();
+
+        $.ajax({
+            url: "http://127.0.0.1:5000/api/clerk/schedule_accept",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                'public_id':public_id,
+                'vis_id':f,
+                'userid':g,
+                'response':'no'
+            }),
+
+            method: "POST",
+            dataType: "json",
+            crossDomain: true,
+            headers: {
+                'x-access-token': tokens
+            },
+            success: function (resp) {
+                alert(resp.message);
+                window.location.href='/clerk/manage_requests'
+            },
+            error: function () {
+                alert('server error! click ok to reload!');
+                window.location.href='/clerk/landing'
+            }
+        })
+    }
+</script>
+
+<script>
+    var myTable2;
+    var dataset3 = [];
+
+    $(document).ready(function () {
+        var tokens = localStorage.getItem('token');
+
+        $.ajax({
+            url: 'http://127.0.0.1:5000/api/clerk/manage_requests',
+            type: "GET",
+            dataType: "json",
+            crossDomain: true,
+            headers: { 'x-access-token': tokens },
+            success: function(resp) {
+                if (resp.status  === 'ok') {
+                    for ( var i = 0; i < resp.entries2.length; i++) {
+                        var dataset2 = [];
+                        dataset2.push(resp.entries2[i].vId.toString());
+                        dataset2.push(resp.entries2[i].nameP);
+                        dataset2.push(resp.entries2[i].date);
+                        dataset2.push(resp.entries2[i].numberOfVisitors);
+                        dataset2.push(resp.entries2[i].status.toString());
+                        dataset3.push(dataset2);
+                    }
+
+                    myTable2 =  $('#verifiedtable').DataTable({data: dataset3,
+                        columns : [
+                            {title: "Visitor I.D."},
+                            {title: "Prisoner Name"},
+                            {title: "Date"},
+                            {title: "Number Of Visitors"},
+                            {title: "Status"}
+                            ]
+                    });
+                }
+            }
+        });
+    });
+</script>
 </html>

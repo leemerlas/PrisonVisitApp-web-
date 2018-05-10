@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>BJMP | ClerkAddUnregisteredVisitor</title>
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/sairaextracondensed.css"
+          rel="stylesheet">
+    <link href="../static/css/opensans1.css"
+          rel="stylesheet">
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../static/vendor/devicons/css/devicons.min.css" rel="stylesheet">
+    <link href="../static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link href="../static/css/resume.min4.css" rel="stylesheet">
+    <script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
+
+    <script>
+     $(document).ready(function () {
+            $('#target').submit(function () {
+                var tokens = localStorage.getItem('token');
+            $.ajax({
+              url: "http://127.0.0.1:5000/api/clerk/visit_unregistered",
+              contentType: 'application/json; charset=utf-8',
+              data: JSON.stringify({
+                  'id': $("#id").val(),
+                  'firstname': $("#firstname").val(),
+                  'middlename': $("#middlename").val(),
+                  'lastname': $("#lastname").val(),
+                  'address': $("#address").val(),
+                  'contactno': $("#contactno").val(),
+                  'relationship': $("#relation").val(),
+                  'prisonername': $("#prisonername").val(),
+                    }),
+                    method: "POST",
+                    dataType: "json",
+                    crossDomain: true,
+                    headers: {
+                        'x-access-token': tokens
+                    },
+                    success: function (resp) {
+                    // alert(resp.status);
+                     console.log("success");
+                    },
+                    error: function () {
+                    alert("Oops! Something went wrong.");
+                    }
+                })
+            })
+        })
+
+
+    </script>
+
+</head>
+
+<section id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">
+            <span class="d-block d-lg-none">BJMP</span>
+            <span class="d-none d-lg-block">
+          <img class="img-responsive center-block" src="../static/img/mob.jpg" alt="">
+        </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/clerk/record-visitation"
+                       style="color: #fcec5f; background-color: black;">RECORD A VISITATION</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/clerk/view_prisoners" style="color: black">VIEW
+                        PRISONER DATA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/clerk/view_visitors" style="color: black;">VISITOR
+                        DATA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/clerk/manage_requests" style="color: black;">MANAGE VISIT
+                        REQUESTS</a>
+                </li>
+                <button type="button" class="btn btn-link" style="color:black" onclick="parent.location='/clerk/landing'">Go Back</button>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-0">
+
+
+        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="clerk">
+
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading text-uppercase" style="color: #fcec5f">
+                    Walk-In Visitation
+                </h2>
+            </div>
+
+            <div class="container">
+                <form role="form" id="target">
+
+                    <div class="form-group" style=" padding: 0px 200px;">
+                        <label class="section-subheading text-primary"><i class="fa fa-user"></i> First Name</label>
+                        <p><input type="text" class="form-control" id="firstname" placeholder=""></p>
+                    </div>
+
+                    <div class="form-group" style=" padding: 0px 200px;">
+                        <label class="section-subheading text-primary"><i class="fa fa-user"></i> Middle Name</label>
+                        <p><input type="text" class="form-control" id="middlename" placeholder=""></p>
+                    </div>
+
+                    <div class="form-group" style=" padding: 0px 200px;">
+                        <label class="section-subheading text-primary"><i class="fa fa-user"></i> Last Name</label>
+                        <p><input type="text" class="form-control" id="lastname" placeholder=""></p>
+                    </div>
+
+                    <div class="form-group" style=" padding: 0px 200px;">
+                        <label class="section-subheading text-primary"><i class="fa fa-address-card"></i>
+                            Address</label>
+                        <p><input type="text" class="form-control" id="address" placeholder=""></p>
+                    </div>
+
+                    <div class="form-group" style=" padding: 0px 200px;">
+                        <label class="section-subheading text-primary"><i class="fa fa-address-card"></i> Contact
+                            No.</label>
+                        <p><input type="text" class="form-control" id="contactno" placeholder=""></p>
+                    </div>
+
+                    <div class="form-group" style=" padding: 0px 200px;">
+                        <label class="section-subheading text-primary"><i class="fa fa-address-card"></i> Relationship
+                            to Inmate</label>
+                        <p>
+                            <select class="form-control" id="relation" required>
+                                <option value="" selected disabled hidden>Choose here</option>
+                                <option value="Spouse">Spouse</option>
+                                <option value="Parent">Parent</option>
+                                <option value="Child">Child</option>
+                                <option value="Sibling">Sibling</option>
+                                <option value="Relative">Relative</option>
+                                <option value="Friend">Friend</option>
+                            </select>
+                        </p>
+                    </div>
+
+                    <div class="form-group" style=" padding: 0px 200px;">
+                        <label class="section-subheading text-primary"><i class="fa fa-address-card"></i> Prisoner Name</label>
+                        <p><input type="text" class="form-control" id="prisonername" placeholder=""></p>
+                    </div>
+
+
+                    <center>
+                        <button type="Add" class="btn btn-primary btn-md">
+                            Add
+                        </button>
+                    </center>
+
+
+                </form>
+            </div>
+        </section>
+
+
+        <script src="../static/vendor/jquery/jquery.min.js"></script>
+        <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="../static/js/resume.min4.js"></script>
+    </div>
+    </body>
+</section>
+</html>

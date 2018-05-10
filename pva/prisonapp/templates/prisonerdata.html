@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+
+    <title>BJMP | Prisoner Data</title>
+
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="../static/css/sairaextracondensed.css" rel="stylesheet">
+    <link href="../static/css/opensans.css" rel="stylesheet">
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../static/vendor/devicons/css/devicons.min.css" rel="stylesheet">
+    <link href="../static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
+    <link href="../static/jquery.dataTables.min.css" rel="stylesheet">
+    <script type="text/javascript" src="../static/jquery.dataTables.min.js"></script>
+
+
+</head>
+<link href="../static/css/resume.min.css" rel="stylesheet">
+<style type="text/css">
+          #table{
+
+            color: black;
+            background-color: #FCEC5F;
+            border-radius: 1%;
+            padding: 20px;
+            font-size: 20px;
+
+        }
+          #table1{
+
+            color: black;
+            background-color: #FCEC5F;
+            border-radius: 1%;
+            padding: 20px;
+            font-size: 20px;
+
+        }
+
+          .dataTables_wrapper{
+              font-family: 'Saira Extra Condensed', serif;
+                  font-weight: 700;
+                text-transform: uppercase;
+                  color: #343a40;
+               font-size: 20px;
+
+
+          }
+
+          th{
+                font-family: 'Saira Extra Condensed', serif;
+                  font-weight: 700;
+                text-transform: uppercase;
+                  color: #343a40;
+                  font-size: 20px;
+                 width: 100px;
+
+          }
+          .table .thead-dark th{
+               font-family: 'Saira Extra Condensed', serif;
+                  font-weight: bolder;
+                text-transform: uppercase;
+                  color: black;
+          }
+
+          .table1 .thead-dark th{
+               font-family: 'Saira Extra Condensed', serif;
+                  font-weight: bolder;
+                text-transform: uppercase;
+                  color: black;
+          }
+
+          .table1 .thead-dark th{
+               font-family: 'Saira Extra Condensed', serif;
+                  font-weight: bolder;
+                text-transform: uppercase;
+                  color: black;
+          }
+
+
+          .container{
+              height: auto;
+          }
+
+          .container1{
+              height: auto;
+          }
+
+
+
+</style>
+<body>
+<section id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">
+            <span class="d-block d-lg-none">BJMP</span>
+            <span class="d-none d-lg-block">
+          <img class="img-responsive center-block" src="../static/img/mob.jpg" alt="">
+        </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/clerk/record-visitation" style="color: black">RECORD A
+                        VISITATION</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/clerk/view_prisoners" style="color: #fcec5f; background-color: black;">VIEW PRISONER
+                        DATA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/clerk/view_visitors" style="color: black">VISITOR DATA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/clerk/manage_requests" style="color: black">MANAGE VISIT
+                        REQUESTS</a>
+                </li>
+                <button type="button" class="btn btn-link" style="color:black"
+                        onclick="parent.location='/clerk/landing'">Go Back
+                </button>
+
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="container-fluid p-0">
+
+
+        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="visitor1">
+
+            <div style="width: 100%">
+
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase" style="color: #fcec5f">
+                        Prisoner Data
+                    </h2>
+                </div>
+
+                <div id="table" style="background-color: white; border-radius: 10px;">
+                    <table id="maintable" class="table table-hover">
+
+                    </table>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</section>
+</body>
+<!-- Bootstrap core JavaScript -->
+<script src="../static/vendor/jquery/jquery.min.js"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="../static/js/resumee.min.js"></script>
+<script type="text/javascript"
+        src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+
+
+
+<script>
+    var myTable2;
+    var dataset3 = [];
+    $(document).ready(function () {
+
+        var tokens = localStorage.getItem('token');
+
+
+        $.ajax({
+            url: 'http://127.0.0.1:5000/api/clerk/prisoner_data',
+            type: "GET",
+            dataType: "json",
+            crossDomain: true,
+            headers: { 'x-access-token': tokens },
+            success: function(resp) {
+                if (resp.status  === 'ok') {
+                        for ( var i = 0; i < resp.entries.length; i++) {
+                            var dataset1 = [];
+                            dataset1.push(resp.entries[i].firstname+' '+resp.entries[i].middlename+' '+resp.entries[i].lastname);
+                            dataset1.push(resp.entries[i].birthday);
+                            dataset1.push(resp.entries[i].age);
+                            dataset1.push(resp.entries[i].crime);
+                            dataset3.push(dataset1);
+                        }
+                        console.log(dataset3);
+                        myTable2 =  $('#maintable').DataTable({
+                        data: dataset3,
+                        columns : [
+                            {title: "Name"},
+                            {title: "Birthday"},
+                            {title: "Age"},
+                            {title: "Crime"}
+                        ]
+                    });
+                    }
+                }
+        });
+    });
+
+
+</script>
+
+
+</html>
