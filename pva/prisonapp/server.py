@@ -180,9 +180,22 @@ def manage_prison():
         flash('You are not logged in! Please log in below!')
         return render_template('login-final.html')
 
+@server.route('/admin/newsupdate')
+def newsupdate():
+    if 'user' in session and session['role'] == '0':
+        return render_template('newsupdate.html')
+    else:
+        flash('You are not logged in! Please log in below!')
+        return render_template('login-final.html')
+
+@server.route('/view_newsupdate')
+def view_newsupdate():
+
+    return render_template('view_newsupdate.html')
+
 
 CORS(server)
-server.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1234@localhost/prisonapp'
+server.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://postgres:12345@localhost/prisonapp'
 server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 dc = SQLAlchemy(server)
 server.config['USE_SESSION_FOR_NEXT'] = True
