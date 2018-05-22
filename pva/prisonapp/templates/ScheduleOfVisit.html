@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>BJMP | Schedule of Visit</title>
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../static/vendor/devicons/css/devicons.min.css" rel="stylesheet">
+    <link href="../static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link href="../static/css/resume.min4.css" rel="stylesheet">
+  </head>
+
+  <section id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">
+        <span class="d-block d-lg-none">BJMP</span>
+        <span class="d-none d-lg-block">
+          <img class="img-responsive center-block" src="../static/img/mob.jpg" alt="">
+        </span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#clerk" style="color: #fcec5f; background-color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 22px;">Schedule of Visit</a>
+          </li>
+          <button type="button" class="btn btn-link" style="color:black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 22px;" onclick="parent.location='/visitor/landing'">Go Back</button>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container-fluid p-0">
+
+
+
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="clerk">
+
+      <div class="col-lg-12 text-center" >
+        <h2 class="section-heading text-uppercase" style="color: #fcec5f">
+           Schedule of Visit
+        </h2>
+      </div>
+
+      <div class="container">
+
+        <form role="form" id="scheduleform">
+
+          <div class="form-group" style=" padding: 0px 200px;" >
+            <label class="section-subheading text-primary"><i class="fa fa-user"></i> Inmate's Complete Name</label>
+            <p><input type="text" class="form-control" id="nameP" placeholder="Enter here"></p>
+          </div>
+
+      
+
+          <div class="form-group" style=" padding: 0px 200px;" >
+            <label class="section-subheading text-primary"><i class="fa fa-heart"></i> Relationship to Inmate</label>
+            <p> <select class="form-control" id="relation" required>
+                            <option value="" selected disabled hidden>Choose here</option>
+                            <option value="Spouse">Spouse</option>
+                            <option value="Parent">Parent</option>
+                            <option value="Child">Child</option>
+                            <option value="Sibling">Sibling</option>
+                            <option value="Relative">Relative</option>
+                            <option value="Friend">Friend</option>
+                        </select>
+            </p>
+          </div>
+
+          <div class="form-group" style=" padding: 0px 200px;">
+            <label class="section-subheading text-primary"><i class="fa fa-calendar"></i> Date</label>
+            <p><input type="date" class="form-control" id="vDate" placeholder="Date of Visit"></p>
+          </div>
+
+
+           <div class="form-group" style=" padding: 0px 200px;">
+            <label class="section-subheading text-primary"><i class="fa fa-clock-o"></i> Time</label>
+            <p> <select class="form-control" id="timeV" required>
+                            <option value="" selected disabled hidden>Choose here</option>
+                            <option value="8:00 AM">08:00 AM</option>
+                            <option value="8:30 AM">08:30 AM</option>
+                            <option value="9:00 AM">09:00 AM</option>
+                            <option value="9:30 AM">09:30 AM</option>
+                            <option value="10:00 AM">10:00 AM</option>
+                            <option value="10:30 AM">10:30 AM</option>
+                            <option value="11:00 AM">11:00 AM</option>
+                            <option value="11:30 AM">11:30 AM</option>
+                            <option value="12:00 PM">12:00 PM</option>
+                            <option value="12:30 PM">12:30 PM</option>
+                            <option value="1:00 PM">1:00 PM</option>
+                            <option value="1:30 PM">1:30 PM</option>
+                            <option value="2:00 PM">2:00 PM</option>
+                            <option value="2:30 PM">2:30 PM</option>
+                            <option value="3:00 PM">3:00 PM</option>
+                            <option value="3:30 PM">3:30 PM</option>
+                            <option value="4:00 PM">4:00 PM</option>
+                            <option value="4:30 PM">4:30 PM</option>
+                            <option value="5:00 PM">5:00 PM</option>
+                        </select>
+              </p>
+          </div>
+
+
+
+
+
+
+          <div class="form-group" style=" padding: 0px 200px;">
+            <label class="section-subheading text-primary"><i class="fa fa-users"></i> Number of Visitors</label>
+            <p><select class="form-control" id="numV" required>
+                            <option value="" selected disabled hidden>Choose here</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+
+
+                        </select></p>
+          </div>
+
+              
+        <center>
+          <button type="Add" class="btn btn-primary btn-md">
+            Submit
+          </button>
+        </center>
+
+       
+
+
+       </form>
+      </div>
+    </section>
+
+
+    <script src="../static/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../static/js/resume.min4.js"></script>
+    </div>
+  </body>
+  </section>
+<script>
+        $(document).ready(function () {
+            $('#scheduleform').submit(function () {
+                var nameP = $("#nameP").val();
+                var vDate = $("#vDate").val();
+                var numV = $("#numV").val();
+                var timeV = $("#timeV").val();
+                var relation = $("#relation").val();
+                var tokens = localStorage.getItem('token');
+                var pub = localStorage.getItem('public_id');
+                $.ajax({
+                    url: "http://127.0.0.1:5000/api/user/visitation",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({
+                        'nameP': nameP,
+                        'vDate': vDate,
+                        'numV': numV,
+                        'timeV': timeV,
+                        'relation': relation,
+                        'public_id': pub
+                    }),
+                    method: "POST",
+                    dataType: "json",
+                    crossDomain: true,
+                    headers: {
+                        'x-access-token': tokens
+                    },
+                    success: function (resp) {
+                        alert('Success');
+                        window.location.href = '/visitor/landing'
+                    },
+                    error: function () {
+                        alert('server error! click ok to reload!');
+                        window.location.reload();
+
+                    }
+                })
+            });
+
+
+        })
+    </script>
+</html>

@@ -50,6 +50,10 @@
     .container{
         height: auto;
     }
+
+    #target {
+        font-size: 19px;
+    }
 </style>
 
 <body>
@@ -68,26 +72,41 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/admin/view_visitors" style="color: black;">Visitor Data</a></li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/add_clerk" style="color: black;">Add Clerk</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-announcements" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 25px;">MANAGE ANNOUNCEMENTS</a>
+                </li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/admin/view_visitors" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 25px;">Visitor Data</a></li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_clerk" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 25px;">Add Clerk</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/add_prisoner " style="color: black;">Add Prisoner</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_prisoner " style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 25px;">Add Prisoner</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/manage-announcements" style="color: black;">Create Announcements</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-announcements" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 25px;">Create Announcements</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-prisoner" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 25px;">Manage Prisoner Data</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/view-announcements" style="color: black;">Manage Announcements</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/visit_logs" style="color: #fcec5f; background-color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 25px;">Visitation Logs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/manage-prisoner" style="color: black;">Manage Prisoner Data</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-comments" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 25px;">Comment</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/visit_logs" style="color: #fcec5f; background-color: black;">Visitation Logs</a>
+                    <a class="nav-link js-scroll-trigger" href="/logout" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 25px;">Log Out</a>
                 </li>
-                <button type="button" class="btn btn-link" style="color:black;" onclick="parent.location='/admin/landing'">Go Back</button>
             </ul>
         </div>
     </nav>
@@ -121,60 +140,80 @@
 
 <!-- Custom scripts for this template -->
 <script src="../static/js/resumee.min.js"></script>
-<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<link href="../static/jquery.dataTables.min.css" rel="stylesheet">
+<script type="text/javascript" src="../static/jquery.dataTables.min.js"></script>
 
     <script>
         var global;
 
         $(document).ready(function () {
-            $('#maintable').DataTable({
-                "paging": true,
-                "searching": true,
-                "ordering" : true,
-                "info" : true,
-                "autoWidth" : true,
-                "data" : [],
-                "columns" : [{
-                "title": "First Name",
-                "data" : "fname"
-                }, {
-                    "title": "Middle Name",
-                    "data" : "mname"
-                }, {
-                    "title": "Last Name",
-                    "data" : "lname"
-                }, {
-                    "title": "Inmate",
-                    "data" : "inmate"
-                }, {
-                    "title": "Date",
-                    "data" : "date"
-                }]
-            });
+            if (localStorage.getItem('role_id') != 0) {
+                alert('You are not an Admin');
+                window.location.href = '/';
+            }
+            else {
+                $('#maintable').DataTable({
+                    "paging": true,
+                    "searching": true,
+                    "ordering" : true,
+                    "info" : true,
+                    "autoWidth" : true,
+                    "data" : [],
+                    "columns" : [{
+                    "title": "Accepted by",
+                    "data" : "accepter"
+                    },
+                    {
+                    "title": "First Name",
+                    "data" : "fname"
+                    }, {
+                        "title": "Middle Name",
+                        "data" : "mname"
+                    }, {
+                        "title": "Last Name",
+                        "data" : "lname"
+                    }, {
+                        "title": "Inmate",
+                        "data" : "inmate"
+                    }, {
+                        "title": "Date",
+                        "data" : "date"
+                    }, {
+                        "title": "Time In",
+                        "data" : "timein"
+                    }, {
+                        "title": "Time Out",
+                        "data" : "timeout"
+                    }]
+                });
 
-            var tables = $('#maintable').DataTable();
-            var tokens = localStorage.getItem('token');
+                var tables = $('#maintable').DataTable();
+                var tokens = localStorage.getItem('token');
 
-            $.ajax({
-                url: 'http://127.0.0.1:5000/api/admin/visit_logs',
-                type: "GET",
-                dataType: "json",
-                crossDomain: true,
-                headers: { 'x-access-token': tokens },
-                success: function(resp) {
-                    if (resp.status  === 'ok') {
-                        for ( var i = 0; i < resp.entries.length; i++) {
-                            tables.row.add( {
-                                "fname" : resp.entries[i].fname,
-                                "mname" : resp.entries[i].mname,
-                                "lname" : resp.entries[i].lname,
-                                "inmate" : resp.entries[i].inmate,
-                                "date" : resp.entries[i].date
-                            }   ).draw();
+                $.ajax({
+                    url: 'http://127.0.0.1:5000/api/admin/visit_logs',
+                    type: "GET",
+                    dataType: "json",
+                    crossDomain: true,
+                    headers: { 'x-access-token': tokens },
+                    success: function(resp) {
+                        if (resp.status  === 'ok') {
+                            for ( var i = 0; i < resp.entries.length; i++) {
+                                tables.row.add( {
+                                    "accepter" : resp.entries[i].fname_accepter+' '+resp.entries[i].mname_accepter+' '+resp.entries[i].lname_accepter,
+                                    "fname" : resp.entries[i].fname,
+                                    "mname" : resp.entries[i].mname,
+                                    "lname" : resp.entries[i].lname,
+                                    "inmate" : resp.entries[i].inmate,
+                                    "date" : resp.entries[i].date,
+                                    "timein" : resp.entries[i].timein,
+                                    "timeout" : resp.entries[i].timeout
+                                }   ).draw();
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
         });
     </script>
 </html>

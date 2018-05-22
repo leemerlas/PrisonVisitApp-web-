@@ -93,22 +93,38 @@
                     },
                     success: function (resp) {
                         if (resp.role_id == '2') {
-                            alert('login success!');
-                            console.log("success");
-                            localStorage.setItem('token', resp.token);
-                            localStorage.setItem('role_id', resp.role_id);
-                            localStorage.setItem('public_id', resp.public_id);
-                            localStorage.setItem('auth_id', 'Basic ' + btoa(username + ':' + password));
-                            window.location.href = '/visitor/landing';
+                            if (resp.accountStatus === 'PENDING') {
+
+                                localStorage.setItem('token', resp.token);
+                                localStorage.setItem('role_id', resp.role_id);
+                                localStorage.setItem('public_id', resp.public_id);
+                                localStorage.setItem('prisoner', resp.prisoner);
+                                localStorage.setItem('accountStatus', resp.accountStatus);
+                                localStorage.setItem('auth_id', 'Basic ' + btoa(username + ':' + password));
+                                window.location.href = '/visitor/pending';
+
+                            } if (resp.accountStatus === 'VERIFIED') {
+                                alert('login success!');
+                                console.log("success");
+                                localStorage.setItem('token', resp.token);
+                                localStorage.setItem('role_id', resp.role_id);
+                                localStorage.setItem('public_id', resp.public_id);
+                                localStorage.setItem('auth_id', 'Basic ' + btoa(username + ':' + password));
+                                window.location.href = '/visitor/landing';
+                            }
+
                         }
                         if (resp.role_id == '1') {
+
                             alert('login success!');
                             console.log("success");
                             localStorage.setItem('token', resp.token);
                             localStorage.setItem('role_id', resp.role_id);
                             localStorage.setItem('public_id', resp.public_id);
+                            localStorage.setItem('prisoner', resp.prisoner);
+                            localStorage.setItem('accountStatus', resp.accountStatus);
                             localStorage.setItem('auth_id', 'Basic ' + btoa(username + ':' + password));
-                            window.location.href = '/clerk/landing';
+                            window.location.href = '/clerk/view-announcements';
                         }
                         if (resp.role_id == '0') {
                             alert('login success!');
@@ -117,7 +133,7 @@
                             localStorage.setItem('role_id', resp.role_id);
                             localStorage.setItem('public_id', resp.public_id);
                             localStorage.setItem('auth_id', 'Basic ' + btoa(username + ':' + password));
-                            window.location.href = '/admin/landing';
+                            window.location.href = '/admin/view-announcements';
                         }
                     },
                     error: function () {

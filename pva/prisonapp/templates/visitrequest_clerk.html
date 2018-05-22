@@ -37,6 +37,11 @@
                         for (i = 0; i < resp.count; i++) {
                             vId = resp.entries[i].vId;
                             nameP = resp.entries[i].nameP;
+                            if (resp.entries[i].fnameP1 === resp.entries[i].fnameP2) {
+                                crime = resp.entries[i].crime
+                            } else {
+                                crime = "null"
+                            }
                             date = resp.entries[i].date;
                             numberOfVisitors = resp.entries[i].numberOfVisitors;
                             status = resp.entries[i].status;
@@ -91,6 +96,7 @@
                 '<tbody><tr class="edit" id="details">'+
                 '<td width=2%>'+ vId +'</td>'+
                 '<td width=5%>'+ nameP +'</td>'+
+                '<td width=5%>'+ crime +'</td>'+
                 '<td width=5%>'+ date +'</td>'+
                 '<td width=2%>'+ numberOfVisitors +'</td>'+
                 '<td width=2%>'+ status +'</td>'+

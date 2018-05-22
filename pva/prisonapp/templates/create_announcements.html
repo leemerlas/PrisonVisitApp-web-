@@ -12,40 +12,55 @@
     <link href="../static/css/resume.min4.css" rel="stylesheet">
     <script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
 
+  <style>
+
+      a {
+        font-family: 'Saira Extra Condensed', serif;
+        font-size: 25px;
+    }
+
+  </style>
+
       <script>
         var tokens = localStorage.getItem('token');
         $(document).ready(function () {
-            $('#target').submit(function () {
+            if (localStorage.getItem('role_id') != 0) {
+                alert('You are not an Admin');
+                window.location.href = '/';
+            }
+            else{
+                $('#target').submit(function () {
 
 
-                $.ajax({
-                    url: "http://127.0.0.1:5000/api/clerk/announcements",
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({
-                        'title': $("#title").val(),
-                        'announcement': $("#announcement").val()
-                    }),
-                    method: "POST",
-                    dataType: "json",
-                    crossDomain: true,
-                    headers: {
-                     'x-access-token': tokens
-                    },
-                    success: function () {
-                        console.log("success");
-                        alert("registration success!");
-                        window.location.href='/admin/manage-announcements'
-                    },
-                    error: function () {
-                        console.log('error')
-                    },
-                    complete: function (jqXHR) {
-                        if (jqXHR.status == '401') {
-                            console.log(jqXHR.status)
+                    $.ajax({
+                        url: "http://127.0.0.1:5000/api/admin/announcements",
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({
+                            'title': $("#title").val(),
+                            'announcement': $("#announcement").val()
+                        }),
+                        method: "POST",
+                        dataType: "json",
+                        crossDomain: true,
+                        headers: {
+                         'x-access-token': tokens
+                        },
+                        success: function () {
+                            console.log("success");
+                            alert("registration success!");
+                            window.location.href='/admin/manage-announcements'
+                        },
+                        error: function () {
+                            console.log('error')
+                        },
+                        complete: function (jqXHR) {
+                            if (jqXHR.status == '401') {
+                                console.log(jqXHR.status)
+                            }
                         }
-                    }
-                })
-            });
+                    })
+                });
+            }
         })
     </script>
 
@@ -66,6 +81,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
                 <li class="nav-item">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-announcements" style="color: black;">MANAGE ANNOUNCEMENTS</a>
+                </li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/admin/view_visitors" style="color: black;">Visitor Data</a></li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="/admin/add_clerk" style="color: black;">Add Clerk</a>
@@ -76,16 +94,19 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="/admin/manage-announcements" style="color: #fcec5f; background-color: black;">Create Announcements</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/view-announcements" style="color: black;">Manage Announcements</a>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="/admin/manage-prisoner" style="color: black;">Manage Prisoner Data</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="/admin/visit_logs" style="color: black;">Visitation Logs</a>
                 </li>
-                <button type="button" class="btn btn-link" style="color:black;" onclick="parent.location='/admin/landing'">Go Back</button>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-comments" style="color: black;">Comment</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/logout" style="color: black;">Log Out</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -107,13 +128,13 @@
         <form role="form" id="target">
 
           <div class="form-group" style=" padding: 0px 200px;" >
-            <label class="section-subheading text-primary"><i class="fa fa-lightbulb-o"></i>Title</label>
-            <p><input type="text" class="form-control" id="title" placeholder=""></p>
+            <label class="section-subheading text-primary"><i class="fa fa-lightbulb-o"></i> Title</label>
+            <p><input type="text" class="form-control" id="title" placeholder="Enter title"></p>
           </div>
 
           <div class="form-group" style=" padding: 0px 200px;" >
-            <label class="section-subheading text-primary"><i class=" fa fa-newspaper-o"></i>Details</label>
-             <textarea class="form-control" rows="5" id="announcement"></textarea>
+            <label class="section-subheading text-primary"><i class=" fa fa-newspaper-o"></i> Details</label>
+             <textarea class="form-control" rows="5" id="announcement" placeholder="Enter text here"></textarea>
           </div>  
 
 

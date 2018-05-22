@@ -70,6 +70,13 @@
     .container1{
         height: auto;
     }
+
+    a {
+        font-family: 'Saira Extra Condensed', serif;
+        font-size: 25px;
+    }
+
+
 </style>
 <body>
 <section id="page-top">
@@ -81,32 +88,41 @@
             </span>
         </a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
-
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/clerk/record-visitation" style="color: black">RECORD A
+                    <a class="nav-link js-scroll-trigger" href="/clerk/view-announcements" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 25px;">Announcements
+                        </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/clerk/record-visitation" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 25px;">RECORD A
                         VISITATION</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/clerk/view_prisoners" style="color: black">VIEW PRISONER
+                    <a class="nav-link js-scroll-trigger" href="/clerk/view_prisoners" style="color: black ; font-family: 'Saira Extra Condensed', serif;
+        font-size: 25px;">VIEW PRISONER
                         DATA</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/clerk/view_visitors"
-                       style="color: black">VISITOR DATA</a>
+                    <a class="nav-link js-scroll-trigger" href="/clerk/view_visitors" style="color: black ; font-family: 'Saira Extra Condensed', serif;
+        font-size: 25px;">VISITOR DATA</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/clerk/manage_requests" style="color: #fcec5f; background-color: black;">MANAGE VISIT
+                    <a class="nav-link js-scroll-trigger" href="/clerk/manage_requests" style="color: #fcec5f; background-color: black ; font-family: 'Saira Extra Condensed', serif;
+        font-size: 25px;">MANAGE VISIT
                         REQUESTS</a>
                 </li>
-                <button type="button" class="btn btn-link" style="color:black"
-                        onclick="parent.location='/clerk/landing'">Go Back
-                </button>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/logout" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 25px;">Log Out</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -115,7 +131,7 @@
         <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="visitor1">
             <div style="width: 100%">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading text-uppercase" style="color: #fcec5f">
+                    <h2 class="section-heading text-uppercase" style="color: #fcec5f" style="font-size: 20px;">
                         Manage Visitation Requests
                     </h2>
                 </div>
@@ -127,8 +143,8 @@
                 </div>
                 <br>
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading text-uppercase" style="color: #fcec5f">
-                        Approved Requests
+                    <h2 class="section-heading text-uppercase" style="color: #fcec5f" style="font-size: 20px;">
+                        Visitors Today
                     </h2>
                 </div>
 
@@ -152,7 +168,7 @@
 
 <!-- Custom scripts for this template -->
 <script src="../static/js/resumee.min.js"></script>
-<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../static/jquery.dataTables.min.js"></script>
 
 <script>
     var global1;
@@ -162,59 +178,70 @@
 
     var dataset2 = [];
     $(document).ready(function () {
+    if (localStorage.getItem('role_id') != 1) {
+                alert('You are not a Clerk');
+                window.location.href = '/';
 
-    var tokens = localStorage.getItem('token');
+        } else {
+            var tokens = localStorage.getItem('token');
 
-    $.ajax({
-        url: 'http://127.0.0.1:5000/api/clerk/manage_requests',
-        type: "GET",
-        dataType: "json",
-        crossDomain: true,
-        headers: { 'x-access-token': tokens },
-        success: function(resp) {
-            if (resp.status  === 'ok') {
-                for ( var i = 0; i < resp.entries.length; i++) {
-                    var dataset1 = [];
-                    dataset1.push(resp.entries[i].vId.toString());
-                    dataset1.push(resp.entries[i].nameP);
-                    dataset1.push(resp.entries[i].date);
-                    dataset1.push(resp.entries[i].numberOfVisitors);
-                    dataset1.push(resp.entries[i].status);
-                    dataset1.push("<button class='btn btn-success' style='padding: 2px 5px' id='approve'><span class='fa fa-check' style='text-align: center'></span></button><button id='decline' class='btn btn-danger btn-xs' style='padding: 2px 5px'><span class='fa fa-remove'></span></button>");
-                    dataset1.push(resp.entries[i].id);
-                    dataset2.push(dataset1);
+            $.ajax({
+                url: 'http://127.0.0.1:5000/api/clerk/manage_requests',
+                type: "GET",
+                dataType: "json",
+                crossDomain: true,
+                headers: { 'x-access-token': tokens },
+                success: function(resp) {
+                    if (resp.status  === 'ok') {
+                        for ( var i = 0; i < resp.entries.length; i++) {
+                            var dataset1 = [];
+                            if (resp.datenow === resp.entries[i].date) {
+                            dataset1.push(resp.entries[i].fname+' '+resp.entries[i].mname+' '+resp.entries[i].lname);
+                            dataset1.push("<a id='memes' href='#' data-toggle='tooltip' data-placement='top' title='Crime: "+resp.entries[i].crime+"'>"+resp.entries[i].nameP+"</a>");
+                            dataset1.push(resp.entries[i].date);
+                            dataset1.push(resp.entries[i].numberOfVisitors);
+                            dataset1.push(resp.entries[i].status);
+                            dataset1.push("<button class='btn btn-success' style='padding: 2px 5px' id='approve'><span class='fa fa-check' style='text-align: center'></span></button><button id='decline' class='btn btn-danger btn-xs' style='padding: 2px 5px'><span class='fa fa-remove'></span></button>");
+                            dataset1.push(resp.entries[i].id);
+                            dataset1.push(resp.entries[i].vId.toString());
+                            dataset2.push(dataset1);
+                            }
+
+                        }
+
+                        myTable =  $('#maintable').DataTable({
+                            data: dataset2,
+                            columns : [
+                                {title: "Visitor"},
+                                {title: "Prisoner Name"},
+                                {title: "Date"},
+                                {title: "No. of Visitors"},
+                                {title: "Status"},
+                                {title: "Actions"}
+                                ]
+                        });
+                        $("a").tooltip();
+
+                    }
                 }
+            });
 
-                myTable =  $('#maintable').DataTable({
-                    data: dataset2,
-                    columns : [
-                        {title: "Visitor I.D."},
-                        {title: "Prisoner Name"},
-                        {title: "Date"},
-                        {title: "Number Of Visitors"},
-                        {title: "Status"},
-                        {title: "Actions"}
-                        ]
-                });
-            }
+            $('body').on('click', '#approve', function() {
+                var row  = $(this).parents('tr')[0];
+                data =  myTable.row(row).data();
+                global1 = data[7];
+                global3 = data[6];
+                approve(global1,global3);
+            });
+
+            $("body").on('click', '#decline', function () {
+                var row  = $(this).parents('tr')[0];
+                data =  myTable.row(row).data();
+                global2 = data[7];
+                global3 = data[6];
+                decline(global2,global3);
+            });
         }
-    });
-
-    $('body').on('click', '#approve', function() {
-        var row  = $(this).parents('tr')[0];
-        data =  myTable.row(row).data();
-        global1 = data[0];
-        global3 = data[6];
-        approve(global1,global3);
-    });
-
-    $("body").on('click', '#decline', function () {
-        var row  = $(this).parents('tr')[0];
-        data =  myTable.row(row).data();
-        global2 = data[0];
-        global3 = data[6];
-        decline(global2,global3);
-    });
     });
 
     function approve (g,f) {
@@ -284,9 +311,13 @@
             }
         })
     }
+
+
 </script>
 
 <script>
+    var global6;
+    var global7;
     var myTable2;
     var dataset3 = [];
 
@@ -303,26 +334,75 @@
                 if (resp.status  === 'ok') {
                     for ( var i = 0; i < resp.entries2.length; i++) {
                         var dataset2 = [];
-                        dataset2.push(resp.entries2[i].vId.toString());
-                        dataset2.push(resp.entries2[i].nameP);
-                        dataset2.push(resp.entries2[i].date);
-                        dataset2.push(resp.entries2[i].numberOfVisitors);
-                        dataset2.push(resp.entries2[i].status.toString());
-                        dataset3.push(dataset2);
+                        if (resp.datenow === resp.entries2[i].date) {
+                            dataset2.push(resp.entries2[i].fname+' '+resp.entries2[i].mname+' '+resp.entries2[i].lname);
+                            dataset2.push(resp.entries2[i].nameP);
+                            dataset2.push(resp.entries2[i].date);
+                            dataset2.push(resp.entries2[i].numberOfVisitors);
+                            dataset2.push(resp.entries2[i].status.toString());
+                            dataset2.push("<button class='btn btn-success' style='padding: 2px 5px' id='timeout'>Time Out<span style='text-align: center'></span></button>");
+                            dataset2.push(resp.entries2[i].id);
+                            dataset2.push(resp.entries2[i].vId.toString());
+                            dataset3.push(dataset2);
+                            }
                     }
 
                     myTable2 =  $('#verifiedtable').DataTable({data: dataset3,
                         columns : [
-                            {title: "Visitor I.D."},
+                            {title: "Visitor"},
                             {title: "Prisoner Name"},
                             {title: "Date"},
-                            {title: "Number Of Visitors"},
-                            {title: "Status"}
+                            {title: "No. Of Visitors"},
+                            {title: "Status"},
+                            {title: "Actions"}
                             ]
                     });
                 }
             }
         });
+                    $('body').on('click', '#timeout', function() {
+                    var row  = $(this).parents('tr')[0];
+                    data =  myTable2.row(row).data();
+
+                    global6 = data[7];
+                    global7 = data[6];
+                    timeout(global6,global7);
     });
+
+    });
+        function timeout(g,f) {
+        alert("You Timed Out user "+g);
+        var tokens = localStorage.getItem('token');
+        var public_id = localStorage.getItem('public_id');
+        var userid;
+        var vis_id;
+        var response = $("#response").val();
+        $.ajax({
+            url: "http://127.0.0.1:5000/api/clerk/timeout",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                'public_id':public_id,
+                'vis_id':f,
+                'userid':g,
+                'response':'yes'
+            }),
+            method: "POST",
+            dataType: "json",
+            crossDomain: true,
+            headers: {
+                'x-access-token': tokens
+            },
+            success: function (resp) {
+                alert(resp.message);
+                window.location.href='/clerk/manage_requests'
+            },
+            error: function () {
+                alert('server error! click ok to reload!');
+                window.location.href='/clerk/landing'
+            }
+        })
+    }
+
+
 </script>
 </html>
