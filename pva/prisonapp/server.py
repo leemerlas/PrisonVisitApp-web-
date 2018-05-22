@@ -183,7 +183,7 @@ def manage_prison():
 @server.route('/admin/newsupdate')
 def newsupdate():
     if 'user' in session and session['role'] == '0':
-        return render_template('newsupdate.html')
+        return render_template('news_trial.html')
     else:
         flash('You are not logged in! Please log in below!')
         return render_template('login-final.html')

@@ -1,0 +1,144 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link href="../static/css/sairaextracondensed.css" rel="stylesheet">
+    <script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../static/plugin/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript" src="../static/plugin/tinymce/init-tinymce.js"></script>
+    <style>
+        .img-placeholder img:hover {
+            opacity: 0.7;
+        }
+
+        .img-placeholder img {
+            opacity: 1;
+            transition: opacity .25s ease-in-out;
+            -moz-transition: opacity .25s ease-in-out;
+            -webkit-transition: opacity .25s ease-in-out;
+        }
+    </style>
+</head>
+<body style="font-family: 'Saira Extra Condensed', serif;">
+<br><br>
+<div>
+    <form id="news-form">
+        <label for="article-title" style="font-size: 20px">Article Title</label>
+        <input type="text" placeholder="Enter title here" id="article-title" name="article-title" required>
+        <br>
+        <br>
+
+
+        <label for="file-upload" class="img-placeholder">
+            <img src="../static/img/placeholder.jpg" id="img-preview"
+                 style="width: auto; height: 30%"/><br>
+        </label>
+        <input id="file-upload" type="file" style="display:none;" required>
+        <br>
+
+
+    </form>
+
+    <textarea id="mytexts" required></textarea>
+    <br>
+
+    <button id="add-article" name="add-article">Submit</button>
+</div>
+
+<!-- Scripts -->
+<script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    var CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/strova/upload';
+    var CLOUDINARY_UPLOAD_PRESET = 'z6pni3zq';
+
+
+    var imgPreview = document.getElementById('img-preview');
+    var fileSource = '';
+    var file;
+    var newsTitle = '';
+    var formData;
+
+    $(document).ready(function () {
+        var tokens = localStorage.getItem('token');
+        $("#file-upload").change(function (event) {
+            file = event.target.files[0];
+            formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+            console.log(formData);
+
+        });
+
+        $("#add-article").click(function () {
+            newsTitle = $("#article-title").val();
+            var content = tinymce.get("mytexts").getContent();
+
+            console.log(tokens);
+            axios({
+                url: CLOUDINARY_URL,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: formData
+            }).then(function (res) {
+                console.log(res);
+                fileSource = res.data.secure_url;
+                console.log(fileSource);
+                $.ajax({
+                    url: 'http://127.0.0.1:5000/api/admin/newsupdate',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({
+                        'newsTitle': newsTitle,
+                        'imgSrc': fileSource,
+                        'articleContent': content
+                    }),
+                    method: 'POST',
+                    dataType: 'json',
+                    crossDomain: true,
+                    headers: {
+                     'x-access-token': tokens
+                    },
+                    success: function (resp) {
+                        alert(resp.message);
+                        window.location.href = '/admin/newsupdate'
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    },
+                    complete: function (jqXHR) {
+                        if (jqXHR.status === '401') {
+                            console.log(jqXHR.status)
+                        }
+                    }
+                });
+            }).catch(function (err) {
+                console.log(err);
+                alert('Error! Missing fields!')
+            });
+
+
+        });
+    })
+</script>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img-preview').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#file-upload").change(function () {
+        readURL(this);
+    });
+</script>
+</body>
+</html>
