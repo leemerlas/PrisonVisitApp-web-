@@ -183,7 +183,7 @@ def manage_prison():
 @server.route('/admin/newsupdate')
 def newsupdate():
     if 'user' in session and session['role'] == '0':
-        return render_template('news_trial.html')
+        return render_template('add-news.html')
     else:
         flash('You are not logged in! Please log in below!')
         return render_template('login-final.html')
@@ -191,7 +191,7 @@ def newsupdate():
 @server.route('/view_newsupdate')
 def view_newsupdate():
 
-    return render_template('view_newsupdate.html')
+    return render_template('news.html')
 
 
 CORS(server)

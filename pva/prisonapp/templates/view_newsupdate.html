@@ -10,17 +10,7 @@
     <link href="../static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
     <link href="../static/css/resume.min4.css" rel="stylesheet">
     <script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
-    <style>
-        .newsdiv {
 
-            margin-top: 10px;
-            padding: 10px;
-            background-color: white;
-            color: blue;
-            width: 50%;
-            border: 1px solid black;
-        }
-    </style>
     <script>
         current_page = 1;
         records_per_page = 3;
@@ -58,7 +48,7 @@
                 h1.setAttribute('id', 'mainhead');
                 div.setAttribute("class", "newsdiv");
                 var pic = document.createElement("img");
-                pic.setAttribute('src',global[j].imgsrc);
+                pic.setAttribute('src', global[j].imgsrc);
                 pic.setAttribute('width', '95%');
                 pic.setAttribute('height', '95%');
                 var tdiv = document.createElement("div");
@@ -120,17 +110,6 @@ page: <span id="page"></span>
 </section>
 </body>
 
-{#<script src="../static/vendor/jquery/jquery.min.js"></script>#}
-{#<script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>#}
-{##}
-{#<!-- Plugin JavaScript -->#}
-{#<script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>#}
-{##}
-{#<!-- Custom scripts for this template -->#}
-{#<script src="../static/js/resumee.min.js"></script>#}
-{#<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>#}
-
-
 <script>
     var global = [];
     var current_page;
@@ -151,32 +130,9 @@ page: <span id="page"></span>
                         global.push({title: news.title, content: news.newsupdate, dates: news.date, imgsrc: news.imgSrc});
                     }
                     console.log(global);
-
-
                 }
             }
         });
     });
-
-    {#    function showData(title, newsupdate, date) {#}
-    {#        var contain = document.getElementById("contain_news");#}
-    {#        var div = document.createElement("DIV");#}
-    {#        var tdiv = document.createElement("DIV");#}
-    {#        var ndiv = document.createElement("DIV");#}
-    {#        var qdiv = document.createElement("DIV");#}
-    {#        div.setAttribute("class", "news", "date");#}
-    {#        var title_ = document.createTextNode(title);#}
-    {#        var newsupdate_ = document.createTextNode(newsupdate);#}
-    {#        var date_ = document.createTextNode(date);#}
-    {#        tdiv.appendChild(title_);#}
-    {#        ndiv.appendChild(newsupdate_);#}
-    {#        qdiv.appendChild(date_);#}
-    {#        div.appendChild(tdiv);#}
-    {#        div.appendChild(ndiv);#}
-    {#        div.appendChild(qdiv);#}
-    {#        contain.appendChild(div);#}
-    {#    }#}
-
-
 </script>
 </html>
