@@ -23,78 +23,77 @@
 </head>
 <link href="../static/css/resume.min.css" rel="stylesheet">
 <style type="text/css">
-          #table{
+    #table {
 
-            color: black;
-            background-color: #FCEC5F;
-            border-radius: 1%;
-            padding: 20px;
-            font-size: 20px;
+        color: black;
+        background-color: #FCEC5F;
+        border-radius: 1%;
+        padding: 20px;
+        font-size: 20px;
 
-        }
-          #table1{
+    }
 
-            color: black;
-            background-color: #FCEC5F;
-            border-radius: 1%;
-            padding: 20px;
-            font-size: 20px;
+    #table1 {
 
-        }
+        color: black;
+        background-color: #FCEC5F;
+        border-radius: 1%;
+        padding: 20px;
+        font-size: 20px;
 
-          .dataTables_wrapper{
-              font-family: 'Saira Extra Condensed', serif;
-                  font-weight: 700;
-                text-transform: uppercase;
-                  color: #343a40;
-               font-size: 20px;
+    }
 
+    .dataTables_wrapper {
+        font-family: 'Saira Extra Condensed', serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #343a40;
+        font-size: 20px;
 
-          }
+    }
 
-          th{
-                font-family: 'Saira Extra Condensed', serif;
-                  font-weight: 700;
-                text-transform: uppercase;
-                  color: #343a40;
-                  font-size: 20px;
-                 width: 100px;
+    th {
+        font-family: 'Saira Extra Condensed', serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #343a40;
+        font-size: 20px;
+        width: 100px;
 
-          }
-          .table .thead-dark th{
-               font-family: 'Saira Extra Condensed', serif;
-                  font-weight: bolder;
-                text-transform: uppercase;
-                  color: black;
-          }
+    }
 
-          .table1 .thead-dark th{
-               font-family: 'Saira Extra Condensed', serif;
-                  font-weight: bolder;
-                text-transform: uppercase;
-                  color: black;
-          }
+    .table .thead-dark th {
+        font-family: 'Saira Extra Condensed', serif;
+        font-weight: bolder;
+        text-transform: uppercase;
+        color: black;
+    }
 
-          .table1 .thead-dark th{
-               font-family: 'Saira Extra Condensed', serif;
-                  font-weight: bolder;
-                text-transform: uppercase;
-                  color: black;
-          }
+    .table1 .thead-dark th {
+        font-family: 'Saira Extra Condensed', serif;
+        font-weight: bolder;
+        text-transform: uppercase;
+        color: black;
+    }
 
+    .table1 .thead-dark th {
+        font-family: 'Saira Extra Condensed', serif;
+        font-weight: bolder;
+        text-transform: uppercase;
+        color: black;
+    }
 
-          .container{
-              height: auto;
-          }
+    .container {
+        height: auto;
+    }
 
-          .container1{
-              height: auto;
-          }
+    .container1 {
+        height: auto;
+    }
 
-          #target {
+    #target {
         font-size: 19px;
-         }
-
+    }
 
 
 </style>
@@ -119,7 +118,7 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="/clerk/view-announcements" style="color: black; font-family: 'Saira Extra Condensed', serif;
         font-size: 25px;">ANNOUNCEMENTS
-                        </a>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="/clerk/record-visitation" style="color: black; font-family: 'Saira Extra Condensed', serif;
@@ -141,7 +140,7 @@
                         REQUESTS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/logout" style="color: black; font-family: 'Saira Extra Condensed', serif;
+                    <a class="nav-link js-scroll-trigger" id="logout" href="/logout" style="color: black; font-family: 'Saira Extra Condensed', serif;
         font-size: 25px;">Log Out</a>
                 </li>
 
@@ -187,51 +186,54 @@
 <script type="text/javascript" src="../static/jquery.dataTables.min.js"></script>
 
 
-
 <script>
     var myTable2;
     var dataset3 = [];
     $(document).ready(function () {
         if (localStorage.getItem('role_id') != 1) {
-                alert('You are not a Clerk');
-                window.location.href = '/';
+            alert('You are not a Clerk');
+            window.location.href = 'https://pva-web.herokuapp.com';
 
         } else {
             var tokens = localStorage.getItem('token');
 
 
             $.ajax({
-                url: 'http://127.0.0.1:5000/api/clerk/prisoner_data',
+                url: 'https://pva-api.herokuapp.com/api/clerk/prisoner_data',
                 type: "GET",
                 dataType: "json",
                 crossDomain: true,
-                headers: { 'x-access-token': tokens },
-                success: function(resp) {
-                    if (resp.status  === 'ok') {
-                            for ( var i = 0; i < resp.entries.length; i++) {
-                                var dataset1 = [];
-                                dataset1.push(resp.entries[i].firstname+' '+resp.entries[i].middlename+' '+resp.entries[i].lastname);
-                                dataset1.push(resp.entries[i].birthday);
-                                dataset1.push(resp.entries[i].age);
-                                dataset1.push(resp.entries[i].crime);
-                                dataset3.push(dataset1);
-                            }
-                            console.log(dataset3);
-                            myTable2 =  $('#maintable').DataTable({
+                headers: {'x-access-token': tokens},
+                success: function (resp) {
+                    if (resp.status === 'ok') {
+                        for (var i = 0; i < resp.entries.length; i++) {
+                            var dataset1 = [];
+                            dataset1.push(resp.entries[i].firstname + ' ' + resp.entries[i].middlename + ' ' + resp.entries[i].lastname);
+                            dataset1.push(resp.entries[i].birthday);
+                            dataset1.push(resp.entries[i].age);
+                            dataset1.push(resp.entries[i].crime);
+                            dataset3.push(dataset1);
+                        }
+                        console.log(dataset3);
+                        myTable2 = $('#maintable').DataTable({
                             data: dataset3,
-                            columns : [
-                                {title: "Name"},
-                                {title: "Birthday"},
-                                {title: "Age"},
+                            columns: [
+                                {title: "Name",className: "dt-head-center dt-body-center"},
+                                {title: "Birthday",className: "dt-head-center dt-body-center", "width":"10%"},
+                                {title: "Age",className: "dt-head-center dt-body-center"},
                                 {title: "Crime"}
                             ]
                         });
-                        }
                     }
+                }
             });
         }
     });
 
+    $('#logout').click(function () {
+        console.log('Token revoked! please log in again!');
+        localStorage.clear();
+    });
 
 </script>
 

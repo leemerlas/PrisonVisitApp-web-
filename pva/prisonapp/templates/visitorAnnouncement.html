@@ -230,7 +230,7 @@
             var tokens = localStorage.getItem('token');
 
             $.ajax({
-                url: 'http://127.0.0.1:5000/api/admin/announcements_get',
+                url: 'https://pva-api.herokuapp.com/api/admin/announcements_get',
                 type: "GET",
                 dataType: "json",
                 crossDomain: true,
@@ -273,6 +273,10 @@
         document.getElementById('announce').value = data[4];
 
     });
+    $('#logout').click(function () {
+        console.log('Token revoked! please log in again!');
+        localStorage.clear();
+    });
 </script>
 
 <!--<script>-->
@@ -287,7 +291,7 @@
 
 
         <!--$.ajax({-->
-            <!--url: "http://127.0.0.1:5000/api/admin/edit_announcement",-->
+            <!--url: "https://pva-api.herokuapp.com/api/admin/edit_announcement",-->
             <!--contentType: 'application/json; charset=utf-8',-->
             <!--data: JSON.stringify({-->
                 <!--'id': id,-->

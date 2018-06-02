@@ -35,7 +35,7 @@
         $(document).ready(function () {
             if (localStorage.getItem('role_id') != 2) {
                 alert('You are not a Visitor');
-                window.location.href = '/';
+                window.location.href = 'https://pva-web.herokuapp.com';
 
             }
             else{
@@ -48,7 +48,7 @@
                     var tokens = localStorage.getItem('token');
                     var pub = localStorage.getItem('public_id');
                     $.ajax({
-                        url: "http://127.0.0.1:5000/api/user/visitation",
+                        url: "https://pva-api.herokuapp.com/api/user/visitation",
                         contentType: 'application/json; charset=utf-8',
                         data: JSON.stringify({
                             'nameP': nameP,
@@ -66,10 +66,10 @@
                         },
                         success: function (resp) {
                             alert(resp.message);
-                            window.location.href = '/visitor/landing'
+                            window.location.assign('/visitor/landing');
                         },
                         error: function () {
-                            alert('server error! click ok to reload!');
+                            alert('Server error! Click OK to reload!');
                             window.location.reload();
 
                         }
@@ -81,8 +81,9 @@
                 var comment = $("#comment").val();
                 var tokens = localStorage.getItem('token');
                 var pub = localStorage.getItem('public_id');
+                event.preventDefault();
                 $.ajax({
-                    url: "http://127.0.0.1:5000/api/user/comment",
+                    url: "https://pva-api.herokuapp.com/api/user/comment",
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify({
                         'comment': comment,
@@ -96,19 +97,18 @@
                     },
                     success: function (resp) {
                         alert(resp.message);
-                        window.location.href = '/visitor/landing'
+                        window.location.reload();
                     },
                     error: function () {
-                        alert('server error! click ok to reload!');
+                        alert('Server error! click OK to reload!');
                         window.location.reload();
                     }
                 })
             });
             $('#logout').click(function () {
-                console.log('token revoked! please log in again!');
+                console.log('Token revoked! please log in again!');
                 localStorage.clear();
-                window.location.href = '/logout'
-            })
+            });
         })
     </script>
 
@@ -181,6 +181,8 @@
                             </table>
                         </div>
                     </div>
+                </div>
+            </div>
         </section>
 
     </div>
@@ -189,12 +191,11 @@
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog" role="document" style="margin-top: 100px;">
+        <div class="modal-content" >
             <div class="modal-header modal-color">
+                <h3 id="titleVar" name="Title" style="display: inline;"></h3>
 
-                <input type="text" readonly class="form-control-plaintext section-subheading text-primary" id="pid"
-                       value="">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -204,16 +205,7 @@
                 <div class="row">
                     <div class="col">
 
-                        <div class="form-group">
-                            <label class="section-subheading text-primary"><i class="fa fa-user" style="color:gray;"> </i><font color="gray"> Title </font></label>
-                            <p><input type="text" class="form-control" id="titleVar" placeholder="Enter Title"
-                                      name="Title" readonly></p>
-                        </div>
-                        <div class="form-group">
-                            <label class="section-subheading text-primary"><i class="fa fa-user" style="color:gray;"></i><font color="gray"> Content </font></label>
-                            <p><input type="text" class="form-control" id="announce" placeholder="Enter Content"
-                                      name="Content" readonly></p>
-                        </div>
+                        <h5 id="announce" ></h5>
                         <p hidden id="ids"></p>
 
                     </div>
@@ -228,6 +220,7 @@
 
 
 </div>
+
 
 
 <div class="container-fluid p-0">
@@ -554,7 +547,7 @@
             var tokens = localStorage.getItem('token');
 
             $.ajax({
-                url: 'http://127.0.0.1:5000/api/admin/announcements_get',
+                url: 'https://pva-api.herokuapp.com/api/admin/announcements_get',
                 type: "GET",
                 dataType: "json",
                 crossDomain: true,
@@ -574,6 +567,13 @@
 
                         myTable = $('#maintable').DataTable({
                             data: dataset2,
+                            "order": [[2,'desc']],
+                            "columnDefs": [
+                                {
+                                    "targets": [0],
+                                    "visible": false
+                                }
+                            ],
                             columns: [
                                 {title: "#"},
                                 {title: "Title"},
@@ -593,8 +593,8 @@
         data = myTable.row(row).data();
         console.log(data);
         document.getElementById('ids').innerHTML = data[0];
-        document.getElementById('titleVar').value = data[1];
-        document.getElementById('announce').value = data[4];
+        document.getElementById('titleVar').innerHTML = data[1];
+        document.getElementById('announce').innerHTML = data[4];
 
     });
 

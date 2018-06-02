@@ -74,10 +74,9 @@
             left: 820px;
         }
 
-
-    #target {
-        font-size: 19px;
-    }
+        #target {
+            font-size: 19px;
+        }
 
 
     </style>
@@ -93,7 +92,8 @@
                 <img class="img-responsive center-block" src="../static/img/mob.jpg" alt="">
             </span>
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -102,7 +102,7 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="/clerk/view-announcements" style="color: #fcec5f; background-color: black; font-family: 'Saira Extra Condensed', serif;
         font-size: 25px;">ANNOUNCEMENTS
-                        </a>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="/clerk/record-visitation" style="color: black; font-family: 'Saira Extra Condensed', serif;
@@ -124,7 +124,7 @@
                         REQUESTS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/logout" style="color: black; font-family: 'Saira Extra Condensed', serif;
+                    <a class="nav-link js-scroll-trigger" id="logout" href="/logout" style="color: black; font-family: 'Saira Extra Condensed', serif;
         font-size: 25px;">Log Out</a>
                 </li>
 
@@ -161,31 +161,21 @@
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document" style="margin-top: 100px;">
         <div class="modal-content">
-            <div class="modal-header modal-color">
+            <div class="modal-header modal-color" style=" background-color:white;">
+                <h3 id="titleVar" style="display: inline;"></h3>
 
-                <input type="text" readonly class="form-control-plaintext section-subheading text-primary" id="pid"
-                       value="">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body modal-color">
+            <div class="modal-body modal-color" style=" background-color:white;">
 
                 <div class="row">
                     <div class="col">
 
-                        <div class="form-group">
-                            <label class="section-subheading text-primary"><i class="fa fa-user"> </i> Title </label>
-                            <p><input type="text" class="form-control" id="titleVar" placeholder="Enter Title"
-                                      name="Title" readonly></p>
-                        </div>
-                        <div class="form-group">
-                            <label class="section-subheading text-primary"><i class="fa fa-user"></i> Content </label>
-                            <p><input type="text" class="form-control" id="announce" placeholder="Enter Content"
-                                      name="Content" readonly></p>
-                        </div>
+                        <h5 id="announce"></h5>
                         <p hidden id="ids"></p>
 
                     </div>
@@ -221,16 +211,13 @@
     var dataset2 = [];
     $(document).ready(function () {
         if (localStorage.getItem('role_id') != 1) {
-                alert('You are not a Clerk');
-                window.location.href = '/';
-
+            alert('You are not a Clerk');
+            window.location.href = 'https://pva-web.herokuapp.com';
         }
         else {
-
             var tokens = localStorage.getItem('token');
-
             $.ajax({
-                url: 'http://127.0.0.1:5000/api/admin/announcements_get',
+                url: 'https://pva-api.herokuapp.com/api/admin/announcements_get',
                 type: "GET",
                 dataType: "json",
                 crossDomain: true,
@@ -250,6 +237,15 @@
 
                         myTable = $('#maintable').DataTable({
                             data: dataset2,
+                            "dom": '<"pull-left"f><"pull-right"l>tip',
+                            aaSorting: [2, 'desc'],
+                            "bLengthChange": false,
+                            "columnDefs": [
+                                {
+                                    "targets": [0],
+                                    "visible": false
+                                }
+                            ],
                             columns: [
                                 {title: "ID"},
                                 {title: "Title"},
@@ -269,57 +265,60 @@
         data = myTable.row(row).data();
         console.log(data);
         document.getElementById('ids').innerHTML = data[0];
-        document.getElementById('titleVar').value = data[1];
-        document.getElementById('announce').value = data[4];
+        document.getElementById('titleVar').innerHTML = data[1];
+        document.getElementById('announce').innerHTML = data[4];
 
+    });
+
+    $('#logout').click(function () {
+        console.log('token revoked! please log in again!');
+        localStorage.clear();
     });
 </script>
 
 <!--<script>-->
-    <!--function edited() {-->
-        <!--console.log("test");-->
-        <!--var tokens = localStorage.getItem('token');-->
-        <!--var id = document.getElementById('ids').innerHTML;-->
+<!--function edited() {-->
+<!--console.log("test");-->
+<!--var tokens = localStorage.getItem('token');-->
+<!--var id = document.getElementById('ids').innerHTML;-->
 
-        <!--var title = $("#titleVar").val();-->
-        <!--console.log(title);-->
-        <!--var announcement = $("#announce").val();-->
-
-
-        <!--$.ajax({-->
-            <!--url: "http://127.0.0.1:5000/api/admin/edit_announcement",-->
-            <!--contentType: 'application/json; charset=utf-8',-->
-            <!--data: JSON.stringify({-->
-                <!--'id': id,-->
-                <!--'title': title,-->
-                <!--'announcement': announcement-->
+<!--var title = $("#titleVar").val();-->
+<!--console.log(title);-->
+<!--var announcement = $("#announce").val();-->
 
 
-            <!--}),-->
-            <!--method: "POST",-->
-            <!--dataType: "json",-->
-            <!--crossDomain: true,-->
-            <!--headers: {-->
-                <!--'x-access-token': tokens-->
-            <!--},-->
-            <!--success: function () {-->
-                <!--console.log("success");-->
-                <!--alert("edited succesfully!");-->
-                <!--window.location.href = '/admin/view-announcements'-->
-            <!--},-->
-            <!--error: function () {-->
-                <!--console.log('error')-->
-            <!--},-->
-            <!--complete: function (jqXHR) {-->
-                <!--if (jqXHR.status == '401') {-->
-                    <!--console.log(jqXHR.status)-->
-                <!--}-->
-            <!--}-->
-        <!--})-->
-    <!--}-->
+<!--$.ajax({-->
+<!--url: "https://pva-api.herokuapp.com/api/admin/edit_announcement",-->
+<!--contentType: 'application/json; charset=utf-8',-->
+<!--data: JSON.stringify({-->
+<!--'id': id,-->
+<!--'title': title,-->
+<!--'announcement': announcement-->
+
+
+<!--}),-->
+<!--method: "POST",-->
+<!--dataType: "json",-->
+<!--crossDomain: true,-->
+<!--headers: {-->
+<!--'x-access-token': tokens-->
+<!--},-->
+<!--success: function () {-->
+<!--console.log("success");-->
+<!--alert("edited succesfully!");-->
+<!--window.location.href = '/admin/view-announcements'-->
+<!--},-->
+<!--error: function () {-->
+<!--console.log('error')-->
+<!--},-->
+<!--complete: function (jqXHR) {-->
+<!--if (jqXHR.status == '401') {-->
+<!--console.log(jqXHR.status)-->
+<!--}-->
+<!--}-->
+<!--})-->
+<!--}-->
 <!--</script>-->
-
-
 
 
 </body>

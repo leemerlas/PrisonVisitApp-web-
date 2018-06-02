@@ -23,62 +23,94 @@
 </head>
 <link href="../static/css/resume.min.css" rel="stylesheet">
 <style type="text/css">
-    #table{
+    #table {
         color: black;
         background-color: #FCEC5F;
         border-radius: 1%;
         padding: 20px;
         font-size: 20px;
-        }
-    #table1{
+    }
+
+    #table1 {
         color: black;
         background-color: #FCEC5F;
         border-radius: 1%;
         padding: 20px;
         font-size: 20px;
-        }
-    .dataTables_wrapper{
+    }
+
+    .dataTables_wrapper {
         font-family: 'Saira Extra Condensed', serif;
         font-weight: 700;
         text-transform: uppercase;
         color: #343a40;
         font-size: 20px;
-        }
-    th{
+    }
+
+    th {
         font-family: 'Saira Extra Condensed', serif;
         font-weight: 700;
         text-transform: uppercase;
         color: #343a40;
         font-size: 20px;
         width: 100px;
-        }
-    .table .thead-dark th{
+    }
+
+    .table .thead-dark th {
         font-family: 'Saira Extra Condensed', serif;
         font-weight: bolder;
         text-transform: uppercase;
         color: black;
-        }
-    .table1 .thead-dark th{
+    }
+
+    .table1 .thead-dark th {
         font-family: 'Saira Extra Condensed', serif;
         font-weight: bolder;
         text-transform: uppercase;
         color: black;
-        }
-    .table1 .thead-dark th{
+    }
+
+    .table1 .thead-dark th {
         font-family: 'Saira Extra Condensed', serif;
         font-weight: bolder;
         text-transform: uppercase;
         color: black;
-        }
-    .container{
+    }
+
+    .container {
         height: auto;
-        }
-    .container1{
+    }
+
+    .container1 {
         height: auto;
-        }
+    }
 
     #target {
         font-size: 19px;
+    }
+
+</style>
+<style>
+    /* width */
+    ::-webkit-scrollbar {
+        width: 7px;
+
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
     }
 
 </style>
@@ -91,48 +123,57 @@
                 <img class="img-responsive center-block" src="../static/img/mob.jpg" alt="">
             </span>
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="overflow: auto; ">
+            <ul class="navbar-nav" id="memes">
                 <li class="nav-item">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/view-announcements" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">MANAGE ANNOUNCEMENTS</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-announcements" style="color:black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">MANAGE ANNOUNCEMENTS</a>
                 </li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/admin/view_visitors" style="color: #fcec5f; background-color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Visitor Data</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/admin/view_visitors" style="color: #fcec5f; background-color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Visitor Data</a></li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/add_clerk" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Add Clerk</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/add_prisoner" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Add Prisoner</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_clerk" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Add Clerk</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/manage-announcements" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Create Announcements</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/manage-prisoner" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Manage Prisoner Data</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_prisoner" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Add Prisoner</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/visit_logs" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Visitation Logs</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/newsupdate" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Add News</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-announcements" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Create Announcements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-prisoner" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Manage Prisoner Data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/visit_logs" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Visitation Logs</a>
+                </li>
+                <li class="nav-item" style="">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-walkin" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Walk-in Visitations</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="/admin/view-comments" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Comment</a>
+        font-size: 21px;">Suggestion Box</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/logout" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Log Out</a>
+                    <a class="nav-link js-scroll-trigger" id="logout" href="/logout" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Log Out</a>
                 </li>
+
             </ul>
         </div>
     </nav>
@@ -180,148 +221,150 @@
     var dataset2 = [];
     $(document).ready(function () {
 
-    if (localStorage.getItem('role_id') != 0) {
-                alert('You are not an Admin');
-                window.location.href = '/';
-    }
-    else {
+        if (localStorage.getItem('role_id') != 0) {
+            alert('You are not an Admin');
+            window.location.href = 'https://pva-web.herokuapp.com';
+        }
+        else {
             var tokens = localStorage.getItem('token');
 
             $.ajax({
-                url: 'http://127.0.0.1:5000/api/admin/visitor_data',
+                url: 'https://pva-api.herokuapp.com/api/admin/visitor_data',
                 type: "GET",
                 dataType: "json",
                 crossDomain: true,
-                headers: { 'x-access-token': tokens },
-                success: function(resp) {
-                    if (resp.status  === 'ok') {
-                            for ( var i = 0; i < resp.entries.length; i++) {
-                                var dataset1 = [];
-                                dataset1.push(resp.entries[i].firstname + ' ' + resp.entries[i].middlename + ' ' + resp.entries[i].lastname);
-                                dataset1.push(resp.entries[i].address);
-                                dataset1.push(resp.entries[i].contact);
-                                dataset1.push(resp.entries[i].birthday);
-                                dataset1.push(resp.entries[i].age);
-                                dataset1.push(resp.entries[i].prisoner);
-                                dataset1.push(resp.entries[i].status.toString());
-                                if (resp.entries[i].status === 'PENDING') {
-                                    dataset1.push("<button class='btn btn-success' style='padding: 2px 5px' id='approve'><span class='fa fa-check' style='text-align: center'></span></button><button id='decline' class='btn btn-danger btn-xs' style='padding: 2px 5px'><span class='fa fa-remove'></span></button>");
-                                }
-                                else {
-                                    dataset1.push("N/A");
-                                }
-                                dataset1.push(resp.entries[i].id);
-                                dataset2.push(dataset1);
+                headers: {'x-access-token': tokens},
+                success: function (resp) {
+                    if (resp.status === 'ok') {
+                        for (var i = 0; i < resp.entries.length; i++) {
+                            var dataset1 = [];
+                            dataset1.push(resp.entries[i].firstname + ' ' + resp.entries[i].middlename + ' ' + resp.entries[i].lastname);
+                            dataset1.push(resp.entries[i].address);
+                            dataset1.push(resp.entries[i].contact);
+                            dataset1.push(resp.entries[i].birthday);
+                            dataset1.push(resp.entries[i].age);
+                            dataset1.push(resp.entries[i].prisoner);
+                            dataset1.push(resp.entries[i].status.toString());
+                            if (resp.entries[i].status === 'PENDING') {
+                                dataset1.push("<button class='btn btn-success' style='padding: 2px 5px' id='approve'><span class='fa fa-check' style='text-align: center'></span></button>&nbsp;<button id='decline' class='btn btn-danger btn-xs' style='padding: 2px 5px'><span class='fa fa-remove'></span></button>");
                             }
-                            <!--console.log(dataset2);-->
-                            myTable =  $('#maintable').DataTable({
-                                data: dataset2,
-                                columns : [
-                                    {title: "Name"},
-                                    {title: "Address"},
-                                    {title: "Contact"},
-                                    {title: "Birthday"},
-                                    {title: "Age"},
-                                    {title: "Related to"},
-                                    {title: "Status"},
-                                    {title: "Actions"}
-                                ]
-                            });
-                            $('.dataTables_filter input').attr("placeholder", "");
+                            else {
+                                dataset1.push("N/A");
+                            }
+                            dataset1.push(resp.entries[i].id);
+                            dataset2.push(dataset1);
                         }
+                        <!--console.log(dataset2);-->
+                        myTable = $('#maintable').DataTable({
+                            data: dataset2,
+                            columns: [
+                                {title: "Name",className: "dt-head-center dt-body-center"},
+                                {title: "Address",className: "dt-head-center dt-body-center"},
+                                {title: "Contact",className: "dt-head-center dt-body-center"},
+                                {title: "Birthday",className: "dt-head-center dt-body-center"},
+                                {title: "Age",className: "dt-head-center dt-body-center"},
+                                {title: "Related to",className: "dt-head-center dt-body-center"},
+                                {title: "Status",className: "dt-head-center dt-body-center"},
+                                {title: "Actions",className: "dt-head-center dt-body-center"}
+                            ]
+                        });
+                        $('.dataTables_filter input').attr("placeholder", "");
                     }
+                }
 
-                });
+            });
 
 
+            $('body').on('click', '#approve', function () {
 
-    $('body').on('click', '#approve', function() {
+                var row = $(this).parents('tr')[0];
+                data = myTable.row(row).data();
+                global1 = data[8];
+                console.log(global1);
+                approve(global1);
 
-        var row  = $(this).parents('tr')[0];
-        data =  myTable.row(row).data();
-        global1 = data[8];
-        console.log(global1);
-        approve(global1);
+            });
 
-    });
+            $("body").on('click', '#decline', function () {
+                var row = $(this).parents('tr')[0];
 
-    $("body").on('click', '#decline', function () {
-        var row  = $(this).parents('tr')[0];
+                data = myTable.row(row).data();
+                global2 = data[8];
+                console.log(global2);
+                decline(global2);
 
-        data =  myTable.row(row).data();
-        global2 = data[8];
-        console.log(global2);
-        decline(global2);
-
-    });
+            });
 
         }
     });
-     function approve (g) {
-        alert("You have approved the registration of user "+g);
+    function approve(g) {
+        
         var tokens = localStorage.getItem('token');
-                var public_id = localStorage.getItem('public_id');
-                var user_id;
-                var response = $("#response").val();
-                $.ajax({
-                    url: "http://127.0.0.1:5000/api/clerk/account_accept",
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({
-                        'public_id':public_id,
-                        'user_id':g,
-                        'response':'yes'
-                    }),
-                    method: "POST",
-                    dataType: "json",
-                    crossDomain: true,
-                    headers: {
-                        'x-access-token': tokens
-                    },
-                    success: function (resp) {
-                        alert(resp.message);
-                        window.location.href='/admin/view_visitors'
-                    },
-                    error: function () {
-                        alert('server error! click ok to reload!');
-                        window.location.href='/admin/view_visitors'
+        var public_id = localStorage.getItem('public_id');
+        var user_id;
+        var response = $("#response").val();
+        $.ajax({
+            url: "https://pva-api.herokuapp.com/api/clerk/account_accept",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                'public_id': public_id,
+                'user_id': g,
+                'response': 'yes'
+            }),
+            method: "POST",
+            dataType: "json",
+            crossDomain: true,
+            headers: {
+                'x-access-token': tokens
+            },
+            success: function (resp) {
+                alert(resp.message);
+                window.location.reload();
+            },
+            error: function () {
+                alert('Server error! Click ok to reload!');
+                window.location.reload();
 
-                    }
-                })
+            }
+        })
     }
 
     function decline(g) {
-        alert("You have rejected the registration of user "+g);
+        
         var tokens = localStorage.getItem('token');
-                var public_id = localStorage.getItem('public_id');
-                var user_id;
-                var response = $("#response").val();
-                $.ajax({
-                    url: "http://127.0.0.1:5000/api/clerk/account_accept",
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({
-                        'public_id':public_id,
-                        'user_id':g,
-                        'response':'no'
-                    }),
-                    method: "POST",
-                    dataType: "json",
-                    crossDomain: true,
-                    headers: {
-                        'x-access-token': tokens
-                    },
-                    success: function (resp) {
-                        alert("User Declined!");
-                        window.location.href='/admin/view_visitors'
-                    },
-                    error: function () {
-                        alert('server error! click ok to reload!');
-                        window.location.href='/admin/view_visitors'
+        var public_id = localStorage.getItem('public_id');
+        var user_id;
+        var response = $("#response").val();
+        $.ajax({
+            url: "https://pva-api.herokuapp.com/api/clerk/account_accept",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                'public_id': public_id,
+                'user_id': g,
+                'response': 'no'
+            }),
+            method: "POST",
+            dataType: "json",
+            crossDomain: true,
+            headers: {
+                'x-access-token': tokens
+            },
+            success: function (resp) {
+                alert("User Declined!");
+                window.location.reload();
+            },
+            error: function () {
+                alert('Server error! Click ok to reload!');
+                window.location.reload();
 
-                    }
-                })
+            }
+        })
     }
 
-
+    $('#logout').click(function () {
+        console.log('token revoked! please log in again!');
+        localStorage.clear();
+    });
 
 </script>
 

@@ -73,13 +73,35 @@
             left: 820px;
         }
 
+        }
+        #target {
+            font-size: 19px;
+        }
 
-    }
-    #target {
-        font-size: 19px;
-    }
 
+    </style>
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 7px;
 
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
 
     </style>
 
@@ -99,42 +121,50 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="overflow: auto; ">
+            <ul class="navbar-nav" id="memes">
                 <li class="nav-item">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/view-announcements" style="color: #fcec5f; background-color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">MANAGE ANNOUNCEMENTS</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-announcements" style="color: #fcec5f; background-color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">MANAGE ANNOUNCEMENTS</a>
                 </li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/admin/view_visitors" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Visitor Data</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/admin/view_visitors" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Visitor Data</a></li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/add_clerk" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Add Clerk</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/add_prisoner" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Add Prisoner</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_clerk" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Add Clerk</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/manage-announcements" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Create Announcements</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_prisoner" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Add Prisoner</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/manage-prisoner" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Manage Prisoner Data</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/newsupdate" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Add News</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/visit_logs" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Visitation Logs</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-announcements" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Create Announcements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-prisoner" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Manage Prisoner Data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/visit_logs" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Visitation Logs</a>
+                </li>
+                <li class="nav-item" style="">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-walkin" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Walk-in Visitations</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="/admin/view-comments" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Comment</a>
+        font-size: 21px;">Suggestion Box</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/logout" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Log Out</a>
+                    <a class="nav-link js-scroll-trigger" id="logout" href="/logout" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Log Out</a>
                 </li>
 
             </ul>
@@ -175,7 +205,7 @@
 
                 <input type="text" readonly class="form-control-plaintext section-subheading text-primary" id="pid"
                        value="">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #fcec5f">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -191,8 +221,8 @@
                         </div>
                         <div class="form-group">
                             <label class="section-subheading text-primary"><i class="fa fa-user"></i> Content </label>
-                            <p><input type="text" class="form-control" id="announce" placeholder="Enter Content"
-                                      name="Content"></p>
+                            <p><textarea type="text" class="form-control" id="announce" placeholder="Enter Content"
+                                         name="Content" style="height: 200px;"></textarea></p>
                         </div>
                         <p hidden id="ids"></p>
 
@@ -229,15 +259,15 @@
     var dataset2 = [];
     $(document).ready(function () {
         if (localStorage.getItem('role_id') != 0) {
-                alert('You are not an Admin');
-                window.location.href = '/';
+            alert('You are not an Admin');
+            window.location.href = 'https://pva-web.herokuapp.com';
 
         } else {
 
             var tokens = localStorage.getItem('token');
 
             $.ajax({
-                url: 'http://127.0.0.1:5000/api/admin/announcements_get',
+                url: 'https://pva-api.herokuapp.com/api/admin/announcements_get',
                 type: "GET",
                 dataType: "json",
                 crossDomain: true,
@@ -246,18 +276,32 @@
                     if (resp.status === 'ok') {
                         for (var i = 0; i < resp.entries.length; i++) {
                             var dataset1 = [];
-                            dataset1.push(resp.entries[i].id);
                             dataset1.push(resp.entries[i].title);
                             dataset1.push(resp.entries[i].announcement);
                             dataset1.push(resp.entries[i].date);
                             dataset1.push("<a href='#' data-toggle='modal' data-target='#exampleModal' id='target' class='edit-data'><i class='fa  fa-edit fa-2x'></i></a>");
+                            dataset1.push(resp.entries[i].id);
                             dataset2.push(dataset1);
                         }
 
                         myTable = $('#maintable').DataTable({
                             data: dataset2,
+                            "dom": '<"pull-left"f><"pull-right"l>tip',
+                            "bLengthChange": false,
+                            "order": [[2,'desc']],
+                            "columnDefs": [
+                                {
+                                    "targets": [0],
+                                    "visible": false
+                                }
+                            ],
+                            "columnDefs": [
+                                {
+                                    "targets": [ 1 ],
+                                    "visible": false
+                                }
+                            ],
                             columns: [
-                                {title: "ID"},
                                 {title: "Title"},
                                 {title: "Content"},
                                 {title: "Date"},
@@ -270,14 +314,18 @@
             });
         }
     });
+    $('#logout').click(function () {
+        console.log('Token revoked! please log in again!');
+        localStorage.clear();
+    });
 
     $('body').on('click', '#target', function () {
         var row = $(this).parents('tr')[0];
         data = myTable.row(row).data();
         console.log(data);
-        document.getElementById('ids').innerHTML = data[0];
-        document.getElementById('titleVar').value = data[1];
-        document.getElementById('announce').value = data[2];
+        document.getElementById('ids').innerHTML = data[4];
+        document.getElementById('titleVar').value = data[0];
+        document.getElementById('announce').value = data[1];
 
     });
 
@@ -295,14 +343,12 @@
 
 
         $.ajax({
-            url: "http://127.0.0.1:5000/api/admin/edit_announcement",
+            url: "https://pva-api.herokuapp.com/api/admin/edit_announcement",
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
                 'id': id,
                 'title': title,
                 'announcement': announcement
-
-
             }),
             method: "POST",
             dataType: "json",
@@ -312,11 +358,13 @@
             },
             success: function () {
                 console.log("success");
-                alert("edited succesfully!");
-                window.location.href = '/admin/view-announcements'
+                alert("Edited succesfully!");
+                window.location.reload();
             },
-            error: function () {
-                console.log('error')
+            error: function (err) {
+                console.error(err);
+                alert("Server error! Click OK to reload!");
+                window.location.reload();
             },
             complete: function (jqXHR) {
                 if (jqXHR.status == '401') {

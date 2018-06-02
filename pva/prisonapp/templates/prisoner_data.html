@@ -80,6 +80,31 @@
 
 
     </style>
+    <style>
+     /* width */
+    ::-webkit-scrollbar {
+        width: 7px;
+
+
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+</style>
 
 </head>
 <body>
@@ -92,48 +117,57 @@
                 <img class="img-responsive center-block" src="../static/img/mob.jpg" alt="">
             </span>
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="overflow: auto; ">
+            <ul class="navbar-nav" id="memes">
                 <li class="nav-item">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/view-announcements" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">MANAGE ANNOUNCEMENTS</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-announcements" style="color:black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">MANAGE ANNOUNCEMENTS</a>
                 </li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/admin/view_visitors" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Visitor Data</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/admin/view_visitors" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Visitor Data</a></li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/add_clerk" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Add Clerk</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/add_prisoner " style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Add Prisoner</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_clerk" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Add Clerk</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/manage-announcements" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Create Announcements</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/manage-prisoner" style="color: #fcec5f; background-color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Manage Prisoner Data</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_prisoner" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Add Prisoner</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/visit_logs" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Visitation Logs</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/newsupdate" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Add News</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-announcements" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Create Announcements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-prisoner" style="color: #fcec5f; background-color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Manage Prisoner Data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/visit_logs" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Visitation Logs</a>
+                </li>
+                <li class="nav-item" style="">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-walkin" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Walk-in Visitations</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="/admin/view-comments" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Comment</a>
+        font-size: 21px;">Suggestion Box</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/logout" style="color: black; font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;">Log Out</a>
+                    <a class="nav-link js-scroll-trigger" id="logout" href="/logout" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Log Out</a>
                 </li>
+
             </ul>
         </div>
     </nav>
@@ -247,14 +281,14 @@
     $(document).ready(function () {
         if (localStorage.getItem('role_id') != 0) {
                 alert('You are not an Admin');
-                window.location.href = '/';
+                window.location.href = 'https://pva-web.herokuapp.com';
         }
         else {
 
             var tokens = localStorage.getItem('token');
 
             $.ajax({
-                url: 'http://127.0.0.1:5000/api/admin/prisoner_data',
+                url: 'https://pva-api.herokuapp.com/api/admin/prisoner_data',
                 type: "GET",
                 dataType: "json",
                 crossDomain: true,
@@ -276,6 +310,12 @@
 
                         myTable = $('#maintable').DataTable({
                             data: dataset2,
+                            "columnDefs": [
+                                {
+                                    "targets": [0],
+                                    "visible": false
+                                }
+                            ],
                             columns: [
                                 {title: "ID"},
                                 {title: "First Name"},
@@ -305,6 +345,10 @@
         document.getElementById('age').innerHTML = data[5];
         document.getElementById('kraym').value = data[6];
     });
+    $('#logout').click(function () {
+            console.log('Token revoked! please log in again!');
+            localStorage.clear();
+        });
 </script>
 
 <script>
@@ -321,7 +365,7 @@
         var birthday = $("#bday").val();
         var crime = $("#kraym").val();
         $.ajax({
-            url: "http://127.0.0.1:5000/api/admin/edit_prisoner",
+            url: "https://pva-api.herokuapp.com/api/admin/edit_prisoner",
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
                 'id': id,
@@ -340,8 +384,8 @@
             },
             success: function () {
                 console.log("success");
-                alert("edited succesfully!");
-                window.location.href = '/admin/manage-prisoner'
+                alert("Edited succesfully!");
+                window.location.assign('/admin/manage-prisoner');
             },
             error: function () {
                 console.log('error')

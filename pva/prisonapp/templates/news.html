@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>BJMP | News</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="../static/css/sairaextracondensed.css"
+          rel="stylesheet">
+    <link href="../static/css/opensans.css"
+          rel="stylesheet">
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../static/vendor/devicons/css/devicons.min.css" rel="stylesheet">
+    <link href="../static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/resume.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        body {
+            background-color: #F4F4F4;
+            margin: 0;
+            padding: 0;
+
+        }
+
+        a img {
+            height: 70px;
+
+        }
+
+        .img-fluid {
+            display:block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #container-box {
+            margin-top: 80px;
+            width: 80%;
+            height: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .2);
+            border-left-style: 1px black solid;
+            padding: 30px 20px 10px 20px;
+            border-radius: 3%;
+            background-color: #FFFFFF;
+
+        }
+
+        header .navbar {
+            background: rgba(255, 255, 255, .2);
+        }
+
+        #foot {
+            margin: 0 auto;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .content {
+            margin-top: 100px;
+
+        }
+
+        .logo {
+            padding-left: 10px;
+            opacity: 0.2;
+        }
+
+        .logo:hover {
+            opacity: 1;
+            transition: 1s;
+        }
+
+        #container-box:hover {
+            box-shadow: 0 15px 75px rgba(166, 168, 171, 0.5);
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+    <a href="/"> <img class="rounded logo fixed-top" src="../static/img/return.png"></a>
+
+</header>
+
+
+<h1 style="text-align: center; margin-top: 10px">News and Activities</h1>
+<section class="content" id="pernews">
+
+</section>
+
+
+<div id="foot">
+    <p><a href="#prev" id="btn_prev">Prev</a>|<a href="#next" id="btn_next">Next</a>
+    </p>
+    <span id="page" style="display: none;"></span>
+</div>
+
+<!-- Bootstrap core JavaScript -->
+<script src="../static/vendor/jquery/jquery.min.js"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="../static/js/resume.min.js"></script>
+<script>
+        var global = [];
+        var current_page;
+        var records_per_page;
+        $(document).ready(function () {
+            $.ajax({
+                url: 'https://pva-api.herokuapp.com/api/view_newsupdate',
+                type: "GET",
+                dataType: "json",
+                crossDomain: true,
+                success: function (resp) {
+                    if (resp.status === 'ok') {
+                        for (var i = 0; i < resp.entries.length; i++) {
+                            var news = resp.entries[i];
+                            global.push({
+                                title: news.title,
+                                content: news.newsupdate,
+                                dates: news.date,
+                                imgsrc: news.imgSrc
+                            });
+                        }
+
+                        changePage(1)
+                    }
+                }
+            });
+            current_page = 1;
+            records_per_page = 3;
+
+            $("#btn_prev").click(function () {
+                if (current_page > 1) {
+                    current_page--;
+                    changePage(current_page);
+                }
+            });
+
+            $("#btn_next").click( function () {
+                if (current_page < numPages()) {
+                    current_page++;
+                    changePage(current_page);
+                }
+            });
+
+            function changePage(page) {
+                var btn_next = document.getElementById("btn_next");
+                var btn_prev = document.getElementById("btn_prev");
+                var contain = document.getElementById("pernews");
+                var page_span = document.getElementById("page");
+
+                // Validate page
+                if (page < 1) page = 1;
+                if (page > numPages()) page = numPages();
+
+                contain.innerHTML = "";
+
+                for (var j = (page - 1) * records_per_page; j < (page * records_per_page); j++) {
+                    var div = document.createElement("DIV");
+                    var h3 = document.createElement("h3");
+                    var h5 = document.createElement("h5");
+                    h3.setAttribute('id', 'mainhead');
+                    div.setAttribute("class", "container");
+                    div.setAttribute("id", 'container-box');
+
+                    var tdiv = document.createElement("div");
+                    tdiv.setAttribute('id', 'titlediv');
+                    var ddiv = document.createElement("div");
+                    ddiv.setAttribute('id', 'datediv');
+                    var cdiv = document.createElement("div");
+                    cdiv.setAttribute('id', 'contentdiv');
+                    cdiv.innerHTML = global[j].content;
+                    h3.innerHTML = global[j].title;
+                    h5.innerHTML = "Date posted: " + global[j].dates+"<hr>";
+
+                    tdiv.appendChild(h3);
+                    ddiv.appendChild(h5);
+                    div.appendChild(tdiv);
+                    div.appendChild(ddiv);
+
+                    div.appendChild(cdiv);
+                    contain.appendChild(div);
+                }
+                page_span.innerHTML = page;
+
+                if (page === 1) {
+                    btn_prev.style.visibility = "visible";
+                } else {
+                    btn_prev.style.visibility = "visible";
+                }
+
+                if (page === numPages()) {
+                    btn_next.style.visibility = "hidden";
+                } else {
+                    btn_next.style.visibility = "visible";
+                }
+            }
+
+            function numPages() {
+                return Math.ceil(global.length / records_per_page);
+            }
+
+
+        });
+
+</script>
+</body>
+</html>

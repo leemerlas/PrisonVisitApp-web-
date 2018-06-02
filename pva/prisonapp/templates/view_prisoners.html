@@ -19,7 +19,7 @@ function viewPris(){
     $("#view_id").show(); //Id ni siya na gamiton sa html
 
 $.ajax({
-          url: 'http://127.0.0.1:5000/api/clerk/prisoner_data',
+          url: 'https://pva-api.herokuapp.com/api/clerk/prisoner_data',
           type: "GET",
           dataType: "json",
           crossDomain: true,

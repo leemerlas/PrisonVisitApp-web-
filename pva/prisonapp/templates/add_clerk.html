@@ -5,11 +5,40 @@
 
     <style>
 
-      a {
-        font-family: 'Saira Extra Condensed', serif;
-        font-size: 25px;
-    }
+        a {
+            font-family: 'Saira Extra Condensed', serif;
+            font-size: 25px;
+        }
 
+
+    </style>
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 7px;
+
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+          -webkit-appearance: none; 
+          margin: 0; 
+        }
 
     </style>
 
@@ -38,82 +67,87 @@
         $(document).ready(function () {
             if (localStorage.getItem('role_id') != 0) {
                 alert('You are not an Admin');
-                window.location.href = '/';
+                window.location.href = 'https://pva-web.herokuapp.com';
             } else {
                 $('#target').submit(function () {
-                var username = $("#username").val();
-                var password = document.getElementById("password").innerHTML;
-                var firstname = $("#fname").val();
-                var middlename = $("#mname").val();
-                var lastname = $("#lname").val();
-                var age = document.getElementById('age').innerHTML;
-                var contact = $("#number").val();
-                var address = $("#address").val();
-                var birthday = $("#bday").val();
-
-                $.ajax({
-                    url: "http://127.0.0.1:5000/api/admin/addclerk",
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({
-                        'username':username,
-                        'password':password,
-                        'firstname':firstname,
-                        'middlename':middlename,
-                        'lastname':lastname,
-                        'age':age,
-                        'contact':contact,
-                        'address':address,
-                        'birthday':birthday
-                    }),
-                    method: "POST",
-                    dataType: "json",
-                    crossDomain: true,
-                    headers: {
-                     'x-access-token': tokens
-                    },
-                    success: function () {
-                        console.log("success");
-                        alert("registration success!");
-                        window.location.href='/admin/add_clerk'
-                    },
-                    error: function () {
-                        console.log('error')
-                    },
-                    complete: function (jqXHR) {
-                        if (jqXHR.status == '401') {
-                            console.log(jqXHR.status)
+                    var username = $("#username").val();
+                    var password = document.getElementById("password").innerHTML;
+                    var firstname = $("#fname").val();
+                    var middlename = $("#mname").val();
+                    var lastname = $("#lname").val();
+                    var age = document.getElementById('age').innerHTML;
+                    var contact = $("#number").val();
+                    var address = $("#address").val();
+                    var birthday = $("#bday").val();
+                    event.preventDefault();
+                    $.ajax({
+                        url: "https://pva-api.herokuapp.com/api/admin/addclerk",
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({
+                            'username': username,
+                            'password': password,
+                            'firstname': firstname,
+                            'middlename': middlename,
+                            'lastname': lastname,
+                            'age': age,
+                            'contact': contact,
+                            'address': address,
+                            'birthday': birthday
+                        }),
+                        method: "POST",
+                        dataType: "json",
+                        crossDomain: true,
+                        headers: {
+                            'x-access-token': tokens
+                        },
+                        success: function () {
+                            console.log("success");
+                            alert("Clerk added!");
+                            window.location.reload();
+                        },
+                        error: function () {
+                            console.log('Error! Try again!');
+                            alert("Username already exists!");
+                        },
+                        complete: function (jqXHR) {
+                            if (jqXHR.status == '401') {
+                                console.log(jqXHR.status)
+                            }
                         }
-                    }
-                })
-            });
+                    })
+                });
             }
         })
 
     </script>
     <script>
         function submitBday() {
-                var Q4A = "";
-                var Bdate = document.getElementById('bday').value;
-                var Bday = +new Date(Bdate);
-                Q4A += "" + ~~ ((Date.now() - Bday) / (31557600000));
-                var theBday = document.getElementById('age');
-                var age = theBday.innerHTML = Q4A;
-            }
+            var Q4A = "";
+            var Bdate = document.getElementById('bday').value;
+            var Bday = +new Date(Bdate);
+            Q4A += "" + ~~((Date.now() - Bday) / (31557600000));
+            var theBday = document.getElementById('age');
+            var age = theBday.innerHTML = Q4A;
+        }
 
     </script>
     <script>
-            function myFunction(){
-                var x = document.getElementById("myInput").value;
-                var text = "";
-                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        function myFunction() {
+            var x = document.getElementById("myInput").value;
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-                for(var i = 0; i < 8; i++)
-                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+            for (var i = 0; i < 8; i++)
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-                document.getElementById("password").innerHTML = text;
-                $('#texted').val(text);
+            document.getElementById("password").innerHTML = text;
+            $('#texted').val(text);
 
-            }
+        }
+        $('#logout').click(function () {
+            console.log('token revoked! please log in again!');
+            localStorage.clear();
+        });
 
     </script>
 </head>
@@ -132,42 +166,52 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="overflow: auto; ">
+            <ul class="navbar-nav" id="memes">
                 <li class="nav-item">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/view-announcements" style="color: black;">MANAGE
-                        ANNOUNCEMENTS</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-announcements" style="color:black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">MANAGE ANNOUNCEMENTS</a>
                 </li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/admin/view_visitors"
-                                        style="color: black;">Visitor Data</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/admin/view_visitors" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Visitor Data</a></li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/add_clerk"
-                       style="color: #fcec5f; background-color: black;">Add Clerk</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/add_prisoner" style="color: black;">Add
-                        Prisoner</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_clerk" style="color: #fcec5f; background-color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Add Clerk</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/manage-announcements" style="color: black;">Create
-                        Announcements</a>
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_prisoner" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Add Prisoner</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/newsupdate" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Add News</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-announcements" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Create Announcements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-prisoner" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Manage Prisoner Data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/visit_logs" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Visitation Logs</a>
+                </li>
+                <li class="nav-item" style="">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-walkin" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Walk-in Visitations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-comments" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Suggestion Box</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" id="logout" href="/logout" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Log Out</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/manage-prisoner" style="color: black;">Manage
-                        Prisoner Data</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/visit_logs" style="color: black;">Visitation
-                        Logs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/admin/view-comments" style="color: black;">Comment</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/logout" style="color: black;">Log Out</a>
-                </li>
             </ul>
         </div>
     </nav>
@@ -245,7 +289,7 @@
 
                                 <label class="section-subheading text-primary"><i class="fa fa-phone-square"></i>
                                     Contact Number</label>
-                                <p><input type="text" class="form-control" id="number"
+                                <p><input type="number" class="form-control" id="number"
                                           placeholder="Enter contact number"></p>
 
                             </div>

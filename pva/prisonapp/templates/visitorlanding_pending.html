@@ -44,12 +44,12 @@
 
 
             // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
+            span.onclick = function () {
                 modal.style.display = "none";
-            }
+            };
 
             // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
+            window.onclick = function (event) {
                 if (event.target == modal) {
                     modal.style.display = "none";
                 }
@@ -61,56 +61,27 @@
 
 
     <style>
-
-        /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            padding-top: 100px; /* Location of the box */
-            padding-left: 300px;
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-
-        /* Modal Content */
-        .modal-content {
-            font-family: 'Saira Extra Condensed', serif;
-            position: relative;
-            background-color: #fefefe;
-            margin: auto;
-            padding: 0;
-            border: 1px solid #888;
-            width: 80%;
-            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-            -webkit-animation-name: animatetop;
-            -webkit-animation-duration: 0.4s;
-            animation-name: animatetop;
-            animation-duration: 0.4s
-        }
-
         /* Add Animation */
         @-webkit-keyframes animatetop {
-            from {top:-300px; opacity:0}
-            to {top:0; opacity:1}
+            from {
+                top: -300px;
+                opacity: 0
+            }
+            to {
+                top: 0;
+                opacity: 1
+            }
         }
 
         @keyframes animatetop {
-            from {top:-300px; opacity:0}
-            to {top:0; opacity:1}
-        }
-
-        /* The Close Button */
-        .close {
-            color: gray;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
+            from {
+                top: -300px;
+                opacity: 0
+            }
+            to {
+                top: 0;
+                opacity: 1
+            }
         }
 
         .close:hover,
@@ -120,23 +91,6 @@
             cursor: pointer;
         }
 
-        .modal-header {
-            padding: 2px 16px;
-            background-color: #fcec5f;
-            color: white;
-        }
-
-        .modal-body {padding: 2px 16px;}
-
-        .modal-footer {
-            padding: 2px 16px;
-            background-color: #fcec5f;
-            color: white;
-        }
-
-
-
-
     </style>
 
 </head>
@@ -144,26 +98,32 @@
 <body id="page-top">
 
 <!-- The Modal -->
-        <div id="myModal" class="modal">
+<div id="myModal" class="modal" style="display: none; position: fixed; z-index: 1; padding-top: 100px;
+        padding-left: 300px; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);">
 
-            <!-- Modal content -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2>Reminder</h2>
-                    <span class="close" >&times;</span>
-
-                </div>
-                <div class="modal-body">
-                    <p></p>
-                    <p>This account is still unverified and is still under</p>
-
-                </div>
-                <div class="modal-footer">
-                    <h3>&nbsp;</h3>
-                </div>
-            </div>
+    <!-- Modal content -->
+    <div class="modal-content" style="font-family: 'Saira Extra Condensed', serif;position: relative;
+            background-color: #fefefe;margin: auto;padding: 0;border: 1px solid #888;width: 80%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);-webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;animation-name: animatetop;animation-duration: 0.4s">
+        <div class="modal-header" style="padding: 2px 16px;background-color: #fcec5f;color: white;">
+            <h2>Reminder</h2>
+            <span class="close" style="color: gray;float: right;font-size: 28px;font-weight: bold;">&times;</span>
 
         </div>
+        <div class="modal-body" style="padding: 2px 16px; color:black; font-size: 20px;">
+            <p></p>
+            <p>This account is still unverified. Some services are disabled until your account is approved and
+                verified. </p>
+
+        </div>
+        <div class="modal-footer" style="padding: 2px 16px; background-color: #fcec5f;color: white;">
+            <h3>&nbsp;</h3>
+        </div>
+    </div>
+
+</div>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
     <a class="navbar-brand js-scroll-trigger" href="#page-top">
 
@@ -177,7 +137,7 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-family: 'Saira Extra Condensed', serif;font-size: 25px;">
         <ul class="navbar-nav">
             <li class="nav-item">
 
@@ -193,7 +153,7 @@
                 <a class="nav-link js-scroll-trigger" style="color: black;">Comments <i class="fa fa-lock"></i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" id="logout" href="#" style="color: black;">Logout</a>
+                <a class="nav-link js-scroll-trigger" id="logout" href="/logout" style="color: black;">Logout</a>
             </li>
 
         </ul>
@@ -202,21 +162,64 @@
 
 
 <!--Announcement-->
-<section class="resume-section p-3 p-lg-5 d-flex d-column" id="announcements">
-    <div class="my-auto">
-
-        <h1 class="mb-5">ANNOUNCEMENTS</h1>
-        <ul>
-            <h3>
-                <li><a href="#">04/04/18 Lorem Ipsum</a></li>
-                <li><a href="#">04/20/18 Lorem Ipsum</a></li>
-                <li><a href="#">05/01/18 Lorem Ipsum</a></li>
-            </h3>
+<div class="container-fluid p-0" id="announcements">
 
 
-        </ul>
-    </div>
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="visitor">
+
+        <div class="container">
+
+            <div class="container row">
+                <div class=" col-lg-12 text-center" style="position: relative">
+                    <h2 class="section-heading text-uppercase" style="color: #fcec5f">
+                        Announcements
+                    </h2>
+
+                    <div id="table">
+                        <table id="maintable" class="table table-hover" style="font-size: 20px; width: 100%;">
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
 </section>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document" style="margin-top: 100px;">
+        <div class="modal-content">
+            <div class="modal-header modal-color">
+                <h3 id="titleVar" name="Title" style="display: inline;"></h3>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-color">
+
+                <div class="row">
+                    <div class="col">
+
+                        <h5 id="announce"></h5>
+                        <p hidden id="ids"></p>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
 
 <div class="container-fluid p-0">
 
@@ -485,6 +488,77 @@
 <!-- Custom scripts for this template -->
 <script src="../static/js/resume.min.js"></script>
 
+<link href="../static/jquery.dataTables.min.css" rel="stylesheet">
+<script type="text/javascript" src="../static/jquery.dataTables.min.js"></script>
+<script>
+
+    var myTable;
+
+    var dataset2 = [];
+    $(document).ready(function () {
+        if (localStorage.getItem('role_id') != 2) {
+            alert('You are not a Visitor');
+            window.location.href = '/';
+        }
+        else {
+
+            var tokens = localStorage.getItem('token');
+
+            $.ajax({
+                url: 'https://pva-api.herokuapp.com/api/admin/announcements_get',
+                type: "GET",
+                dataType: "json",
+                crossDomain: true,
+                headers: {'x-access-token': tokens},
+                success: function (resp) {
+                    if (resp.status === 'ok') {
+                        for (var i = 0; i < resp.entries.length; i++) {
+                            var dataset1 = [];
+                            dataset1.push(resp.entries[i].id);
+                            dataset1.push(resp.entries[i].title);
+                            dataset1.push(resp.entries[i].date);
+                            dataset1.push("<button href='#' data-toggle='modal' data-target='#exampleModal' id='target' class='btn btn-success'>Details<i ></i></button>");
+                            dataset1.push(resp.entries[i].announcement);
+                            dataset2.push(dataset1);
+
+                        }
+
+                        myTable = $('#maintable').DataTable({
+                            data: dataset2,
+                            "order": [[2,'desc']],
+                            columns: [
+                                {title: "#"},
+                                {title: "Title"},
+                                {title: "Date"},
+                                {title: "Actions"}
+
+                            ]
+                        });
+                    }
+                }
+            });
+        }
+        $('#logout').click(function () {
+            console.log('Token revoked! please log in again!');
+            localStorage.clear();
+        });
+    });
+
+    $('body').on('click', '#target', function () {
+        var row = $(this).parents('tr')[0];
+        data = myTable.row(row).data();
+        console.log(data);
+        document.getElementById('ids').innerHTML = data[0];
+        document.getElementById('titleVar').innerHTML = "Title: " + data[1];
+        document.getElementById('announce').innerHTML = data[4];
+
+    });
+
+
+</script>
+
+
 </body>
+
 
 </html>

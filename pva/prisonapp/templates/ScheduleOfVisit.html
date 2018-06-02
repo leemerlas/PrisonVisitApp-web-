@@ -54,7 +54,7 @@
 
           <div class="form-group" style=" padding: 0px 200px;" >
             <label class="section-subheading text-primary"><i class="fa fa-user"></i> Inmate's Complete Name</label>
-            <p><input type="text" class="form-control" id="nameP" placeholder="Enter here"></p>
+            <p><input type="text" class="form-control" id="nameP" placeholder="Enter here" readonly></p>
           </div>
 
       
@@ -118,14 +118,6 @@
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-
 
                         </select></p>
           </div>
@@ -154,6 +146,8 @@
   </section>
 <script>
         $(document).ready(function () {
+        var prisoner = document.getElementById('nameP');
+        prisoner.value = localStorage.getItem('prisoner');
             $('#scheduleform').submit(function () {
                 var nameP = $("#nameP").val();
                 var vDate = $("#vDate").val();
@@ -163,15 +157,15 @@
                 var tokens = localStorage.getItem('token');
                 var pub = localStorage.getItem('public_id');
                 $.ajax({
-                    url: "http://127.0.0.1:5000/api/user/visitation",
+                    url: "https://pva-api.herokuapp.com/api/user/visitation",
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify({
                         'nameP': nameP,
                         'vDate': vDate,
                         'numV': numV,
                         'timeV': timeV,
-                        'relation': relation,
-                        'public_id': pub
+                        'relationship': relation,
+                        'pid': pub
                     }),
                     method: "POST",
                     dataType: "json",
@@ -181,10 +175,10 @@
                     },
                     success: function (resp) {
                         alert('Success');
-                        window.location.href = '/visitor/landing'
+                        window.location.assign('/visitor/landing');
                     },
                     error: function () {
-                        alert('server error! click ok to reload!');
+                        alert('Server error! Click ok to reload!');
                         window.location.reload();
 
                     }
