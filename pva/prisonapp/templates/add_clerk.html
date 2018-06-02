@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <style>
+
+        a {
+            font-family: 'Saira Extra Condensed', serif;
+            font-size: 25px;
+        }
+
+
+    </style>
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 7px;
+
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+          -webkit-appearance: none; 
+          margin: 0; 
+        }
+
+    </style>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>BJMP | Add Clerk</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="../static/css/sairaextracondensed.css" rel="stylesheet">
+    <link href="../static/css/opensans.css" rel="stylesheet">
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../static/vendor/devicons/css/devicons.min.css" rel="stylesheet">
+    <link href="../static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/resume.min5.css" rel="stylesheet">
+    <script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
+    <script>
+        var tokens = localStorage.getItem('token');
+        $(document).ready(function () {
+            if (localStorage.getItem('role_id') != 0) {
+                alert('You are not an Admin');
+                window.location.href = 'https://pva-web.herokuapp.com';
+            } else {
+                $('#target').submit(function () {
+                    var username = $("#username").val();
+                    var password = document.getElementById("password").innerHTML;
+                    var firstname = $("#fname").val();
+                    var middlename = $("#mname").val();
+                    var lastname = $("#lname").val();
+                    var age = document.getElementById('age').innerHTML;
+                    var contact = $("#number").val();
+                    var address = $("#address").val();
+                    var birthday = $("#bday").val();
+                    event.preventDefault();
+                    $.ajax({
+                        url: "https://pva-api.herokuapp.com/api/admin/addclerk",
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({
+                            'username': username,
+                            'password': password,
+                            'firstname': firstname,
+                            'middlename': middlename,
+                            'lastname': lastname,
+                            'age': age,
+                            'contact': contact,
+                            'address': address,
+                            'birthday': birthday
+                        }),
+                        method: "POST",
+                        dataType: "json",
+                        crossDomain: true,
+                        headers: {
+                            'x-access-token': tokens
+                        },
+                        success: function () {
+                            console.log("success");
+                            alert("Clerk added!");
+                            window.location.reload();
+                        },
+                        error: function () {
+                            console.log('Error! Try again!');
+                            alert("Username already exists!");
+                        },
+                        complete: function (jqXHR) {
+                            if (jqXHR.status == '401') {
+                                console.log(jqXHR.status)
+                            }
+                        }
+                    })
+                });
+            }
+        })
+
+    </script>
+    <script>
+        function submitBday() {
+            var Q4A = "";
+            var Bdate = document.getElementById('bday').value;
+            var Bday = +new Date(Bdate);
+            Q4A += "" + ~~((Date.now() - Bday) / (31557600000));
+            var theBday = document.getElementById('age');
+            var age = theBday.innerHTML = Q4A;
+        }
+
+    </script>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myInput").value;
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+            for (var i = 0; i < 8; i++)
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+            document.getElementById("password").innerHTML = text;
+            $('#texted').val(text);
+
+        }
+        $('#logout').click(function () {
+            console.log('token revoked! please log in again!');
+            localStorage.clear();
+        });
+
+    </script>
+</head>
+
+<section id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">
+            <span class="d-block d-lg-none">BJMP</span>
+            <span class="d-none d-lg-block">
+                <img class="img-responsive center-block" src="../static/img/mob.jpg" alt="">
+            </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="overflow: auto; ">
+            <ul class="navbar-nav" id="memes">
+                <li class="nav-item">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-announcements" style="color:black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">MANAGE ANNOUNCEMENTS</a>
+                </li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/admin/view_visitors" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Visitor Data</a></li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_clerk" style="color: #fcec5f; background-color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Add Clerk</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_prisoner" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Add Prisoner</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/newsupdate" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Add News</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-announcements" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Create Announcements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-prisoner" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Manage Prisoner Data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/visit_logs" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Visitation Logs</a>
+                </li>
+                <li class="nav-item" style="">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-walkin" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Walk-in Visitations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-comments" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Suggestion Box</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" id="logout" href="/logout" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Log Out</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-0">
+
+
+        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="clerk">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading text-uppercase" style="color: #fcec5f">
+                    Add Clerk
+                </h2>
+            </div>
+            <div class="container">
+                <form id="target" style="margin-top: 5%">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="section-subheading text-primary"><i class="fa fa-user-circle"> </i>
+                                    Username</label>
+                                <p><input type="text" class="form-control" id="username" placeholder="Enter username"
+                                          oninput="myFunction()"></p>
+                            </div>
+                            <div class="form-group">
+                                <label class="section-subheading text-primary"><i class="fa fa-lock"></i>
+                                    Password</label>
+                                <input type="hidden" class="form-control" id="myInput" placeholder="">
+                                <input type="text" class="form-control" id="texted" readonly
+                                       placeholder="auto-generated"/>
+                                <p hidden id="password"></p>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="section-subheading text-primary"><i class="fa fa-user"></i> First
+                                    Name</label>
+                                <p><input type="text" class="form-control" id="fname" placeholder="Enter first name">
+                                </p>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="section-subheading text-primary"><i class="fa fa-user"></i> Middle
+                                    Name</label>
+                                <p><input type="text" class="form-control" id="mname" placeholder="Enter middle name">
+                                </p>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="section-subheading text-primary"><i class="fa fa-user"></i> Last
+                                    Name</label>
+                                <p><input type="text" class="form-control" id="lname" placeholder="Enter last name"></p>
+                            </div>
+                            <div class="form-group">
+                                <label class="section-subheading text-primary"><i class="fa fa-calendar"></i> Date of
+                                    Birth</label>
+                                <p><input type="date" class="form-control" id="bday" placeholder="Date of Birth"
+                                          onchange="submitBday()"></p>
+
+                                <p hidden id="age"></p>
+                            </div>
+                            <div class="form-group">
+                                <label class="section-subheading text-primary"><i class="fa fa-address-card"></i>
+                                    Address</label>
+                                <p><input type="text" class="form-control" id="address" placeholder="Enter address"></p>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="section-subheading text-primary"><i class="fa fa-phone-square"></i>
+                                    Contact Number</label>
+                                <p><input type="number" class="form-control" id="number"
+                                          placeholder="Enter contact number"></p>
+
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <!--<div class="col-lg-12 text-center">-->
+                        <!--<div id="success"></div>-->
+                        <!--<button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Add</button>-->
+                        <!--</div>-->
+                    </div>
+                    <center><input type="submit" class="btn btn-primary" name="Register" value="Add" id="btn"></center>
+                </form>
+            </div>
+
+        </section>
+
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="../static/vendor/jquery/jquery.min.js"></script>
+        <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Plugin JavaScript -->
+        <script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for this template -->
+        <script src="../static/js/resume.min5.js"></script>
+    </div>
+    </body>
+</section>
+</html>

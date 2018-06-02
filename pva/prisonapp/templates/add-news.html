@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>BJMP | Add News</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="../static/css/sairaextracondensed.css" rel="stylesheet">
+    <link href="../static/css/opensans.css" rel="stylesheet">
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../static/vendor/devicons/css/devicons.min.css" rel="stylesheet">
+    <link href="../static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/resume.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    <script type="text/javascript" src="../static/plugin/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript" src="../static/plugin/tinymce/init-tinymce.js"></script>
+    <style>
+
+        #news-box {
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        #news-form {
+            margin: 0 auto;
+        }
+
+        #clerk {
+            padding: 0;
+        }
+
+        .img-placeholder img:hover {
+            opacity: 0.7;
+        }
+
+        .img-placeholder img {
+            padding-top: 25px;
+            opacity: 1;
+            transition: opacity .25s ease-in-out;
+            -moz-transition: opacity .25s ease-in-out;
+            -webkit-transition: opacity .25s ease-in-out;
+            width: 320px;
+            height: 30%;
+            margin-left: -10px;
+        }
+
+        h3 {
+            font-family: 'Saira Extra Condensed', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #fcec5f;
+            margin-right: 10px;
+        }
+
+        #news-form > div > label {
+            padding-left: 0;
+        }
+
+        #title-input {
+            padding-left: 0;
+        }
+
+        #mceu_14 {
+            width: 100% !important;
+        }
+
+        .btn-submit {
+            text-align: center;
+        }
+
+        #img-preview {
+            margin-left: 1px;
+        }
+
+
+    </style>
+    <style>
+
+        .loader {
+            border: 10px solid rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            border-top: 10px solid #635b5b;
+            width: 64px;
+            height: 64px;
+            margin-left: 400px;
+            margin-top: 200px;
+            -webkit-animation: spin 2s linear infinite; /* Safari */
+            animation: spin 2s linear infinite;
+
+        }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+    </style>
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 7px;
+
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+    </style>
+</head>
+<body>
+<section id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">
+            <span class="d-block d-lg-none">BJMP</span>
+            <span class="d-none d-lg-block">
+                <img class="img-responsive center-block" src="../static/img/mob.jpg" alt="">
+            </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="overflow: auto; ">
+            <ul class="navbar-nav" id="memes">
+                <li class="nav-item">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-announcements" style="color:black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">MANAGE ANNOUNCEMENTS</a>
+                </li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/admin/view_visitors" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Visitor Data</a></li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_clerk" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Add Clerk</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_prisoner" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Add Prisoner</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/newsupdate" style="color: #fcec5f; background-color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Add News</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-announcements" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Create Announcements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-prisoner" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Manage Prisoner Data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/visit_logs" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Visitation Logs</a>
+                </li>
+                <li class="nav-item" style="">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-walkin" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Walk-in Visitations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-comments" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Suggestion Box</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" id="logout" href="/logout" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Log Out</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+</section>
+<div class="container-fluid p-0">
+
+
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="clerk">
+        <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase" style="color: #fcec5f">
+                Add NEWS
+            </h2>
+        </div>
+
+        <div class="container" id="news-box" style="margin-left: 25px;">
+            <form id="formstyle" style="width: 1080px;">
+                <div class="form-inline">
+                    <h3>Title:</h3>
+                    <input type="text" class="form-control" id="article-title" placeholder="Enter Title..." required style="width: 300px">
+                </div>
+                <div class="loader" id="loadingDiv" style="position: absolute; z-index: 99;"></div>
+                &nbsp;
+                <textarea id="mytextarea" required></textarea>
+                &nbsp;
+                <div class="btn-submit" style="margin-left: -100px;">
+                    <button type="submit" id="add-article" name="add-article" class="btn btn-primary mb-4">Submit
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+    </section>
+</div>
+<!-- Bootstrap core JavaScript -->
+<script src="../static/vendor/jquery/jquery.min.js"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="../static/js/resume.min.js"></script>
+<!-- Scripts -->
+<script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    var CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/strova/upload';
+    var CLOUDINARY_UPLOAD_PRESET = 'z6pni3zq';
+
+    var $loading = $("#loadingDiv").hide();
+    var fileSource = '';
+    var file;
+    var newsTitle = '';
+    var formData;
+
+    $(document).ready(function () {
+        if (localStorage.getItem('role_id') != 0) {
+            alert('You are not an Admin');
+            window.location.href = 'https://pva-web.herokuapp.com';
+        }
+
+        var tokens = localStorage.getItem('token');
+        $("#file-upload").change(function (event) {
+            file = event.target.files[0];
+            formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+            console.log(formData);
+
+        });
+
+        $("#add-article").click(function () {
+            $loading.show();
+            newsTitle = $("#article-title").val();
+            var content = tinymce.get("mytextarea").getContent();
+            if (newsTitle === '') {
+                alert('Title is empty!');
+                return;
+            }
+            console.log(content);
+            $.ajax({
+                url: 'https://pva-api.herokuapp.com/api/admin/newsupdate',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    'newsTitle': newsTitle,
+                    'articleContent': content
+                }),
+                method: 'POST',
+                dataType: 'json',
+                crossDomain: true,
+                headers: {
+                    'x-access-token': tokens
+                },
+                success: function (resp) {
+                    $loading.hide();
+                    window.location.reload();
+                },
+                error: function (err) {
+                    console.log(err);
+                    alert("Server error! Click OK to reload!");
+                    window.location.reload();
+                },
+                complete: function (jqXHR) {
+                    if (jqXHR.status == '401') {
+                        console.log(jqXHR.status)
+                    }
+                }
+            });
+        });
+        $('#logout').click(function () {
+            console.log('Token revoked! please log in again!');
+            localStorage.clear();
+        });
+    })
+
+
+</script>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img-preview').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#file-upload").change(function () {
+        readURL(this);
+    });
+
+
+</script>
+
+</body>
+</html>
+

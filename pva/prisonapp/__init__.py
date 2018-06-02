@@ -9,33 +9,14 @@ from flask_cors import CORS
 from datetime import date
 
 
-app = Flask(__name__)
-server = Flask(__name__)
+pva = Flask(__name__)
 
-CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:1234@localhost/prisonapp'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['USE_SESSION_FOR_NEXT'] = True
-app.config['CORS_HEADERS'] = 'Content-Type'
-app.config['SECRET_KEY'] = 'thisissecret'
-app.secret_key = os.urandom(24)
+cors = CORS(pva)
 
-db = SQLAlchemy(app)
+pva.config['USE_SESSION_FOR_NEXT'] = True
+pva.config['CORS_HEADERS'] = 'Content-Type'
+pva.config['SECRET_KEY'] = 'thisissecret'
+pva.secret_key = os.urandom(24)
 
-import prisonapp.server
+from prisonapp import server
 
-
-def createDB():
-    engine = sqlalchemy.create_engine('postgresql+psycopg2://postgres:1234@localhost') #connects to server
-    conn = engine.connect()
-    conn.execute("commit")
-    #engine.execute("CREATE DATABASE IF NOT EXISTS sample") #create db
-    #engine.execute("USE sample") # select new
-    conn.execute("create database prisonapp")
-    conn.close()
-
-def createTables():
-    db.create_all()
-
-#createDB()
-createTables()

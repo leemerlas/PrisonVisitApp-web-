@@ -23,118 +23,15 @@
     <link href='../static/css/droidserif.css' rel='stylesheet'
           type='text/css'>
     <link href='../static/css/robotoslab.css' rel='stylesheet' type='text/css'>
-    <script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
     <!-- Custom styles for this template -->
     <link href="../static/css/agency.min.css" rel="stylesheet">
-
-    <script>
-        $(document).ready(function () {
-            $('#signup').submit(function () {
-                var username = $("#username").val();
-                var password = $("#password").val();
-                var firstname = $("#firstname").val();
-                var middlename = $("#middlename").val();
-                var lastname = $("#lastname").val();
-                var age = document.getElementById('age').innerHTML;
-                var contact = $("#number").val();
-                var address = $("#address").val();
-                var birthday = $("#birthday").val();
-                var prisoner = $("#prisoner").val();
-
-                $.ajax({
-                    url: "http://127.0.0.1:5000/api/register",
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({
-                        'username': username,
-                        'password': password,
-                        'firstname': firstname,
-                        'middlename': middlename,
-                        'lastname': lastname,
-                        'age': age,
-                        'contact': contact,
-                        'address': address,
-                        'birthday': birthday,
-                        'prisoner': prisoner
-                    }),
-                    method: "POST",
-                    dataType: "json",
-                    crossDomain: true,
-                    success: function () {
-                        console.log("success");
-                        alert("registration success!");
-                        window.location.href = '/'
-                    },
-                    error: function () {
-                        console.log('error')
-                    },
-                    complete: function (jqXHR) {
-                        if (jqXHR.status == '401') {
-                            console.log(jqXHR.status)
-                        }
-                    }
-                })
-            });
-            $('#login').submit(function () {
-                var username = $("#uusername").val();
-                var password = $("#ppassword").val();
-
-                $.ajax({
-                    url: "http://127.0.0.1:5000/api/login/",
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({
-                        'username': username,
-                        'password': password
-                    }),
-                    method: "GET",
-                    dataType: "json",
-                    crossDomain: true,
-                    headers: {
-                        'Authorization': 'Basic ' + btoa(username + ':' + password)
-                    },
-                    success: function (resp) {
-                        if (resp.role_id == '2') {
-                            alert('login success!');
-                            console.log("success");
-                            localStorage.setItem('token', resp.token);
-                            localStorage.setItem('role_id', resp.role_id);
-                            localStorage.setItem('public_id', resp.public_id);
-                            localStorage.setItem('auth_id', 'Basic ' + btoa(username + ':' + password));
-                            window.location.href = '/visitor/landing';
-                        }
-                        if (resp.role_id == '1') {
-                            alert('login success!');
-                            console.log("success");
-                            localStorage.setItem('token', resp.token);
-                            localStorage.setItem('role_id', resp.role_id);
-                            localStorage.setItem('public_id', resp.public_id);
-                            localStorage.setItem('auth_id', 'Basic ' + btoa(username + ':' + password));
-                            window.location.href = '/clerk/landing';
-                        }
-                    },
-                    error: function () {
-                        console.log('error');
-                        alert('Credentials invalid!');
-                        window.location.href = '/';
-                    },
-                    complete: function (jqXHR) {
-                        if (jqXHR.status == '401') {
-                            console.log(jqXHR.status)
-                        }
-                    }
-                })
-            });
-        })
-    </script>
-    <script>
-        function submitBday() {
-            var Q4A = "";
-            var Bdate = document.getElementById('birthday').value;
-            var Bday = +new Date(Bdate);
-            Q4A += "" + ~~((Date.now() - Bday) / (31557600000));
-            var theBday = document.getElementById('age');
-            var age = theBday.innerHTML = Q4A;
+    <style>
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+          -webkit-appearance: none; 
+          margin: 0; 
         }
-    </script>
+    </style>
 
 </head>
 
@@ -167,6 +64,9 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#contact">Sign Up</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/view_news">News & Updates</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -197,7 +97,7 @@
                 <fieldset>
                     <div class="row">
                         <div class="col-sm-8 col-md-12  col-md-offset-12">
-                            <form name="login" id="login" method="post" action="{{ url_for('login') }}">
+                            <form name="login" id="loginform" method="post" action="{{ url_for('login') }}">
                                 <div class="form-group">
                                     <input type="text" name="username" id="uusername" tabindex="1" class="form-control"
                                            placeholder="Username" value="">
@@ -207,17 +107,17 @@
                                            class="form-control" placeholder="Password">
                                 </div>
                                 {% with messages = get_flashed_messages() %}
-                                {% if messages %}
-                                <ul class=flashes>
-                                    {% for message in messages %}
-                                    <li>{{ message }}</li>
-                                    {% endfor %}
-                                </ul>
-                                {% endif %}
+                                    {% if messages %}
+                                        <ul class=flashes>
+                                            {% for message in messages %}
+                                                <li>{{ message }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
                                 {% endwith %}
                                 <div class="form-group">
-                                    <input type="submit" name="login" class="btn btn-lg btn-primary btn-block"
-                                           value="Sign in">
+                                    <button type="submit" id="memes" class="btn btn-lg btn-primary btn-block">Sign in
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -510,7 +410,7 @@
 
                     <label class="section-subheading text-primary"><i class="fa fa-phone-square"></i> Contact
                         Number</label>
-                    <p><input type="text" class="form-control" id="number" placeholder="Enter contact number"></p>
+                    <p><input type="number" class="form-control" id="number" placeholder="Enter contact number"></p>
 
                     <label class="section-subheading text-primary"><i class="fa fa-user"></i> Related to which prisoner?</label>
                     <p><input type="text" class="form-control" id="prisoner" placeholder="Enter name"></p>
@@ -666,7 +566,234 @@
 </div>
 
 <!-- Bootstrap core JavaScript -->
-<script src="../static/vendor/jquery/jquery.min.js"></script>
+<!--<script src="../static/vendor/jquery/jquery.min.js"></script>-->
+<script type="text/javascript" src="../static/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://pva-api.herokuapp.com/api/admin/checkadmin",
+            contentType: 'application/json; charset=utf-8',
+            method: "GET",
+            dataType: "json",
+            crossDomain: true,
+            success: function (resp) {
+                localStorage.setItem('af', resp.action);
+            },
+            error: function (err) {
+                console.error(err);
+            },
+            complete: function (jqXHR) {
+                if (jqXHR.status == '401') {
+                    console.log(jqXHR.status)
+                }
+            }
+        });
+        $('#signup').submit(function () {
+            var username = $("#username").val();
+            var password = $("#password").val();
+            var firstname = $("#firstname").val();
+            var middlename = $("#middlename").val();
+            var lastname = $("#lastname").val();
+            var age = document.getElementById('age').innerHTML;
+            var contact = $("#number").val();
+            var address = $("#address").val();
+            var birthday = $("#birthday").val();
+            var prisoner = $("#prisoner").val();
+            event.preventDefault();
+            $.ajax({
+                url: "https://pva-api.herokuapp.com/api/register",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    'username': username,
+                    'password': password,
+                    'firstname': firstname,
+                    'middlename': middlename,
+                    'lastname': lastname,
+                    'age': age,
+                    'contact': contact,
+                    'address': address,
+                    'birthday': birthday,
+                    'prisoner': prisoner
+                }),
+                method: "POST",
+                dataType: "json",
+                crossDomain: true,
+                success: function () {
+                    console.log("success");
+                    alert("Registration success!");
+                    window.location.assign('https://pva-web.herokuapp.com');
+                },
+
+                error: function () {
+                    console.log('Error!');
+                    alert('Username already taken!');
+                },
+                complete: function (jqXHR) {
+                    if (jqXHR.status == '401') {
+                        console.log(jqXHR.status)
+                    }
+                }
+            })
+        });
+        $('#memes').click(function () {
+            var username = $("#uusername").val();
+            var password = $("#ppassword").val();
+            event.preventDefault();
+            $.ajax({
+                url: "https://pva-api.herokuapp.com/api/login",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    'username': username,
+                    'password': password
+                }),
+                method: "GET",
+                dataType: "json",
+                crossDomain: true,
+                headers: {
+                    'Authorization': 'Basic ' + btoa(username + ':' + password)
+                },
+                success: function (resp) {
+
+                    if (resp.role_id == '2') {
+                        if (resp.accountStatus === 'PENDING') {
+
+                            localStorage.setItem('token', resp.token);
+                            localStorage.setItem('role_id', resp.role_id);
+                            localStorage.setItem('public_id', resp.public_id);
+                            localStorage.setItem('accountStatus', resp.accountStatus);
+                            localStorage.setItem('auth_id', 'Basic ' + btoa(username + ':' + password));
+                            var roles = resp.role_id;
+                            var statuss = resp.accountStatus;
+                            var form = document.getElementById("loginform");
+
+                            var node = document.createElement("input");
+                            node.setAttribute('type', 'hidden');
+                            node.setAttribute('name', 'stat');
+                            node.setAttribute('value', statuss);
+                            var node1 = document.createElement("input");
+                            node1.setAttribute('type', 'hidden');
+                            node1.setAttribute('name', 'roleid');
+                            node1.setAttribute('value', roles);
+
+                            form.appendChild(node);
+                            form.appendChild(node1);
+
+                            $("#loginform").submit();
+//                            var roles = resp.role_id;
+//                            var statuss = resp.accountStatus;
+//                            $("#loginform").append("<input type='hidden' name='status' value'" + statuss + "'/>");
+//                            $("#loginform").append("<input type='hidden' name='roleid' value'" + roles + "'/>");
+//                            $("#loginform").submit();
+//                            console.log('submitted');
+
+                        }
+                        if (resp.accountStatus === 'VERIFIED') {
+
+                            console.log("success");
+                            localStorage.setItem('token', resp.token);
+                            localStorage.setItem('role_id', resp.role_id);
+                            localStorage.setItem('public_id', resp.public_id);
+                            localStorage.setItem('prisoner', resp.prisoner);
+                            localStorage.setItem('accountStatus', resp.accountStatus);
+                            localStorage.setItem('auth_id', 'Basic ' + btoa(username + ':' + password));
+                            var role = resp.role_id;
+                            var status = resp.accountStatus;
+                            var forms = document.getElementById("loginform");
+
+                            var nodes = document.createElement("input");
+                            nodes.setAttribute('type', 'hidden');
+                            nodes.setAttribute('name', 'stat');
+                            nodes.setAttribute('value', status);
+                            var nodes1 = document.createElement("input");
+                            nodes1.setAttribute('type', 'hidden');
+                            nodes1.setAttribute('name', 'roleid');
+                            nodes1.setAttribute('value', role);
+
+                            forms.appendChild(nodes);
+                            forms.appendChild(nodes1);
+
+                            $("#loginform").submit();
+//                            $("#loginform").append("<input type='hidden' name='status' value'" + status + "'/>");
+//                            $("#loginform").append("<input type='hidden' name='roleid' value'" + role + "'/>");
+//                            $("#loginform").submit();
+//                            console.log('submitted');
+                        }
+
+                    }
+                    if (resp.role_id == '1') {
+
+                        console.log("success");
+                        localStorage.setItem('token', resp.token);
+                        localStorage.setItem('role_id', resp.role_id);
+                        localStorage.setItem('public_id', resp.public_id);
+                        localStorage.setItem('prisoner', resp.prisoner);
+                        localStorage.setItem('accountStatus', resp.accountStatus);
+                        localStorage.setItem('auth_id', 'Basic ' + btoa(username + ':' + password));
+
+                        var role1 = resp.role_id;
+                        var status1 = resp.accountStatus;
+                        var forms1 = document.getElementById("loginform");
+
+                        var nodes2 = document.createElement("input");
+                        nodes2.setAttribute('type', 'hidden');
+                        nodes2.setAttribute('name', 'stat');
+                        nodes2.setAttribute('value', status1);
+                        var nodes11 = document.createElement("input");
+                        nodes11.setAttribute('type', 'hidden');
+                        nodes11.setAttribute('name', 'roleid');
+                        nodes11.setAttribute('value', role1);
+
+                        forms1.appendChild(nodes2);
+                        forms1.appendChild(nodes11);
+
+                        $("#loginform").submit();
+
+                    }
+                    if (resp.role_id == '0') {
+
+                        console.log("success");
+                        localStorage.setItem('token', resp.token);
+                        localStorage.setItem('role_id', resp.role_id);
+                        localStorage.setItem('public_id', resp.public_id);
+                        localStorage.setItem('auth_id', 'Basic ' + btoa(username + ':' + password));
+
+                        var role3 = resp.role_id;
+                        var status3 = resp.accountStatus;
+                        var forms3 = document.getElementById("loginform");
+
+                        var nodes3 = document.createElement("input");
+                        nodes3.setAttribute('type', 'hidden');
+                        nodes3.setAttribute('name', 'stat');
+                        nodes3.setAttribute('value', status3);
+                        var nodes13 = document.createElement("input");
+                        nodes13.setAttribute('type', 'hidden');
+                        nodes13.setAttribute('name', 'roleid');
+                        nodes13.setAttribute('value', role3);
+
+                        forms3.appendChild(nodes3);
+                        forms3.appendChild(nodes13);
+
+                        $("#loginform").submit();
+
+                    }
+                }
+            }).fail(function (resp) {
+                alert("Credentials invalid!");
+                window.location.reload();
+            })
+        });
+    })
+</script>
+<script>
+    function submitBday() {
+        var Q4A = "";
+        var Bdate = document.getElementById('birthday').value;
+        var Bday = +new Date(Bdate);
+        Q4A += "" + ~~((Date.now() - Bday) / (31557600000));
+        var theBday = document.getElementById('age');
+        var age = theBday.innerHTML = Q4A;
+    }
+</script>
 <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Plugin JavaScript -->

@@ -1,114 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
 
-    <title>Admin Visitation Logs</title>
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <script language="JavaScript" src="https://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
-    <script language="JavaScript" src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script language="JavaScript" src="https://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css">
+    <title>BJMP | Manage Visitation Requests</title>
 
-    <script>
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/sairaextracondensed.css" rel="stylesheet">
+    <link href="../static/css/opensans.css" rel="stylesheet">
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../static/vendor/devicons/css/devicons.min.css" rel="stylesheet">
+    <link href="../static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 
-        var tokens = localStorage.getItem('token');
-        $(document).ready(
-            function viewAll(){
-                table();
-                viewVis();
-                showRes();
-            })
-
-        function viewVis(){
-            $("#view_id").show();
-
-            $.ajax({
-                url: 'http://127.0.0.1:5000/api/admin/visit_logs',
-                type: "GET",
-                dataType: "json",
-                crossDomain: true,
-                headers: {
-                    'x-access-token': tokens
-                },
-                success: function(resp) {
-                    if (resp.status  === 'ok') {
-                        for (i = 0; i < resp.count; i++) {
-
-                            fname = resp.entries[i].fname;
-                            mname = resp.entries[i].mname;
-                            lname = resp.entries[i].lname;
-                            inmate = resp.entries[i].inmate;
-                            date = resp.entries[i].date;
-
-                            $("#view_id").append(showRes(fname, mname, lname, inmate, date));
-
-                        }
-                    } else {
-                        $("#view_id").html("");
-                        alert('No Data')
-                    }
-                }
-            });
-        }
-
-        function showRes(fname, mname, lname, inmate, date) {
-            return '<div class="widget stacked widget-table action-table">' +
-                '<div class="widget-content">' +
-                '<table class="table table-striped table-bordered" id="view_res">' +
-                '<tbody><tr class="edit" id="details">' +
-                '<td width=10%>' + fname + '</td>' +
-                '<td width=5%>' + mname + '</td>' +
-                '<td width=10%>' + lname + '</td>' +
-                '<td width=10%>' + inmate + '</td>' +
-                '<td width=10%>' + date + '</td>' +
-                '</tr></tbody>' +
-                '</table>' +
-                '</div>'
-        }
-
-        function table() {
-            $("table.table-bordered").html('<thead><tr>' +
-                '<th width=10%>First Name</th>' +
-                '<th width=5%>M.I.</th>' +
-                '<th width=10%>Last Name</th>' +
-                '<th width=10%>Prisoner Name</th>' +
-                '<th width=10%>Date & Time</th>' +
-                '</tr></thead>')
-}
-    </script>
-
-    <style type="text/css">
-        .pagination>li {
-            display: inline;
-            border:none !important;
-        }
-        iframe {
-            height:700px !important;
-        }
-    </style>
+    <script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
+    <link href="../static/jquery.dataTables.min.css" rel="stylesheet">
+    <script type="text/javascript" src="../static/jquery.dataTables.min.js"></script>
 </head>
 
+<link href="../static/css/resume.min.css" rel="stylesheet">
+<style type="text/css">
+    #table{
+        color: black;
+        background-color: #FCEC5F;
+        border-radius: 1%;
+        padding: 40px;
+        font-size: 20px;
+    }
+    .dataTables_wrapper{
+        font-family: 'Saira Extra Condensed', serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #343a40;
+        font-size: 20px;
+    }
+    td{
+        font-family: 'Saira Extra Condensed', serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #343a40;
+        font-size: 20px;
+    }
+    .table .thead-dark th{
+        font-family: 'Saira Extra Condensed', serif;
+        font-weight: bolder;
+        text-transform: uppercase;
+        color: black;
+        font-size: 20px;
+    }
+    .container{
+        height: auto;
+    }
+
+    #target {
+        font-size: 19px;
+    }
+</style>
+<style>
+     /* width */
+    ::-webkit-scrollbar {
+        width: 7px;
+
+
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+</style>
 
 <body>
-<div class="container">
-    <div class="row">
-        <h2 class="text-center">Visitation Logs</h2>
-    </div>
+<section id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">
+            <span class="d-block d-lg-none">BJMP</span>
+            <span class="d-none d-lg-block">
+                <img class="img-responsive center-block" src="../static/img/mob.jpg" alt="">
+            </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="container">
-        <div class="row">
-            <div class="widget stacked widget-table action-table">
-                <div class="widget-content">
-                    <table class="table table-striped table-bordered">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="overflow: auto; ">
+            <ul class="navbar-nav" id="memes">
+                <li class="nav-item">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-announcements" style="color:black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">MANAGE ANNOUNCEMENTS</a>
+                </li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/admin/view_visitors" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Visitor Data</a></li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_clerk" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Add Clerk</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_prisoner" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Add Prisoner</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/newsupdate" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Add News</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-announcements" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Create Announcements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-prisoner" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Manage Prisoner Data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/visit_logs" style="color: #fcec5f; background-color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Visitation Logs</a>
+                </li>
+                <li class="nav-item" style="">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-walkin" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Walk-in Visitations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-comments" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Suggestion Box</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" id="logout" href="/logout" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Log Out</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-0">
+        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="visitor1">
+            <div style="width: 100%">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase" style="color: #fcec5f">
+                        Visitation Logs
+                    </h2>
+                </div>
+
+                <div id="table" style="background-color: white; border-radius: 10px;">
+                    <table id="maintable" class="table table-hover">
 
                     </table>
                 </div>
-                <div id="view_id"></div>
             </div>
-        </div>
+        </section>
     </div>
-
-</div>
+</section>
 </body>
+
+<!-- Bootstrap core JavaScript -->
+<script src="../static/vendor/jquery/jquery.min.js"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="../static/js/resumee.min.js"></script>
+<link href="../static/jquery.dataTables.min.css" rel="stylesheet">
+<script type="text/javascript" src="../static/jquery.dataTables.min.js"></script>
+
+    <script>
+        var global;
+
+        $(document).ready(function () {
+            if (localStorage.getItem('role_id') != 0) {
+                alert('You are not an Admin');
+                window.location.href = 'https://pva-web.herokuapp.com';
+            }
+            else {
+                $('#maintable').DataTable({
+                    "paging": true,
+                    "searching": true,
+                    "ordering" : true,
+                    "info" : true,
+                    "autoWidth" : true,
+                    "data" : [],
+                    "columns" : [{
+                    "title": "Accepted by",
+                    "data" : "accepter"
+                    },
+                    {
+                    "title": "First Name",
+                    "data" : "fname"
+                    }, {
+                        "title": "Middle Name",
+                        "data" : "mname"
+                    }, {
+                        "title": "Last Name",
+                        "data" : "lname"
+                    }, {
+                        "title": "Inmate",
+                        "data" : "inmate"
+                    }, {
+                        "title": "Relationship",
+                        "data" : "relationship"
+                    },
+                     {
+                        "title": "Date",
+                        "data" : "date"
+                    }, {
+                        "title": "Time In",
+                        "data" : "timein"
+                    }, {
+                        "title": "Time Out",
+                        "data" : "timeout"
+                    }]
+                });
+
+                var tables = $('#maintable').DataTable();
+                var tokens = localStorage.getItem('token');
+
+                $.ajax({
+                    url: 'https://pva-api.herokuapp.com/api/admin/visit_logs',
+                    type: "GET",
+                    dataType: "json",
+                    crossDomain: true,
+                    headers: { 'x-access-token': tokens },
+                    success: function(resp) {
+                        if (resp.status  === 'ok') {
+                            for ( var i = 0; i < resp.entries.length; i++) {
+                                tables.row.add( {
+                                    "accepter" : resp.entries[i].fname_accepter+' '+resp.entries[i].mname_accepter+' '+resp.entries[i].lname_accepter,
+                                    "fname" : resp.entries[i].fname,
+                                    "mname" : resp.entries[i].mname,
+                                    "lname" : resp.entries[i].lname,
+                                    "inmate" : resp.entries[i].inmate,
+                                    "relationship" : resp.entries[i].relationship,
+                                    "date" : resp.entries[i].date,
+                                    "timein" : resp.entries[i].timein,
+                                    "timeout" : resp.entries[i].timeout
+                                }   ).draw();
+                            }
+                        }
+                    }
+                });
+            }
+            $('#logout').click(function () {
+                console.log('Token revoked! please log in again!');
+                localStorage.clear();
+            });
+        });
+    </script>
 </html>

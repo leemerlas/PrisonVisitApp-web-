@@ -1,6 +1,7 @@
-from prisonapp import app
-
+from prisonapp import pva
+import os
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=5000, debug=True)
-
+    #server.run()
+    port = int(os.environ.get("PORT", 5000))
+    pva.run(host='0.0.0.0', port=port)

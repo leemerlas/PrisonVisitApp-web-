@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>BJMP | Prisoner Data</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="../static/css/sairaextracondensed.css" rel="stylesheet">
+    <link href="../static/css/opensans.css" rel="stylesheet">
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../static/vendor/devicons/css/devicons.min.css" rel="stylesheet">
+    <link href="../static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/resume.min6.css" rel="stylesheet">
+    <style type="text/css">
+        #table {
+            height: 700px;
+            width: 100%;
+            color: black;
+            background-color: #fff;
+            border-radius: 1%;
+            padding: 20px;
+
+        }
+
+        .dataTables_wrapper {
+            font-family: 'Saira Extra Condensed', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #343a40;
+            height: 500px;
+        }
+
+        td {
+            font-family: 'Saira Extra Condensed', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #343a40;
+
+        }
+
+        .table .thead-dark th {
+            font-family: 'Saira Extra Condensed', serif;
+            font-weight: bolder;
+            text-transform: uppercase;
+            color: black;
+        }
+
+        .container {
+            height: auto;
+        }
+
+        .modal-color {
+            background-color: #343a40;
+        }
+
+        .btn-add {
+            margin-bottom: 5px;
+            position: relative;
+            left: 820px;
+        }
+
+
+
+    #target {
+        font-size: 19px;
+    }
+
+
+    </style>
+    <style>
+     /* width */
+    ::-webkit-scrollbar {
+        width: 7px;
+
+
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+</style>
+
+</head>
+<body>
+<section id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">
+            <span class="d-block d-lg-none">BJMP</span>
+            <span class="d-none d-lg-block">
+                <img class="img-responsive center-block" src="../static/img/mob.jpg" alt="">
+            </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="overflow: auto; ">
+            <ul class="navbar-nav" id="memes">
+                <li class="nav-item">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-announcements" style="color:black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">MANAGE ANNOUNCEMENTS</a>
+                </li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/admin/view_visitors" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Visitor Data</a></li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_clerk" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Add Clerk</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/add_prisoner" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Add Prisoner</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/newsupdate" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Add News</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-announcements" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Create Announcements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/manage-prisoner" style="color: #fcec5f; background-color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Manage Prisoner Data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/visit_logs" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Visitation Logs</a>
+                </li>
+                <li class="nav-item" style="">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-walkin" style="color: black;  font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px; ">Walk-in Visitations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/admin/view-comments" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Suggestion Box</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" id="logout" href="/logout" style="color: black; font-family: 'Saira Extra Condensed', serif;
+        font-size: 21px;">Log Out</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="container-fluid p-0">
+
+
+        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="visitor">
+
+            <div class="container">
+
+                <div class="container row">
+                    <div class=" col-lg-12 text-center" style="position: relative">
+                        <h2 class="section-heading text-uppercase" style="color: #fcec5f">
+                            PRISONER DATA
+                        </h2>
+
+                        <div id="table">
+                            <table id="maintable" class="table table-hover" style="font-size: 20px;">
+
+                            </table>
+                        </div>
+                    </div>
+        </section>
+
+    </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-color">
+
+                <input type="text" readonly class="form-control-plaintext section-subheading text-primary" id="pid"
+                       value="">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-color">
+
+                <div class="row">
+                    <div class="col">
+
+                        <div class="form-group">
+                            <label class="section-subheading text-primary"><i class="fa fa-user"> </i> First
+                                Name</label>
+                            <p><input type="text" class="form-control" id="fname" placeholder="Enter First Name"
+                                      name="fname"></p>
+                        </div>
+                        <div class="form-group">
+                            <label class="section-subheading text-primary"><i class="fa fa-user"></i> Middle
+                                Name</label>
+                            <p><input type="text" class="form-control" id="mname" placeholder="Enter Middle Name"
+                                      name="mname"></p>
+                        </div>
+                        <div class="form-group">
+                            <label class="section-subheading text-primary"><i class="fa fa-user"></i> Last Name</label>
+                            <p><input type="text" class="form-control" id="lname" placeholder="Enter Last name"
+                                      name="lname"></p>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="section-subheading text-primary"><i class="fa fa-user"></i> Crime</label>
+                            <p><input type="text" class="form-control" id="kraym" placeholder="Enter Crime"
+                                      name="kraym"></p>
+
+                        </div>
+                        <div class="form-group">
+
+                            <label class="section-subheading text-primary"><i class="fa fa-user"></i> Birth Date</label>
+                            <p><input type="date" class="form-control" id="bday" placeholder="Enter Birth Date"
+                                      name="bdate" onchange="submitBday()"></p>
+                            <p hidden id="age"></p>
+                            <p hidden id="ids"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="edited" class="btn btn-primary" onclick="edited()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- Bootstrap core JavaScript -->
+<script src="../static/vendor/jquery/jquery.min.js"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="../static/js/resume.min6.js"></script>
+<link href="../static/jquery.dataTables.min.css" rel="stylesheet">
+<script type="text/javascript" src="../static/jquery.dataTables.min.js"></script>
+
+<script>
+
+    var myTable;
+
+    var dataset2 = [];
+    $(document).ready(function () {
+        if (localStorage.getItem('role_id') != 0) {
+                alert('You are not an Admin');
+                window.location.href = 'https://pva-web.herokuapp.com';
+        }
+        else {
+
+            var tokens = localStorage.getItem('token');
+
+            $.ajax({
+                url: 'https://pva-api.herokuapp.com/api/admin/prisoner_data',
+                type: "GET",
+                dataType: "json",
+                crossDomain: true,
+                headers: {'x-access-token': tokens},
+                success: function (resp) {
+                    if (resp.status === 'ok') {
+                        for (var i = 0; i < resp.entries.length; i++) {
+                            var dataset1 = [];
+                            dataset1.push(resp.entries[i].id);
+                            dataset1.push(resp.entries[i].firstname);
+                            dataset1.push(resp.entries[i].middlename);
+                            dataset1.push(resp.entries[i].lastname);
+                            dataset1.push(resp.entries[i].birthday);
+                            dataset1.push(resp.entries[i].age);
+                            dataset1.push(resp.entries[i].crime);
+                            dataset1.push("<a href='#' data-toggle='modal' data-target='#exampleModal' id='target' class='edit-data'><i class='fa  fa-edit fa-2x'></i></a>");
+                            dataset2.push(dataset1);
+                        }
+
+                        myTable = $('#maintable').DataTable({
+                            data: dataset2,
+                            "columnDefs": [
+                                {
+                                    "targets": [0],
+                                    "visible": false
+                                }
+                            ],
+                            columns: [
+                                {title: "ID"},
+                                {title: "First Name"},
+                                {title: "Middle Name"},
+                                {title: "Last Name"},
+                                {title: "birthday"},
+                                {title: "Age"},
+                                {title: "Crime"},
+                                {title: "Actions"}
+                            ]
+                        });
+                    }
+                }
+            });
+        }
+    });
+
+    $('body').on('click', '#target', function () {
+        var row = $(this).parents('tr')[0];
+        data = myTable.row(row).data();
+        console.log(data);
+        document.getElementById('ids').innerHTML = data[0];
+        document.getElementById('fname').value = data[1];
+        document.getElementById('mname').value = data[2];
+        document.getElementById('lname').value = data[3];
+        document.getElementById('bday').value = data[4];
+        document.getElementById('age').innerHTML = data[5];
+        document.getElementById('kraym').value = data[6];
+    });
+    $('#logout').click(function () {
+            console.log('Token revoked! please log in again!');
+            localStorage.clear();
+        });
+</script>
+
+<script>
+    function edited() {
+        console.log("test");
+        var tokens = localStorage.getItem('token');
+        var id = document.getElementById('ids').innerHTML;
+
+        var firstname = $("#fname").val();
+        console.log(firstname);
+        var middlename = $("#mname").val();
+        var lastname = $("#lname").val();
+        var age = document.getElementById('age').innerHTML;
+        var birthday = $("#bday").val();
+        var crime = $("#kraym").val();
+        $.ajax({
+            url: "https://pva-api.herokuapp.com/api/admin/edit_prisoner",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                'id': id,
+                'firstname': firstname,
+                'middlename': middlename,
+                'lastname': lastname,
+                'age': age,
+                'crime': crime,
+                'birthday': birthday
+            }),
+            method: "POST",
+            dataType: "json",
+            crossDomain: true,
+            headers: {
+                'x-access-token': tokens
+            },
+            success: function () {
+                console.log("success");
+                alert("Edited succesfully!");
+                window.location.assign('/admin/manage-prisoner');
+            },
+            error: function () {
+                console.log('error')
+            },
+            complete: function (jqXHR) {
+                if (jqXHR.status == '401') {
+                    console.log(jqXHR.status)
+                }
+            }
+        })
+    }
+</script>
+
+
+<script>
+    function submitBday() {
+        var Q4A = "";
+        var Bdate = document.getElementById('bday').value;
+        var Bday = +new Date(Bdate);
+        Q4A += "" + ~~((Date.now() - Bday) / (31557600000));
+        var theBday = document.getElementById('age');
+        var age = theBday.innerHTML = Q4A;
+    }
+</script>
+
+</body>
+</html>
