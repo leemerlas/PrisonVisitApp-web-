@@ -177,6 +177,36 @@
             </ul>
         </div>
     </nav>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document" style="margin-top: 100px;">
+            <div class="modal-content">
+                <div class="modal-header modal-color">
+                    <h3 id="title" style="display: inline;">Valid ID Picture</h3>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <img id="proof1" src="" style="width: 35%; display: block; margin-right: auto;margin-left: auto">
+                <div class="modal-header modal-color">
+                    <h3 id="titleVar" style="display: inline;">Proof of Identity</h3>
+                </div>
+                <div class="modal-body modal-color">
+
+                    <div class="row">
+                        <div class="col">
+                            <img id="proof2" src="" style="width: 50%; display: block; margin-right: auto;margin-left: auto">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="container-fluid p-0">
         <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="visitor1">
@@ -246,26 +276,38 @@
                             dataset1.push(resp.entries[i].prisoner);
                             dataset1.push(resp.entries[i].status.toString());
                             if (resp.entries[i].status === 'PENDING') {
-                                dataset1.push("<button class='btn btn-success' style='padding: 2px 5px' id='approve'><span class='fa fa-check' style='text-align: center'></span></button>&nbsp;<button id='decline' class='btn btn-danger btn-xs' style='padding: 2px 5px'><span class='fa fa-remove'></span></button>");
+                                dataset1.push("<button class='btn btn-success' style='padding: 2px 5px' id='approve'><span class='fa fa-check' style='text-align: center'></span></button>&nbsp;<button id='decline' class='btn btn-danger btn-xs' style='padding: 2px 5px'><span class='fa fa-remove'></span></button>" +
+                                    "&nbsp;<button id='view' href='#' data-toggle='modal' data-target='#exampleModal' class='btn btn-primary btn-xs' style='padding: 2px 5px'><span class='fa fa-eye'></span></button>");
                             }
                             else {
                                 dataset1.push("N/A");
                             }
                             dataset1.push(resp.entries[i].id);
+                            dataset1.push(resp.entries[i].proof1);
+                            dataset1.push(resp.entries[i].proof2);
                             dataset2.push(dataset1);
                         }
                         <!--console.log(dataset2);-->
                         myTable = $('#maintable').DataTable({
                             data: dataset2,
+                            "columnDefs": [
+                                {
+                                    "targets": [8, 9, 10],
+                                    "visible": false
+                                }
+                            ],
                             columns: [
-                                {title: "Name",className: "dt-head-center dt-body-center"},
-                                {title: "Address",className: "dt-head-center dt-body-center"},
-                                {title: "Contact",className: "dt-head-center dt-body-center"},
-                                {title: "Birthday",className: "dt-head-center dt-body-center"},
-                                {title: "Age",className: "dt-head-center dt-body-center"},
-                                {title: "Related to",className: "dt-head-center dt-body-center"},
-                                {title: "Status",className: "dt-head-center dt-body-center"},
-                                {title: "Actions",className: "dt-head-center dt-body-center"}
+                                {title: "Name", className: "dt-head-center dt-body-center"},
+                                {title: "Address", className: "dt-head-center dt-body-center"},
+                                {title: "Contact", className: "dt-head-center dt-body-center"},
+                                {title: "Birthday", className: "dt-head-center dt-body-center"},
+                                {title: "Age", className: "dt-head-center dt-body-center"},
+                                {title: "Related to", className: "dt-head-center dt-body-center"},
+                                {title: "Status", className: "dt-head-center dt-body-center"},
+                                {title: "Actions", className: "dt-head-center dt-body-center"},
+                                {title: "id", className: "dt-head-center dt-body-center"},
+                                {title: "proof1", className: "dt-head-center dt-body-center"},
+                                {title: "proof2", className: "dt-head-center dt-body-center"}
                             ]
                         });
                         $('.dataTables_filter input').attr("placeholder", "");
@@ -292,6 +334,19 @@
                 global2 = data[8];
                 console.log(global2);
                 decline(global2);
+
+            });
+            
+            $("body").on('click', '#view', function () {
+                var row = $(this).parents('tr')[0];
+
+                data = myTable.row(row).data();
+                p1 = data[9];
+                p2 = data[10];
+                var pic1 = document.getElementById('proof1');
+                var pic2 = document.getElementById('proof2');
+                pic1.setAttribute('src', p1);
+                pic2.setAttribute('src', p2);
 
             });
 

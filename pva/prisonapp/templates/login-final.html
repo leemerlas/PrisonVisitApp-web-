@@ -26,10 +26,21 @@
     <!-- Custom styles for this template -->
     <link href="../static/css/agency.min.css" rel="stylesheet">
     <style>
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-          -webkit-appearance: none; 
-          margin: 0; 
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        img:hover {
+            opacity: 0.8;
+            filter: alpha(opacity=50); /* For IE8 and earlier */
         }
     </style>
 
@@ -414,6 +425,30 @@
 
                     <label class="section-subheading text-primary"><i class="fa fa-user"></i> Related to which prisoner?</label>
                     <p><input type="text" class="form-control" id="prisoner" placeholder="Enter name"></p>
+                    
+                    <div class="row">
+                        <div class="column" style="float: left; width: 50%;padding: 20px">
+                            <label for="file-input1">
+                                <img src="../static/img/up.jpg" style="width: 100%; border-radius: 10px"
+                                     id="img-prev1"/>
+                            </label>
+
+                            <input id="file-input1" type="file" accept="image/*" style="display: none;" required/>
+                            <label class="section-subheading text-primary">&nbsp;&nbsp;<i class="fa fa-eye"></i> Picture
+                                of Valid ID</label>
+                        </div>
+
+                        <div class="column" style="float: left; width: 50%;padding: 20px">
+                            <label for="file-input2">
+                                <img src="../static/img/up.jpg" style="width: 100%; border-radius: 10px"
+                                     id="img-prev2"/>
+                            </label>
+
+                            <input id="file-input2" type="file" accept="image/*" style="display: none" required/>
+                            <label class="section-subheading text-primary">&nbsp;&nbsp;<i class="fa fa-user-circle"></i>
+                                Picture of yourself</label>
+                        </div>
+                    </div>
 
                 </div>
                 <center><input type="submit" class="btn btn-primary" name="Register" value="Register" id="btn"></center>
@@ -568,6 +603,67 @@
 <!-- Bootstrap core JavaScript -->
 <!--<script src="../static/vendor/jquery/jquery.min.js"></script>-->
 <script type="text/javascript" src="../static/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    var CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/strova/upload';
+    var CLOUDINARY_UPLOAD_PRESET = 'z6pni3zq';
+    var id1 ='';
+    var id2 ='';
+
+    var imgPreview1 = document.getElementById('img-prev1');
+    var fileUpload1 = document.getElementById('file-input1');
+
+    var imgPreview2 = document.getElementById('img-prev2');
+    var fileUpload2 = document.getElementById('file-input2');
+
+    fileUpload1.addEventListener('change', function (event) {
+        var file = event.target.files[0];
+        var formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+        axios({
+            url: CLOUDINARY_URL,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: formData
+        }).then(function (res) {
+            console.log(res);
+            imgPreview1.src = res.data.secure_url;
+            id1 = res.data.secure_url;
+            console.log(id1);
+        }).catch(function (err) {
+            console.log(err);
+        });
+    });
+
+    fileUpload2.addEventListener('change', function (event) {
+        var file = event.target.files[0];
+        var formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+        axios({
+            url: CLOUDINARY_URL,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: formData
+        }).then(function (res) {
+            console.log(res);
+            imgPreview2.src = res.data.secure_url;
+            id2 = res.data.secure_url;
+            console.log(id2);
+        }).catch(function (err) {
+            console.log(err);
+        });
+    });
+
+</script>
 <script>
     $(document).ready(function () {
         $.ajax({
@@ -613,7 +709,9 @@
                     'contact': contact,
                     'address': address,
                     'birthday': birthday,
-                    'prisoner': prisoner
+                    'prisoner': prisoner,
+                    'proof1': id1,
+                    'proof2': id2
                 }),
                 method: "POST",
                 dataType: "json",
